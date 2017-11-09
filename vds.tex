@@ -1,0 +1,40 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+fleqn,
+leqno,
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+
+\usepackage{vds}
+\input{header.tex} % define header elements
+%Esercizio #1 = nome dell'esercizio
+% 		   #2 = consegna
+%		   #3 = risoluzione
+
+
+
+\begin{document}
+
+\maketitle 
+\setcounter{tocdepth}{3} 
+\setcounter{secnumdepth}{0}
+\tableofcontents 
+
+\newpage
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\input{exercises/ex1.tex}
+\input{exercises/ex2.tex}
+\input{exercises/ex3.tex}
+\input{exercises/ex4.tex}
+\input{exercises/ex5.tex}
+\input{exercises/ex6.tex}
+\input{exercises/ex7.tex}
+\input{exercises/ex8.tex}
+\input{exercises/ex9.tex}
+\input{exercises/ex10.tex}
+
+\end{document}

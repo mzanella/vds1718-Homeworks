@@ -1,0 +1,191 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{vds}
+  [2011/01/11 v0.01 LaTeX package for vds]
+
+
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[cm]{fullpage}
+\RequirePackage[italian]{babel}
+\RequirePackage{amsthm}
+\RequirePackage{stmaryrd}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{amsmath} 
+\RequirePackage{mathtools}
+\RequirePackage{enumitem}
+\RequirePackage{wasysym}
+\RequirePackage{centernot}
+\RequirePackage{multirow}
+\RequirePackage{syntax}
+\RequirePackage{hyperref}
+\RequirePackage[inference]{semantic}
+\RequirePackage{framed}
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem*{thm1}{Teorema}
+\newtheorem{cor}[thm]{Corollario}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{Oss}{Osservazione}
+\newtheorem{regola}{Regola}
+\newtheorem{prop}[thm]{Proposizione}
+\newtheorem{mydef}{Definizione}
+\newtheorem*{notation}{Notazione}
+\newtheorem{congettura}{Congettura}
+\newtheorem*{controesempio}{Controesempio}
+\RequirePackage{pifont}% http://ctan.org/pkg/pifont
+\RequirePackage{listings}
+\RequirePackage{array}   % for \newcolumntype macro
+\newcolumntype{L}{>{$}l<{$}}
+\RequirePackage[dvipsnames]{xcolor}
+\definecolor{background}{HTML}{EEEEEE}
+\lstset{ 
+	basicstyle=\small\ttfamily\small,
+	keywordstyle=\color{Plum},
+	keywordstyle=[2]\color{ForestGreen},
+	showstringspaces=false,
+	frameround=ftff,
+	frame=lines,
+	morekeywords={if, while, else, do, then, until},
+	keywords=[2]{skip},
+	commentstyle=\color{yellow},
+	backgroundcolor=\color{background}
+}
+\RequirePackage{bussproofs}
+\RequirePackage{enumitem}
+\RequirePackage{xparse}
+
+\lstset{emph={%  
+		true, false%
+	},emphstyle={\color{Magenta}\bfseries}%
+}%
+
+
+\newenvironment{dimostrazione}%
+{% apertura
+	\begin{proof}[Dimostrazione]
+	}{% chiusura
+\end{proof}
+}
+
+\ExplSyntaxOn
+\DeclareExpandableDocumentCommand \AlphToNum { m }
+{
+   \int_from_alph:n { #1 }
+}
+\ExplSyntaxOff
+
+\newcommand{\nextitem}[1]{\setcounter{enum\romannumeral\enit@depth}{\numexpr\AlphToNum{#1}-1}}
+
+\newcommand{\myspace}{\ensuremath{\mbox{ }}}
+
+\newcommand{\Bcal}{\ensuremath{\mathcal{B}}}
+\newcommand{\Acal}{\ensuremath{\mathcal{A}}}
+\newcommand{\Scal}{\ensuremath{\mathcal{S}}}
+\newcommand{\Ncal}{\ensuremath{\mathcal{N}}}
+
+\newcommand{\semanticFunction}[3]{\ensuremath{\mathcal{#1} \llbracket #2 \rrbracket #3}}
+
+
+\newcommand{\N}[1]{\semanticFunction{N}{#1}{s}}
+\newcommand{\B}[1]{\semanticFunction{B}{#1}{s}}
+\newcommand{\A}[1]{\semanticFunction{A}{#1}{s}}
+\newcommand{\Bext}[1]{\semanticFunction{B'}{#1}{s}}
+
+% Commands used to model the semantic boolean
+\newcommand{\semtrue}{\ensuremath{\mbox{\textit{tt}}}}
+\newcommand{\semfalse}{\ensuremath{\mbox{\textit{ff}}}}
+% Commands used to model the syntactic boolean 
+\newcommand{\syntrue}{\ensuremath{\mbox{\tt true}}}
+\newcommand{\synfalse}{\ensuremath{\mbox{\tt false}}}
+
+\newcommand{\caseFun}[4]{\ensuremath{\left\lbrace 
+		\begin{array}{ll}
+			#1 & \mbox{if } #2  \\
+			&  \\
+			#3 & \mbox{if } #4  \\
+		\end{array}	
+		\right.
+	}
+}
+\newcommand{\caseFunOtw}[3]{\caseFun{#1}{#2}{#3}{\mbox{otherwise}}}
+\newcommand{\exercise}[3]{\section{#1}\emph{\paragraph{Consegna}#2}
+	\vspace{10pt}
+	\paragraph{Svolgimento} #3}
+
+\newcommand{\syntacticCategory}[1]{\ensuremath{\mbox{\textbf{#1}}}}
+\newcommand{\while}{\syntacticCategory{While}}
+\newcommand{\states}{\syntacticCategory{States}}
+\newcommand{\stm}{\syntacticCategory{Stm}}
+\newcommand{\aexp}{\syntacticCategory{Aexp}}
+\newcommand{\bexp}{\syntacticCategory{Bexp}}
+\newcommand{\var}{\syntacticCategory{Var}}
+\newcommand{\num}{\syntacticCategory{Num}}
+\newcommand{\Z}{\ensuremath{\mbox{\textbf{Z}}}}
+
+\newcommand{\confSs}[2]{\ensuremath{\langle{}#1, #2\rangle{}}}
+\newcommand{\Rar}[1]{\ensuremath{\Rightarrow^{#1}}}
+
+%%%%%%%% RULES
+\newcommand{\SOSRule}[3]{
+  \ensuremath{
+  [
+  \textrm{\normalfont{#1}}
+  ^ \textrm{\normalfont{#2}}
+  _\textrm{\normalfont{#3}}
+  ]
+  }
+}
+\newcommand{\assSOS}{\SOSRule{ass}{}{SOS}}
+\newcommand{\skipSOS}{\SOSRule{skip}{}{SOS}}
+\newcommand{\compoSOS}{\SOSRule{comp}{1}{SOS}}
+\newcommand{\compsSOS}{\SOSRule{comp}{2}{SOS}}
+\newcommand{\ifttSOS}{\SOSRule{if}{\semtrue}{SOS}}
+\newcommand{\ifffSOS}{\SOSRule{if}{\semfalse}{SOS}}
+\newcommand{\whileSOS}{\SOSRule{while}{}{SOS}}
+
+\newcommand{\wbS}[2]{\mbox{\normalfont{\texttt{while }}}
+                     #1
+                     \textrm{\normalfont{\texttt{ do }}}
+                     #2}
+\newcommand{\eqSOS}{\cong_{\textrm{\normalfont{SOS}}}}
+\newcommand{\ifABC}[3]{\mbox{\normalfont{\texttt{if }}}
+                       #1
+                       \textrm{\normalfont{\texttt{ then }}}
+                       #2
+                       \textrm{\normalfont{\texttt{ else }}}
+                       #3}
+\newcommand{\skipForFriends}{\textrm{\normalfont{\texttt{skip}}}}
+\newcommand{\cvd}{\begin{flushright} 
+$\Box$ 
+\end{flushright}}
+
+%%%%%%%% DENOTATIONAL COMMANDS
+\newcommand{\eqDS}{\cong_{\textrm{\normalfont{ds}}}}
+\newcommand{\dsCtxt}[1]{\ensuremath{\mathcal{S}_{ds}\llbracket #1 \rrbracket}}
+\newcommand{\fixp}[1]{\textrm{\normalfont{FIX}}(\ensuremath{#1})}
+\newcommand{\FPIL}{\textit{Fixpoint Induction Lemma}}
+\newcommand{\idDS}{\textrm{\normalfont{id}}}
+\newcommand{\undefDS}{\textrm{\normalfont{undef}}}
+\newcommand{\cond}[3]{\mbox{\normalfont{\texttt{cond }}}
+                       (\Bcal{}\llbracket #1 \rrbracket
+                       \textrm{\normalfont{\texttt{, }}}
+                       #2
+                       \textrm{\normalfont{\texttt{, }}}
+                       #3)}
+\newcommand{\setRel}[2]{\ensuremath{\langle{}#1, #2\rangle{}}}
+
+% % Special for exercise 6
+\newcommand{\wbSE}[3]{\mbox{\normalfont{\texttt{while }}}
+	#1
+	\textrm{\normalfont{\texttt{ do }}}
+	#2
+	\textrm{\normalfont{\texttt{ exitif }}}
+	#3
+}
+
+\RequirePackage{tabularx}
+\newcommand{\boxer}[1]{\ensuremath{\boxed{#1}}}
+\theoremstyle{definition}
+\endinput
+%%
+%% End of file `mypackage.sty'.
