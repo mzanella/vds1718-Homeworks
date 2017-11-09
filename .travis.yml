@@ -15,5 +15,6 @@ addons:
     - latex-xcolor
     - pgf
     - lmodern
+    - stmaryrd
 script:
 - make
