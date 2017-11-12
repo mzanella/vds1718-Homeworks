@@ -1,3 +1,46 @@
+\newcommand{\lvar}[1]{\textrm{\normalfont{\texttt{lvar(#1)}}}}
+\newcommand{\exTwo}{$if~\confSs{S}{s}\Rar{*}s'~then~\forall{} x \notin lvar\{S\}.s(x)=s'(x)$}
+
 \exercise{Esercizio 2}
-{Consegna}
-{}
+{
+\begin{enumerate}
+\item Define formally a function $lvar:\stm\rightarrow\wp(\var)$ such that
+for any $S\in\stm$, \lvar{S} is the set of variables in \var{} that appear
+in the left-hand side of some assignment that occurs in the statement S.
+\item Prove that for any $S\in\stm, s,s'\in\states:$ \\
+\begin{align*}
+if \confSs{S}{s}\Rar{*}s' then \forall{} x \notin lvar\{S\}.s(x)=s'(x)
+\end{align*}
+\end{enumerate}
+}
+{
+\textbf{Parte 1}.
+Per definire la funzione \texttt{lvar} ne do una definizione composizionale. Gli elementi base sono:
+\begin{itemize}
+\item \lvar{\skipistr} = $\emptyset$
+\item \lvar{\memupdate{x}{a}} = \{x\}
+\end{itemize}
+Gli elementi composti invece:
+\begin{itemize}
+\item \lvar{\concat{$S_1$}{$S_2$}} = \lvar{$S_1$} $\cup$ \lvar{$S_2$}
+\item \lvar{\ifABC{b}{$S_1$}{$S_2$}} = \lvar{$S_1$} $\cup$ \lvar{$S_2$}
+\item \lvar{\wbS{b}{S}} = \lvar{$S$}
+\end{itemize}
+
+\textbf{Parte 2}. Per dimostrare \exTwo{} utilizzo l'induzione sulla struttura
+di $S\in\stm$
+I casi base sono:
+\begin{itemize}
+\item \casobase{S=\skipistr}: Se S=\skipistr{} allora comunque prenda $s\in\stm$
+ho che $\confSs{\skipistr}{s}\Rar{}s$. Per definizione di \skipistr{} quindi lo stato s non viene modificato e quindi qualsiasi variabile non verrà alterata.
+
+\item \casobase{S=\memupdate{x}{a}}: Se S=\memupdate{x}{a} allora per
+definizione dell'update in memoria si ha che 
+$\confSs{\memupdate{x}{a}}{s}\Rar{}s[x\rightarrow\mathbb{A}[a]_s]=s'$ e quindi
+per definizione dell'update in memoria si ha che 
+$\forall{}y\in\var~.~y\notin\lvar{\memupdate{x}{a}}$ y non verrà aggiornata e
+quindi $s(y)=s'(y)$
+\end{itemize}
+}
+
+\newpage
