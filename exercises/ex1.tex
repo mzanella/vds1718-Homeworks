@@ -1,3 +1,70 @@
+\newcommand{\whilem}{\syntacticCategory{While\textsuperscript{-}}}
+\newcommand{\exOne}{$\forall{}S\in\whilem,\forall{}s\in\states.\exists s'\in\states.\confSs{S}{s}\Rar{*}s'$}
+
 \exercise{Esercizio 1}
-{Consegna}
-{}
+{
+	Let us consider the language \whilem{} defined by removing from \while{}
+	the iterative command \texttt{while}.  Prove that for any 
+	$S\in\whilem,$
+	\begin{align*}
+	\forall{}s\in\states.\exists s'\in\states.\confSs{S}{s}\Rar{*}s'.
+	\end{align*}
+}
+{
+	Per provare che \exOne{} utilizzo l'induzione sulla struttura di $S\in\stm$.
+	\\I casi base sono:
+	
+	\begin{itemize}
+	
+	\item \casobase{S=\skipistr}: Se S=\skipistr{} allora per dimostrare lo
+	statement è sufficiente applicare la regola dello \skipSOS{} e quindi preso
+	un qualunque $s\in\states$ si ha:
+	\begin{align*}
+	\confSs{\skipistr}{s}\Rar{}s
+	\end{align*}
+	E quindi per determinismo si ha che $s=s'$ e quindi S termina in un passo.
+
+	\item \casobase{S=\memupdate{x}{a}}: Se S=\memupdate{x}{a} con $x\in\var$
+	e $a\in\num$ allora per dimostrare lo statement è sufficiente effettuare
+	l'update della memoria e si ha che lo statement termina. Quindi preso un
+	qualunque $s\in\states$ si ha:
+	\begin{align*}
+	\confSs{\memupdate{x}{a}}{s}\Rar{}s[x\rightarrow{}a]=s'
+	\end{align*}
+	E quindi S termina in un passo.
+	
+	\end{itemize}
+	
+
+	I casi induttivi invece sono la concatenazione e l'\texttt{if}.
+	\begin{itemize}
+
+	\item \casoinduttivo{S=\concat{$S_1$}{$S_2$}}: Se S=\concat{$S_1$}{$S_2$}
+	con $S_1,S_2\in\whilem$, allora per ipotesi induttiva so che 
+	$\forall{}s\in\states$, $\confSs{S_1}{s}\Rar{*}s'$ e 
+	$\confSs{S_2}{s}\Rar{*}s''$, qualunque sia s. Poichè 
+	$\confSs{S_1}{s}\Rar{*}s'$ (per ipotesi induttiva) allora 
+	$\exists{}k\in\mathbb{N}$ tale che $\confSs{S_1}{s}\Rar{k}s'$ e quindi
+	$\confSs{\concat{$S_1$}{$S_2$}}{s}\Rar{k}\confSs{S_2}{s'}$. Poichè
+	dato un qualunque stato so che per ipotesi induttiva che $\confSs{S_2}{s'}$
+	termina allora, in particolare, $\confSs{S_2}{s'}\Rar{*}s''$.
+
+	\item \casoinduttivo{S=\ifABC{b}{S_1}{S_2}}: Se 
+	S=\ifABC{b}{$S_1$}{$S_2$}, allora per ipotesi induttiva so che 
+	$\forall{}s\in\states$, $\confSs{S_1}{s}\Rar{*}s'$ e 
+	$\confSs{S_2}{s}\Rar{*}s''$. Quindi posso dimostrare che 
+	\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}$s'$ per casi:
+	\begin{itemize}
+	\item $\mathbb{B}[b]_s=tt$ allora 
+	$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{{S_1}}{s}$ e poichè sappiamo
+	per ipotesi induttiva che $\confSs{S_1}{s}\Rar{*}s'$ qualunque sia s si ha
+	che $\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s'$
+
+	\item $\mathbb{B}[b]_s=ff$ è analogo al precedente. In questo caso 
+	$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{{S_2}}{s}$ e poichè sappiamo
+	per ipotesi induttiva che $\confSs{S_2}{s}\Rar{*}s'$ qualunque sia s si ha
+	che $\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s''$
+	\end{itemize}
+
+	\end{itemize}
+}
