@@ -52,8 +52,10 @@
 	\begin{itemize}
 	\item \casoinduttivo{S=\concat{$S_1$}{$S_2$}}: Devo dimostrare che 
 	\exTwoM{\concat{$S_1$}{$S_2$}}, avendo come ipotesi induttive
-	\exTwoM{S_1} e \exTwoM{S_2}. Supppongo per ipotesi che valga
-	$\confSs{\concat{$S_1$}{$S_2$}}{s}\Rar{*}s'$, quindi 
+	\exTwoM{S_1} e \exTwoM{S_2} (poichè $S_1$ e $S_2$ sono sottoprogrammi di
+	$S$). Suppongo per ipotesi che valga
+	$\confSs{\concat{$S_1$}{$S_2$}}{s}\Rar{*}s'$\footnote{se non termina lo
+	statement diventa banalmente vero poichè l'ipotesi è falsa}, quindi
 	$\exists{}~k\in\mathbb{N}$ tale per cui 
 	$\confSs{\concat{$S_1$}{$S_2$}}{s}\Rar{k}s'$ e quindi, per il lemma di
 	decomposizione, $\exists{}~k_0, k_1\in\mathbb{N},s''\in\states~tali~che~
@@ -70,8 +72,45 @@
 	$s''(y)=s'(y)$. Concludendo quindi si ha che $s(y)=s''(y)=s'(y)$ e quindi
 	$s(y)=s'(y)$.
 
-	\item \casoinduttivo{S=\ifABC{b}{S_1}{S_2}}: Se 
-	S=\ifABC{b}{$S_1$}{$S_2$},
+	\item \casoinduttivo{S=\ifABC{b}{S_1}{S_2}}: Devo dimostrare che
+	\exTwoM{\ifABC{b}{S_1}{S_2}}, avendo come ipotesi induttive
+	\exTwoM{S_1} e \exTwoM{S_2} (poichè $S_1$ e $S_2$ sono sottoprogrammi di
+	$S$). Suppongo per ipotesi che valga 
+	$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s'$\footnote{se non termina lo
+	statement diventa banalmente vero poichè l'ipotesi è falsa} allora ho 2
+	casi:
+		\begin{itemize}
+		\item $\mathbb{B}[b]_s=tt$: nel caso in cui la valutazione della guardia
+		nello stato $s$ si vera, allora 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_1}{s}$ sul quale so che
+		vale l'ipotesi induttiva, poichè per ipotesi 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s'$, di conseguenza $\exists~k\in
+		\mathbb{N}~tale~che~\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{k}s'$ e quindi 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_1}{s}\Rar{k-1}s'$. \\
+		Sia $y\notin\lvar{\ifABC{b}{$S_1$}{$S_2$}}$ allora, per definizione di 
+		\texttt{lvar}, $y\notin\lvar{$S_1$} \cup \lvar{$S_2$}$ e quindi in
+		particolare $y\notin\lvar{$S_1$}$. Per ipotesi induttiva vale quindi
+		$s(y)=s'(y)$.
+
+		\item $\mathbb{B}[b]_s=ff$: è analogo al precedente. Nel caso in cui la
+		valutazione della guardia nello stato $s$ si falsa, allora 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_2}{s}$ sul quale so che
+		vale l'ipotesi induttiva, poichè per ipotesi 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s'$, di conseguenza $\exists~k\in
+		\mathbb{N}~tale~che~\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{k}s'$ e quindi 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_2}{s}\Rar{k-1}s'$. \\
+		Sia $y\notin\lvar{\ifABC{b}{$S_1$}{$S_2$}}$ allora, per definizione di 
+		\texttt{lvar}, $y\notin\lvar{$S_1$} \cup \lvar{$S_2$}$ e quindi in
+		particolare $y\notin\lvar{$S_2$}$. Per ipotesi induttiva vale quindi
+		$s(y)=s'(y)$.
+		\end{itemize}
+
+	\item \casoinduttivo{S=\wbS{b}{S_1}}: è sufficiente fare l'unfolding e
+	ricondursi al caso \texttt{if} già dimostrato in precedenza. Infatti sia 
+	$s\in\states~tale~che~\confSs{\wbS{b}{S_1}}{s}\Rar{*}s'$. Per la definizione
+	di \whileSOS{} ho che $\confSs{\wbS{b}{S_1}}{s}\Rar{}
+	\confSs{\ifABC{b}{(\concat{$S_1$}{\wbS{b}{$S_1$}})}{\skipistr}}{s}\Rar{*}s'$
+	e quindi il caso \texttt{if} è già dimostrato.
 	\end{itemize}
 }
 
