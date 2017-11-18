@@ -114,7 +114,7 @@
 
 \newcommand{\syntacticCategory}[1]{\ensuremath{\mbox{\textbf{#1}}}}
 \newcommand{\while}{\syntacticCategory{While}}
-\newcommand{\states}{\syntacticCategory{States}}
+\newcommand{\states}{\syntacticCategory{State}}
 \newcommand{\stm}{\syntacticCategory{Stm}}
 \newcommand{\aexp}{\syntacticCategory{Aexp}}
 \newcommand{\bexp}{\syntacticCategory{Bexp}}
@@ -154,7 +154,7 @@
                        #2
                        \textrm{\normalfont{\texttt{ else }}}
                        #3}
-\newcommand{\skipForFriends}{\textrm{\normalfont{\texttt{skip}}}}
+\newcommand{\skipistr}{\textrm{\normalfont{\texttt{skip}}}}
 \newcommand{\cvd}{\begin{flushright} 
 $\Box$ 
 \end{flushright}}
@@ -182,6 +182,12 @@ $\Box$
 	\textrm{\normalfont{\texttt{ exitif }}}
 	#3
 }
+
+\newcommand{\casobase}[1]{$\boxed{\text{Caso Base}: #1}$}
+\newcommand{\casoinduttivo}[1]{$\boxed{\text{Caso Induttivo}: #1}$}
+\newcommand{\memupdate}[2]{\textrm{\normalfont{\texttt{#1:=#2}}}}
+\newcommand{\concat}[2]{\textrm{\normalfont{\texttt{#1;#2}}}}
+
 
 \RequirePackage{tabularx}
 \newcommand{\boxer}[1]{\ensuremath{\boxed{#1}}}
