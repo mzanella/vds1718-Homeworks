@@ -1,3 +1,47 @@
+\newcommand{\exFour}
+{$\wbS{b}{S}~\cong{}_{sos}~\wbS{b}{(\ifABC{b}{S}{\skipistr})} $}
+
+\newcommand{\exFourIff}
+{$\confSs{\wbS{b}{S}}{s}\Rar{*}s'~\iff{}~\confSs{\wbS{b}
+{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{*}s'$}
+
+\newcommand{\exFourLtR}
+{$\confSs{\wbS{b}{S}}{s}\Rar{*}s'~\Rar{}~\confSs{\wbS{b}
+{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{*}s'$}
+
 \exercise{Esercizio 4}
-{Consegna}
-{}
+{
+	Prove or disprove the following semantic equivalence:\\
+	\begin{center}
+	\exFour{}
+	\end{center}
+	where $b\in\bexp$ and $S\in\stm$
+}
+{
+	Per dimostrare 
+	\begin{center}
+	\exFour{}
+	\end{center}
+	posso dimostrare che 
+	\begin{center}
+	\exFourIff{}
+	\end{center}
+	dimostrando separatamente i due versi dell'implicazione. \\
+	
+	\textbf{Implicazione \Rar{}} \\
+	Per dimostrare che 
+	\begin{center}
+	\exFourIff{}
+	\end{center}
+	posso utilizzare l'induzione sul numero di passi che la derivazione di 
+	\confSs{\wbS{b}{S}} impiega per arrivare ad una configurazione finale 
+	(supponendo, per ipotesi, che a partire dallo stato $s$ \wbS{b}{S} termini).
+	\\
+	\casobase{n=0} Questo caso è banalmente vero poichè 
+	\confSs{\wbS{b}{S}}{s} non è una configurazine finale ed in 0 passi quindi
+	non può evolvere in una configurazione finale. Lo stesso ragionamento si
+	può applicare nel caso in cui \textbf{n=1} e \textbf{n=2} poichè,
+	sfruttando l'unfolding, sono neccessari almeno 3 passi per arrivare ad una
+	configurazione finale.
+	\casobase{n=3} In questo caso 
+}
