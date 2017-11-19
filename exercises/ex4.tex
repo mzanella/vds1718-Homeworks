@@ -169,7 +169,7 @@
 	Quindi nel caso in cui \exFourRS{} evolva in tre passi in una
 	configurazione finale a destra avremo:
 	\begin{center}
-	$\confSs{\wbS{b}{S}}{s}\Rar{}$\\
+	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{}$\\
 	$\confSs{
 		\ifABC{b}{(\concat{S}{\wbS{b}{S}})}{\skipistr}
 	}{s}\Rar{}$\\
@@ -177,5 +177,49 @@
 	\end{center}
 	Poichè dall'ipotesi sappiamo che $\mathbb{B}[b]_s=ff$ e quindi entrambi i programmi evolvono nello stesso stato finale.\\
 
-	\casoinduttivo{n>3}
+	\casoinduttivo{n>3} Simile al caso induttivo dell'implicazione precedente.
+	Anche in questo caso sappiamo che $\mathbb{B}[b]_s=tt$
+	\footnote{altrimenti torneremo nel caso n=3}, quindi:
+	\begin{center}
+	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{}$\\
+	$\confSs{
+		\ifABC{b}
+			{(\concat{(\ifABC{b}{S}{\skipistr})}
+			{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
+			{\skipistr}
+	}{s}\Rar{}$\\
+	$\confSs{\concat{(\ifABC{b}{S}{\skipistr})}{\wbS{b}
+	{(\ifABC{b}{S}{\skipistr})}}}{s}\Rar{n-2}s'$
+	\end{center}
+	Poichè per ipotesi ho che 
+	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{n}s'$ e 
+	$\mathbb{B}[b]_s=tt$, allora applicando il \textbf{lemma di decomposizione},
+	che afferma: $\exists{}~k_0,~k_1\in\mathbb{N},~s''\in\states~tali~che~n-2=
+	k_0+k_1~e~\confSs{\ifABC{b}{S}{\skipistr}}{s}\Rar{k_0}s''~e~\confSs{\wbS{b}
+	{(\ifABC{b}{S}{\skipistr})}}{s''}\Rar{k_1}s'$, allora ottengo che:
+	\begin{center}
+	$\confSs{\ifABC{b}{S}{\skipistr}}{s}\Rar{}\confSs{S}{s}\Rar{k_0-1}s''$
+	\end{center}
+	A destra, invece, troviamo:
+	\begin{center}
+	$\confSs{\wbS{b}{S}}{s}\Rar{}$\\
+	$\confSs{
+		\ifABC{b}
+		{(\concat{S}
+		{\wbS{b}{S}})}
+		{\skipistr}}{s}\Rar{}$\\
+	$\confSs{{\concat{S}{\wbS{b}{S}}}}{s}$
+	\end{center}
+	poichè dall'ipotesi so che $\mathbb{B}[b]_s=tt$. Per ipotesi so inoltre che
+	$\confSs{S}{s}\Rar{k_0-1}s''$, quindi applicando il \textbf{lemma di
+	composizione} ottengo che:
+	\begin{center}
+	$\confSs{{\concat{S}{\wbS{b}{S}}}}{s}\Rar{k_0-1}\confSs{\wbS{b}{S}}{s''}$
+	\end{center}
+	Dal momento che per ipotesi ho $\confSs{\wbS{b}{(\ifABC{b}{S}
+	{\skipistr})}}{s''}\Rar{k_1}s'$ e che $k_1<n~(k_1=n-2-k_0)$ allora posso
+	applicare l'\textbf{ipotesi induttiva} su $\confSs{\wbS{b}{S}}{s''}$ e
+	quindi so che poichè \\ $\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}
+	{s''}\Rar{k_1}s'$ con $k_1<n$ allora anche 
+	$\confSs{\wbS{b}{S}}{s''}\Rar{*}s'$
 }
