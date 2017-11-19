@@ -6,8 +6,15 @@
 {(\ifABC{b}{S}{\skipistr})}}{s}\Rar{*}s'$}
 
 \newcommand{\exFourLtR}
-{$\confSs{\wbS{b}{S}}{s}\Rar{*}s'~\Rar{}~\confSs{\wbS{b}
+{$\confSs{\wbS{b}{S}}{s}\Rar{*}s'~\Longrightarrow{}~\confSs{\wbS{b}
 {(\ifABC{b}{S}{\skipistr})}}{s}\Rar{*}s'$}
+
+\newcommand{\exFourRtL}
+{$\confSs{\wbS{b}
+{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{*}s'~\Longrightarrow{}~
+\confSs{\wbS{b}{S}}{s}\Rar{*}s'$}
+
+\newcommand{\exFourRS}{\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}}
 
 \exercise{Esercizio 4}
 {
@@ -28,7 +35,7 @@
 	\end{center}
 	dimostrando separatamente i due versi dell'implicazione. \\
 	
-	\textbf{Implicazione \Rar{}} \\
+	\textbf{Implicazione $\Longrightarrow{}$} \\
 	Per dimostrare che :
 	\begin{center}
 	se \exFourLtR{}
@@ -123,6 +130,52 @@
 	\end{center}
 	Inoltre poichè $k_1<n~(k_1=n-2-k_0)$ e $\confSs{\wbS{b}{S}}{s''}\Rar{k_1}s'$
 	allora posso applicare l'\textbf{ipotesi induttiva} ed ottengo che
-	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s''}\Rar{*}s'$
+	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s''}\Rar{*}s'$\\
 
+	\textbf{Implicazione $\Longleftarrow{}$} \\
+	Per dimostrare che:
+	\begin{center}
+	se \exFourRtL{}
+	\end{center}
+	Posso, in modo analogo nel caso precedente, sfruttare l'induzione sul
+	numero di passi che la derivazione \exFourRS{} impiega ad arrivare ad una
+	configurazione finale (supponendo che a partire dall stato iniziale $s$
+	termini in un numero finito di passi).\\
+
+	\casobase{n=0} Analogo al caso base n=0 dell'implicazione precedente. Questo
+	caso è banalmente vero poichè \exFourRS{} non è una configurazine finale ed
+	in 0 passi quindi non può evolvere in una configurazione finale. Lo stesso
+	ragionamento si può applicare nel caso in cui \textbf{n=1} e \textbf{n=2}
+	poichè, sfruttando l'unfolding, sono neccessari almeno 3 passi per arrivare
+	ad una configurazione finale.\\
+
+	\casobase{n=3} Simile al caso base n=3 dell'implicazione precedente. In
+	questo caso \\ \exFourRS{} può arrivare ad uno stato finale
+	in 3 passi solamente nel caso in cui $\mathbb{B}[b]_s=ff$ poichè
+	\footnote{Infatti nel caso $\mathbb{B}[b]_s=tt$ avremo dei passi in più 
+	dovuti (i) a $S$ che nel migliore dei casi è \skipistr{} e (ii) alla
+	ricorsività del comando \texttt{while}}
+	\begin{center}
+	$\exFourRS\Rar{}
+	\confSs{
+		\ifABC{b}
+			{(\concat{
+				(\ifABC{b}{S}{\skipistr})
+			}{\wbS{b}{(\ifABC{b}{S}{\skipistr})}{}})}
+			{\skipistr}
+	}{s}\Rar{}
+	\confSs{\skipistr}{s}\Rar{}s$
+	\end{center}
+	Quindi nel caso in cui \exFourRS{} evolva in tre passi in una
+	configurazione finale a destra avremo:
+	\begin{center}
+	$\confSs{\wbS{b}{S}}{s}\Rar{}$\\
+	$\confSs{
+		\ifABC{b}{(\concat{S}{\wbS{b}{S}})}{\skipistr}
+	}{s}\Rar{}$\\
+	$\confSs{\skipistr}{s}\Rar{}s$
+	\end{center}
+	Poichè dall'ipotesi sappiamo che $\mathbb{B}[b]_s=ff$ e quindi entrambi i programmi evolvono nello stesso stato finale.\\
+
+	\casoinduttivo{n>3}
 }
