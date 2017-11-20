@@ -11,7 +11,9 @@
 
 \newcommand{\exFiveRtL}
 {$\confSs{\wbS{b}{S}}{s}\Rar{*}{s'}~\Longrightarrow{}~$
-\confSs{\concat{$(\wbS{b}{S})$}{$\ifABC{b}{S}{\skipistr}}}{s}\Rar{*}{s'}$}
+\confSs{
+	\concat{$(\wbS{b}{S})$}{$\ifABC{b}{S}{\skipistr}$}}
+	{s}\Rar{*}$s'$}
 
 \newcommand{\exFiveR}[1]{\confSs{
 	\concat
@@ -57,5 +59,30 @@
 	$\confSs{\ifABC{b}{S}{\skipistr}}{s''}\Rar{}
 	\confSs{\skipistr}{s''}\Rar{}s''$
 	\end{center}
-	Quindi dopo il \texttt{while} lo stato non viene modificato.
+	Quindi dopo il \texttt{while} lo stato $s$ non viene modificato.\\
+
+	\textbf{Implicazione $\Longleftarrow{}$}\\
+	\begin{center}
+	se \exFiveRtL{}
+	\end{center}
+	Dal momento che per ipotesi $\confSs{\wbS{b}{S}}{s}\Rar{*}{s'}$ allora
+	per il \textbf{lemma di terminazione} so che $\mathbb{B}[b]_s'=ff$.
+	Inoltre, poichè $\confSs{\wbS{b}{S}}{s}\Rar{*}{s'}$, allora 
+	$\exists~n~\in~\mathbb{N}~tale~che~\confSs{\wbS{b}{S}}{s}\Rar{n}{s'}$.
+	Posso quindi applicare il \textbf{lemma di composizione} sulla parte destra
+	dell'implicazione e quindi visto che:
+	\begin{center}
+	$\confSs{\wbS{b}{S}}{s}\Rar{n}{s'}$
+	\end{center}
+	Ottengo:
+	\begin{center}
+	\confSs{\concat{$(\wbS{b}{S})$}{$\ifABC{b}{S}{\skipistr}$}}{s}$\Rar{n}$
+	$\confSs{\ifABC{b}{S}{\skipistr}}{s'}$
+	\end{center}
+	Ma per il \textbf{lemma di terminazione}, come detto precedentemente, so che
+	$\mathbb{B}[b]_s'=ff$ e quindi:
+	\begin{center}
+	$\confSs{\ifABC{b}{S}{\skipistr}}{s'}\Rar{}\confSs{\skipistr}{s'}\Rar{}s'$
+	\end{center}
+	Terminando quindi nello stesso stato della parte sinistra dell'implicazione.
 }
