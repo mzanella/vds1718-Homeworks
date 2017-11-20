@@ -26,4 +26,31 @@
 	and formally prove this semantic equivalence.
 	\end{itemize}
 }
-{}
+{
+	\hspace*{\textwidth-}
+
+	\textbf{Parte (a)}
+	\begin{center}
+	$\confSs{\repeatSbS{S_1}{b}{S_2}}{s}~\Rar{[repeat_{sos}]}~
+	\confSs{\concat
+	{$S_1$}
+	{\ifABC{b}{\concat
+	{$S_2$}
+	{(\repeatSbS{$S_1$}{$b$}{$S_2$})}
+	}{\skipistr}}
+	}{s}$
+	\end{center}
+	L'idea di base è mimare esattamente quando descritto nella prima parte
+	della consegna, eseguendo qualcosa di simile all'\emph{unfolding} della
+	regola del while in semantica \texttt{SOS}. Per questo il comando
+	\texttt{repeat} viene trasformato nella concatenazione del sottoprogramma
+	$S_1$, che deve essere in ogni caso eseguito, con un \texttt{if}. Nel caso
+	la valutazione della guardia dell'\texttt{if} (la stessa guardia
+	specificata nel comando del \texttt{repeat}) sia falsa nello stato $s$
+	allora il \texttt{repeat} evolve in \skipistr{}. Viceversa, se la guardia
+	viene valutata a \texttt{true}, allora il \texttt{repeat} evolve nella
+	concatenazione tra il sottoprogramma $S_2$ e la ripetizione del 
+	\texttt{repeat}, in modo tale da permettere la ripetizione iterativa.\\
+
+	\textbf{Parte (b)}
+}
