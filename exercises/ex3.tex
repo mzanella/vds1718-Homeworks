@@ -1,3 +1,29 @@
+\newcommand{\repeatSbS}[3]{\texttt{repeat}~#1~\texttt{test}~#2~\texttt{then}~#3}
+
 \exercise{Esercizio 3}
-{Consegna}
+{
+	Assume that the language $\textbf{While}^{\textbf{+}}$ includes a new
+	iterative command
+	\begin{center}
+	\repeatSbS{$S_1$}{$b$}{$S_2$}
+	\end{center}
+	where $b~\in~\bexp$ and $S_1,~S_2~\in~\stm$, whose informal semantics goes
+	as follows:\\The following three steps are iteratively executed:
+	\begin{enumerate}
+	\item the command $S_1$ is executed
+	\item the Boolean expression $b$ is evaluated; if $b$ evaluates to 
+	\emph{false} then the loop is exited, otherwise the loop proceeds with step
+	3
+	\item command $S_2$ is executed
+	\end{enumerate}
+	\begin{itemize}
+	\item [(a)] Define the small step operational semantics of this new
+	iterative command.
+	\item [(b)] Find a program \textbf{P} in the basic language \textbf{While} such that
+	\begin{center}
+	$\repeatSbS{$S_1$}{$b$}{$S_2$}~\cong_{sos}~P$
+	\end{center}
+	and formally prove this semantic equivalence.
+	\end{itemize}
+}
 {}
