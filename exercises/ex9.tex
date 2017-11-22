@@ -1,3 +1,55 @@
+\newcommand{\Sds}{\dsCtxt{s}}
+\newcommand{\mineq}{\sqsubseteq}
+
 \exercise{Esercizio 9}
-{Consegna}
-{}
+{
+	Prove or disprove the following semantic equivalence:
+	\begin{center}
+	$\wbS{b}{S}\eqDS{}\wbS{b}{(\concat{$S$}{$\ifABC{b}{S}{\skipistr}$})}$
+	\end{center}
+	where $b \in{} \bexp{}$ and $S \in{} \stm{}$
+}
+{
+	Per dimostrare che vale:
+	\begin{center}
+	$\wbS{b}{S}\eqDS{}\wbS{b}{(\concat{$S$}{$\ifABC{b}{S}{\skipistr}$})}$
+	\end{center}
+	Devo dimostrare che:
+	\begin{center}
+	$\dsCtxt{\wbS{b}{S}}=
+	\dsCtxt{\wbS{b}{(\concat{$S$}{$\ifABC{b}{S}{\skipistr}$})}}$
+	\end{center}
+	Dove:
+	\begin{center}
+	$\dsCtxt{\wbS{b}{S}}=\fixp{F}$ con 
+	$F~g~=~\cond{b}{g \circ{} \Sds{}}{\idDS}$ \\
+	\end{center}
+	e
+	\begin{center}
+	$\dsCtxt{\wbS{b}{(\concat{$S$}{$\ifABC{b}{S}{\skipistr}$})}}=
+	\fixp{G}$ con \\
+	$G~g~=~\cond{b}{g \circ{} \dsCtxt{\concat{$S$}
+	{$\ifABC{b}{S}{\skipistr}$}}}{\idDS}~=~$ \\
+	$=~\cond{b}{g \circ{} \dsCtxt{\ifABC{b}{S}{\skipistr}} \circ{} }
+	{\idDS}~=$ \\
+	$=~\cond{b}{g \circ{} \cond{b}{\Sds{}}{\skipistr} \circ{} \Sds{}}{\idDS}$
+	\end{center}
+	Quindi devo dimostare che vale:
+	\begin{center}
+	$\fixp{F}~=~\fixp{G}$
+	\end{center}
+	Per fare ciò posso dimostrare separatamente le due seguenti affermazioni:
+	\begin{enumerate}
+	\item $\fixp{F}~\mineq~\fixp{G}$
+	\item $\fixp{G}~\mineq~\fixp{F}$
+	\end{enumerate}
+
+	
+	\dsCtxt{A}
+	\fixp{A}
+	\FPIL{}
+	\idDS{}
+	\undefDS{}
+	$\cond{A}{B}{C}$
+	\setRel{A}{B}
+}
