@@ -1,5 +1,21 @@
 \newcommand{\repeatSbS}[3]{\texttt{repeat}~#1~\texttt{test}~#2~\texttt{then}~#3}
 
+\newcommand{\PDef}{$\concat{$S_1$}{$\wbS{b}{(\concat{$S_2$}{$S_1$})}$}$}
+
+\newcommand{\exThreeB}{$\repeatSbS{S_1}{b}{S_2}~\cong_{sos}~\PDef{}$}
+
+\newcommand{\exThreeIff}{$
+\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{*}s'~\iff~
+\confSs{\PDef{}}{s}\Rar{*}s'$}
+
+\newcommand{\exThreeLtR}{$
+\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{*}s'~\Longrightarrow~
+\confSs{\PDef{}}{s}\Rar{*}s'$}
+
+\newcommand{\exThreeRtL}{$
+\confSs{\PDef{}}{s}\Rar{*}s'~\Longrightarrow~
+\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{*}s'$}
+
 \exercise{Esercizio 3}
 {
 	Assume that the language $\textbf{While}^{\textbf{+}}$ includes a new
@@ -53,4 +69,93 @@
 	\texttt{repeat}, in modo tale da permettere la ripetizione iterativa.\\
 
 	\textbf{Parte (b)}
+	\begin{center}
+	$P~=~\PDef{}$
+	\end{center}
+	Per dimostrare che:
+	\begin{center}
+	\exThreeB{}
+	\end{center}
+	Dimostro che:
+	\begin{center}
+	\exThreeIff{}
+	\end{center}
+	Quindi posso dimostrare le due implicazioni del ``se e solo se''
+	separatamente.
+
+	\textbf{Implicazione $\Longleftarrow$}\\
+	Devo dimostrare che:
+	\begin{center}
+	se \exThreeRtL{}
+	\end{center}
+	Dal momento che per ipotesi $\confSs{\PDef{}}{s}\Rar{*}s'$ allora so che
+	$\exists{}~n~\in~\mathbb{N}~tale~che~\confSs{\PDef{}}{s}\Rar{*}s'$ quindi
+	posso dimostrare sulla lunghezza $n$ della derivazione che tale
+	implicazione vale.\\
+	Poichè, sempre per ipotesi, suppongo che $\confSs{\PDef{}}{s}\Rar{n}s'$
+	allora per il \textbf{lemma di composizione} $\exists{}~k_0~\in~\mathbb{N},~
+	\confSs{S_1}{s}\Rar{k_0}s''~e~
+	\confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{n-k_0}s'$.\\
+	Quindi al posto di dimostrare:
+	\begin{center}
+	se \exThreeRtL{}
+	\end{center}
+	dimostro che:
+	\begin{center}
+	se $\confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{n-k_0}s'~
+	\Longrightarrow~\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{*}s'$
+	\end{center}
+	con $\confSs{S_1}{s}\Rar{k_0}s''$
+	Per fare ciò sfrutto, come detto precedentemente, l'induzione su n.
+
+	\casobase{n=3} In questo caso, se vogliamo che 
+	$\confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}$ arrivi ad una
+	configurazione finale in 3 passi allora, sfruttando la regola del 
+	\texttt{while} in semantica \texttt{SOS}, $\mathbb{B}[b]_{s''}$ deve essere
+	necessariamente valutato a false. Quindi otteniamo:
+	\begin{center}
+	$\confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{}$\\
+	$\confSs{\ifABC{b}{(\concat{\concat{$S_2$}{$S_1$}}
+	{\wbS{b}{(\concat{$S_2$}{$S_1$})}})}{\skipistr}}{s''}\Rar{}$\\
+	$\confSs{\skipistr}{s''}\Rar{}s''$
+	\end{center}
+	Nel lato destro dell'implicazione invece troviamo:
+	\begin{center}
+	$\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{}$\\
+	$\confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
+	{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}$
+	\end{center}
+	Poichè per ipotesi sappiamo che $\confSs{S_1}{s}\Rar{k_0}s''$ allora
+	per il \textbf{lemma di composizione} posso affermare che 
+	\begin{center}
+	$\confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
+	{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}\Rar{k_0}$\\
+	$\confSs{
+		\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})} 
+		{\skipistr}}{s''}$
+	\end{center}
+	Per ipotesi inoltre sappiamo che $\mathbb{B}[b]_{s''}=ff$ quindi:
+	\begin{center}
+	$\confSs{
+		\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})} 
+		{\skipistr}}{s''}\Rar{}$\\
+	$\confSs{\skipistr}{s''}\Rar{}s''$
+	\end{center}
+	Ottenedo lo stesso stato finale quindi dell'implicazione di partenza.
+
+	\casoinduttivo{n>3} In questo caso sappiamo necesariamente che 
+	$\mathbb{B}[b]_{s''}=tt$ quindi nella parte destra dell'implicazione
+	troviamo:
+
+
+	\textbf{Implicazione $\Longrightarrow$}\\
+	Devo dimostrare che:
+	\begin{center}
+	\exThreeLtR{}
+	\end{center}
+	Dal momento che $\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{*}s'$ allora so che
+	$\exists{}~n~\in~\mathbb{N}~tale~che~
+	\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{n}s'$ quindi posso dimostrare sulla
+	lunghezza $n$ della derivazione che tale implicazione vale.
+
 }
