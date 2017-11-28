@@ -1,3 +1,88 @@
+\newcommand{\exFive}
+{\concat{$(\wbS{b}{S})$}{$\ifABC{b}{S}{\skipistr}$}$~\cong{}_{sos}~\wbS{b}{S}$}
+
+\newcommand{\exFiveIff}
+{\confSs{\concat{$(\wbS{b}{S})$}{$\ifABC{b}{S}{\skipistr}$}}{s}$\Rar{*}{s'}~
+\iff{}~\confSs{\wbS{b}{S}}{s}\Rar{*}{s'}$}
+
+\newcommand{\exFiveLtR}
+{\confSs{\concat{$(\wbS{b}{S})$}{$\ifABC{b}{S}{\skipistr}$}}{s}$\Rar{*}{s'}~
+\Longrightarrow{}~\confSs{\wbS{b}{S}}{s}\Rar{*}{s'}$}
+
+\newcommand{\exFiveRtL}
+{$\confSs{\wbS{b}{S}}{s}\Rar{*}{s'}~\Longrightarrow{}~$
+\confSs{
+	\concat{$(\wbS{b}{S})$}{$\ifABC{b}{S}{\skipistr}$}}
+	{s}\Rar{*}$s'$}
+
+\newcommand{\exFiveR}[1]{\confSs{
+	\concat
+		{$(\wbS{b}{S})$}
+		{$\ifABC{b}{S}{\skipistr}$}
+		}{$s$}$~\Rar{#1}~s'$}
+
 \exercise{Esercizio 5}
-{Consegna}
-{}
+{
+	Prove or disprove the following semantic equivalence:
+	\begin{center}
+	\exFive{}
+	\end{center}
+	where $b\in\bexp~and~S\in\stm$
+}
+{
+	Per dimostrare:
+	\begin{center}
+	\exFive{}
+	\end{center}
+	posso dimostrare che:
+	\begin{center}
+	\exFiveIff{}
+	\end{center}
+	dimostrando i due versi dell'implicazione separatamente.\\
+
+	\textbf{Implicazione $\Longrightarrow{}$}\\
+	Devo dimostrare che:
+	\begin{center}
+	se \exFiveLtR{}
+	\end{center}
+	Dal momento che \exFiveR{*} allora $\exists~n~\in~\mathbb{N}~tale~che$\\
+	\exFiveR{n}. Allora so che per il \textbf{lemma di decomposizione} che 
+	$\exists{}~k_0,~k_1\in\mathbb{N},~s''\in\states~tali~che~n=k_0+k_1~e~
+	\confSs{\wbS{b}{S}}{s}\Rar{k_0}s''~e~
+	\confSs{\ifABC{b}{S}{\skipistr}}{s''}\Rar{k_1}s'$. \\
+	Ma per il \textbf{lemma di terminazione} so che 
+	\begin{center}
+	se $\confSs{\wbS{b}{S}}{s}\Rar{*}s''~\Longrightarrow{}~\mathbb{B}[b]_s=ff$,
+	\end{center}
+	quindi 
+	\begin{center}
+	$\confSs{\ifABC{b}{S}{\skipistr}}{s''}\Rar{}
+	\confSs{\skipistr}{s''}\Rar{}s''$
+	\end{center}
+	Quindi dopo il \texttt{while} lo stato $s$ non viene modificato.\\
+
+	\textbf{Implicazione $\Longleftarrow{}$}\\
+	\begin{center}
+	se \exFiveRtL{}
+	\end{center}
+	Dal momento che per ipotesi $\confSs{\wbS{b}{S}}{s}\Rar{*}{s'}$ allora
+	per il \textbf{lemma di terminazione} so che $\mathbb{B}[b]_s'=ff$.
+	Inoltre, poichè $\confSs{\wbS{b}{S}}{s}\Rar{*}{s'}$, allora 
+	$\exists~n~\in~\mathbb{N}~tale~che~\confSs{\wbS{b}{S}}{s}\Rar{n}{s'}$.
+	Posso quindi applicare il \textbf{lemma di composizione} sulla parte destra
+	dell'implicazione e quindi visto che:
+	\begin{center}
+	$\confSs{\wbS{b}{S}}{s}\Rar{n}{s'}$
+	\end{center}
+	Ottengo:
+	\begin{center}
+	\confSs{\concat{$(\wbS{b}{S})$}{$\ifABC{b}{S}{\skipistr}$}}{s}$\Rar{n}$
+	$\confSs{\ifABC{b}{S}{\skipistr}}{s'}$
+	\end{center}
+	Ma per il \textbf{lemma di terminazione}, come detto precedentemente, so che
+	$\mathbb{B}[b]_s'=ff$ e quindi:
+	\begin{center}
+	$\confSs{\ifABC{b}{S}{\skipistr}}{s'}\Rar{}\confSs{\skipistr}{s'}\Rar{}s'$
+	\end{center}
+	Terminando quindi nello stesso stato della parte sinistra dell'implicazione.
+}
