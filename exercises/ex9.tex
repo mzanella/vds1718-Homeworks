@@ -44,7 +44,49 @@
 	\item $\fixp{G}~\mineq~\fixp{F}$
 	\end{enumerate}
 
-	
+	\textbf{Prima parte $\fixp{G}~\mineq~\fixp{F}$}\\
+	Per dimostrare che vale $\fixp{G}~\mineq~\fixp{F}$ utilizzo il
+	\textbf{Fixed point induction lemma} che afferma che, date $f$ e $d$:
+	\begin{center}
+	se $fd~\mineq~d~\Longrightarrow~\fixp{f}~\mineq~d$
+	\end{center}
+	istanziato con:
+	\begin{center}
+	$f~=~F$ \\
+	$d~=~\fixp{G}$
+	\end{center}
+	Quindi:
+	\begin{center}
+	se $F(\fixp{G})~\mineq~\fixp{G}~\Longrightarrow~\fixp{F}~\mineq~\fixp{G}$
+	\end{center}
+	Sviluppo quindi $F(\fixp{G})$:
+	\begin{center}
+	$F(\fixp{G})~=~\cond{b}{\fixp{G} \circ \Sds{}}{\idDS{}}$
+	\end{center}
+	Quindi dato uno stato $s$ ho due casi a seconda della valutazione della guardia b in $s$:
+	\begin{itemize}
+		\item \caso{\evalBbs{b}{s}}: In questo caso si ha:
+		\begin{center}
+		$(\cond{b}{\fixp{G}\circ\Sds{}}{\idDS{}})s~=~(\idDS{})s~=~s$
+		\end{center}
+		Ma quindi:
+		\begin{center}
+		$(\fixp{G})s~=~(G(\fixp{G}))s~=$\\
+		$=~(\cond{b}{\fixp{G} \circ{} \cond{b}{\Sds{}}{\skipistr} \circ{} \Sds{}}{\idDS})s~=$\\$=~(\idDS{})s~=~s$
+		\end{center}
+		Ottenendo difatto lo stesso stato.
+
+		\item \caso{\evalBbs{b}{s}}: In questo caso si ha:
+		\begin{center}
+		$(\cond{b}{\fixp{G}\circ\Sds{}}{\idDS{}})s~=~(\fixp{G}\circ\Sds{})s$
+		\end{center}
+		E quindi dall'altra parte:
+		\begin{center}
+		$(\fixp{G})s~=~(G(\fixp{G}))s~=$\\
+		$=~(\cond{b}{\fixp{G} \circ{} \cond{b}{\Sds{}}{\skipistr} \circ{} \Sds{}}{\idDS})s~=$\\$=~(\fixp{G} \circ{} \cond{b}{\Sds{}}{\skipistr} \circ{} \Sds{})s$
+		\end{center}
+		
+	\end{itemize}
 	\dsCtxt{A}
 	\fixp{A}
 	\FPIL{}
