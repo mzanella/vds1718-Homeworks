@@ -1,5 +1,6 @@
 \newcommand{\Sds}{\dsCtxt{s}}
 \newcommand{\mineq}{\sqsubseteq}
+\newcommand{\unionsem}[1]{\bigsqcup\limits_{n\geq{}0}}
 
 \exercise{Esercizio 9}
 {
@@ -112,9 +113,48 @@
 			\item $(\idDS{})s'~=~s'$ se $\evalBbs{b}{s'}=ff$
 			\end{itemize}
 		\end{itemize}
-		
-		
 	\end{itemize}
+
+	\textbf{Seconda parte $\fixp{F}~\mineq~\fixp{G}$}\\
+	Per dimostrare che vale $\fixp{F}~\mineq~\fixp{G}$ utilizzo il
+	\textbf{teorema di Knaster-Tarski}, che afferma che:
+	\begin{center}
+	$\fixp{F}~=~\unionsem{n}F^{n}\bot$
+	\end{center}
+	Quindi dimostro per induzione su $n$ che vale:
+	\begin{center}
+	$\unionsem{n}F^{n}\bot~\mineq~\fixp{G}$
+	\end{center}
+
+	\casobase{n~=~0} In questo caso abbiamo:
+	\begin{center}
+	$F^{n}\bot~=~F^{0}\bot~=~\bot$
+	\end{center}
+	E quindi per definizione di $\bot$ sappiamo che $\bot~\mineq~\fixp{G}$
+	poichè $\bot$ è minore o uguale a qualsiasi altro elemento.
+
+	\casoinduttivo{n~>~0} In questo caso dobbiamo dimostrare che vale:
+	$F^{n}\bot~\mineq~\fixp{G}$, sapendo che, per ipotesi induttiva vale:
+	\begin{center}
+	$\forall~t\in\mathbb{N},~t<n$ vale $F^{t}\bot~\mineq~\fixp{G}$
+	\end{center}
+	Sviluppiamo quindi $F^{n}\bot$:
+	\begin{center}
+	$F^{n}\bot~=~F(F^{n-1}\bot)~=~\cond{b}{F^{n-1} \circ \Sds{}}{\idDS}$
+	\end{center}
+	Quindi valutando il tutto in un certo stato $s$ abbiamo 2 casi a seconda
+	della valutazione della guardia $b$.
+	\begin{itemize}
+		\item \caso{\evalBbs{b}{s}=ff} In questo caso si ha:
+		\begin{center}
+		$(\cond{b}{F^{n-1} \circ \Sds{}}{\idDS})s~=~(\idDS)s~=~s$
+		\end{center}
+		Ma quindi:
+		\begin{center}
+		$(\fixp{G})s~=~(G(\fixp{G}))s~=~(\cond{b}{\fixp{G} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}{\idDS})s~=~(\idDS)s~=~s$
+		\end{center}
+	\end{itemize}
+	
 	\dsCtxt{A}
 	\fixp{A}
 	\FPIL{}
