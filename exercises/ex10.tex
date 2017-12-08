@@ -1,8 +1,18 @@
+\newcommand{\dSwb}[2]
+{
+    \mbox{\normalfont{\texttt{do }}}
+    #1
+    \textrm{\normalfont{\texttt{ while }}}
+    #2
+}
 \newcommand{\exTen}
 {
 	$ \wbS{b}{S} ~\cong{}_{ds}~$
-	{$\ifABC{b}{(\wbS{b}{S})}{\skipistr}$}
+	{$\ifABC{b}{(\dSwb{S}{b})}{\skipistr}$}
 }
+\newcommand{\Sds}{\dsCtxt{s}}
+\newcommand{\mineq}{\sqsubseteq}
+
 \exercise{Esercizio 10}
 {
 	Prove or disprove the following semantic equivalence:
@@ -11,5 +21,42 @@
 	\end{center}
 	where $b\in\bexp~and~S\in\stm$
 }
-{}
+{
+    Per dimostrare che vale:
+    \begin{center}
+    \exTen{}
+    \end{center}
+    Devo dimostrare che:
+    \begin{center}
+    $\dsCtxt{\wbS{b}{S}}~=~
+    \dsCtxt{\ifABC{b}{(\dSwb{S}{b})}{\skipistr}}$
+    \end{center}
+    Dove:
+    \begin{center}
+    $\dsCtxt{\wbS{b}{S}}=\fixp{F}$ con 
+    $F~g~=~\cond{b}{g \circ{} \Sds{}}{\idDS}$ \\
+    \end{center}
+    e:
+    \begin{center}
+    $\dsCtxt{\ifABC{b}{(\dSwb{S}{b})}{\skipistr}}~=$\\$=~
+    \cond{b}{\dsCtxt{\dSwb{S}{b}}}{\dsCtxt{\skipistr}}~=$\\$=~
+    \cond{b}{\dsCtxt{\dSwb{S}{b}}}{\idDS}$
+    \end{center}
+    Devo prima di tutto, quindi, definire $\dsCtxt{\dSwb{S}{b}}$:
+    \begin{center}
+    $\dsCtxt{\dSwb{S}{b}}=\fixp{G}$ con 
+    $G~g~=~\cond{b}{g}{\idDS} \circ \Sds$
+    \end{center}
+    Quindi devo dimostare che vale:
+    \begin{center}
+    $\fixp{F}~=~\fixp{G}$
+    \end{center}
+    Per fare ciò posso dimostrare separatamente le due seguenti affermazioni:
+    \begin{enumerate}
+    \item $\fixp{F}~\mineq~\fixp{G}$
+    \item $\fixp{G}~\mineq~\fixp{F}$
+    \end{enumerate}
+
+    \textbf{Prima parte $\fixp{G}~\mineq~\fixp{F}$}\\
+}
 \newpage
