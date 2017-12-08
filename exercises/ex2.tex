@@ -1,3 +1,117 @@
+\newcommand{\lvar}[1]{\textrm{\normalfont{\texttt{lvar(#1)}}}}
+\newcommand{\exTwo}{$if~\confSs{S}{s}\Rar{*}s'~then~\forall{} x \notin lvar\{S\}.s(x)=s'(x)$}
+\newcommand{\exTwoM}[1]{$if~\confSs{#1}{s}\Rar{*}s'~then~\forall{} x \notin lvar\{#1\}.s(x)=s'(x)$}
+\newcommand{\exTwoMM}[3]{$if~\confSs{#1}{#2}\Rar{*}#3~then~\forall{} x \notin lvar\{#1\}.#2(x)=#3(x)$}
+
 \exercise{Esercizio 2}
-{Consegna}
-{}
+{
+	\begin{enumerate}
+	\item Define formally a function $lvar:\stm\rightarrow\wp(\var)$ such that
+	for any $S\in\stm$, \lvar{S} is the set of variables in \var{} that appear
+	in the left-hand side of some assignment that occurs in the statement S.
+	\item Prove that for any $S\in\stm, s,s'\in\states:$ \\
+	\begin{align*}
+	if \confSs{S}{s}\Rar{*}s' then \forall{} x \notin lvar\{S\}.s(x)=s'(x)
+	\end{align*}
+	\end{enumerate}
+}
+{
+	\hspace*{\textwidth-}\textbf{Parte 1}.
+	Per definire la funzione \texttt{lvar} ne do una definizione
+	composizionale. Gli elementi base sono:
+	\begin{itemize}
+	\item \lvar{\skipistr} = $\emptyset$
+	\item \lvar{\memupdate{x}{a}} = \{x\}
+	\end{itemize}
+	Gli elementi composti invece:
+	\begin{itemize}
+	\item \lvar{\concat{$S_1$}{$S_2$}} = \lvar{$S_1$} $\cup$ \lvar{$S_2$}
+	\item \lvar{\ifABC{b}{$S_1$}{$S_2$}} = \lvar{$S_1$} $\cup$ \lvar{$S_2$}
+	\item \lvar{\wbS{b}{S}} = \lvar{$S$}
+	\end{itemize}
+
+	\textbf{Parte 2}. Per dimostrare \exTwo{} utilizzo l'induzione sulla struttura
+	di $S\in\stm$
+	I casi base sono:
+	\begin{itemize}
+	\item \casobase{S=\skipistr}: Se S=\skipistr{} allora comunque prenda 
+	$s\in\stm$ ho che $\confSs{\skipistr}{s}\Rar{}s$. Per definizione di 
+	\skipistr{} quindi lo stato s non viene modificato e quindi qualsiasi
+	variabile non verrà alterata.
+
+	\item \casobase{S=\memupdate{x}{a}}: Se S=\memupdate{x}{a} allora per
+	definizione dell'update in memoria si ha che 
+	$\confSs{\memupdate{x}{a}}{s}\Rar{}s[x\rightarrow\mathbb{A}[a]_s]=s'$ e
+	quindi per definizione dell'update in memoria si ha che 
+	$\forall{}y\in\var~.~y\notin\lvar{\memupdate{x}{a}}$ y non verrà aggiornata
+	e quindi $s(y)=s'(y)$
+	\end{itemize}
+
+
+	I casi induttivi invece sono:
+	\begin{itemize}
+	\item \casoinduttivo{S=\concat{$S_1$}{$S_2$}}: Devo dimostrare che 
+	\exTwoM{\concat{$S_1$}{$S_2$}}, avendo come ipotesi induttive
+	\exTwoM{S_1} e \exTwoM{S_2} (poichè $S_1$ e $S_2$ sono sottoprogrammi di
+	$S$). Suppongo per ipotesi che valga
+	$\confSs{\concat{$S_1$}{$S_2$}}{s}\Rar{*}s'$\footnote{se non termina lo
+	statement diventa banalmente vero poichè l'ipotesi è falsa}, quindi
+	$\exists{}~k\in\mathbb{N}$ tale per cui 
+	$\confSs{\concat{$S_1$}{$S_2$}}{s}\Rar{k}s'$ e quindi, per il lemma di
+	decomposizione, $\exists{}~k_0, k_1\in\mathbb{N},s''\in\states~tali~che~
+	\confSs{S_1}{s}\Rar{k_0}s''~e~\confSs{S_2}{s''}\Rar{k_1}s'~con~k_o+k_1=k$.
+	Poichè quindi $\confSs{S_1}{s}\Rar{k_0}s''$ e 
+	$\confSs{S_2}{s''}\Rar{k_1}s'$, per ipotesi induttiva valgono
+	$\forall{} x \notin lvar\{S_1\}.s(x)=s''(x)$ e 
+	$\forall{} x \notin lvar\{S_2\}.s''(x)=s'(x)$. \\
+	Sia $y\notin\lvar{\concat{$S_1$}{$S_2$}}$ allora, per definizione di 
+	\texttt{lvar}, $y\notin\lvar{$S_1$} \cup \lvar{$S_2$}$ e quindi in
+	particolare $y\notin\lvar{$S_1$}$ allora per ipotesi induttiva vale
+	$s(y)=s''(y)$. Inoltre poichè $y\notin\lvar{$S_1$} \cup \lvar{$S_2$}$ si ha
+	inoltre che $y\notin\lvar{$S_2$}$ e quindi per ipotesi induttiva 
+	$s''(y)=s'(y)$. Concludendo quindi si ha che $s(y)=s''(y)=s'(y)$ e quindi
+	$s(y)=s'(y)$.
+
+	\item \casoinduttivo{S=\ifABC{b}{S_1}{S_2}}: Devo dimostrare che
+	\exTwoM{\ifABC{b}{S_1}{S_2}}, avendo come ipotesi induttive
+	\exTwoM{S_1} e \exTwoM{S_2} (poichè $S_1$ e $S_2$ sono sottoprogrammi di
+	$S$). Suppongo per ipotesi che valga 
+	$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s'$\footnote{se non termina lo
+	statement diventa banalmente vero poichè l'ipotesi è falsa} allora ho 2
+	casi:
+		\begin{itemize}
+		\item $\mathbb{B}[b]_s=tt$: nel caso in cui la valutazione della guardia
+		nello stato $s$ si vera, allora 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_1}{s}$ sul quale so che
+		vale l'ipotesi induttiva, poichè per ipotesi 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s'$, di conseguenza $\exists~k\in
+		\mathbb{N}~tale~che~\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{k}s'$ e quindi 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_1}{s}\Rar{k-1}s'$. \\
+		Sia $y\notin\lvar{\ifABC{b}{$S_1$}{$S_2$}}$ allora, per definizione di 
+		\texttt{lvar}, $y\notin\lvar{$S_1$} \cup \lvar{$S_2$}$ e quindi in
+		particolare $y\notin\lvar{$S_1$}$. Per ipotesi induttiva vale quindi
+		$s(y)=s'(y)$.
+
+		\item $\mathbb{B}[b]_s=ff$: è analogo al precedente. Nel caso in cui la
+		valutazione della guardia nello stato $s$ si falsa, allora 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_2}{s}$ sul quale so che
+		vale l'ipotesi induttiva, poichè per ipotesi 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s'$, di conseguenza $\exists~k\in
+		\mathbb{N}~tale~che~\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{k}s'$ e quindi 
+		$\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_2}{s}\Rar{k-1}s'$. \\
+		Sia $y\notin\lvar{\ifABC{b}{$S_1$}{$S_2$}}$ allora, per definizione di 
+		\texttt{lvar}, $y\notin\lvar{$S_1$} \cup \lvar{$S_2$}$ e quindi in
+		particolare $y\notin\lvar{$S_2$}$. Per ipotesi induttiva vale quindi
+		$s(y)=s'(y)$.
+		\end{itemize}
+
+	\item \casoinduttivo{S=\wbS{b}{S_1}}: è sufficiente fare l'unfolding e
+	ricondursi al caso \texttt{if} già dimostrato in precedenza. Infatti sia 
+	$s\in\states~tale~che~\confSs{\wbS{b}{S_1}}{s}\Rar{*}s'$. Per la definizione
+	di \whileSOS{} ho che $\confSs{\wbS{b}{S_1}}{s}\Rar{}
+	\confSs{\ifABC{b}{(\concat{$S_1$}{\wbS{b}{$S_1$}})}{\skipistr}}{s}\Rar{*}s'$
+	e quindi il caso \texttt{if} è già dimostrato.
+	\end{itemize}
+}
+
+\newpage

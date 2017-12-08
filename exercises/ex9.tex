@@ -62,23 +62,29 @@
 	\end{center}
 	Sviluppo quindi $G(\fixp{F})$:
 	\begin{center}
-	$G(\fixp{F})~=~\cond{b}{\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}{\idDS}$
+	$G(\fixp{F})~=~\cond{b}{\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} 
+	\Sds{}}{\idDS}$
 	\end{center}
-	Quindi dato uno stato $s$ si hanno due casi a seconda della valutazione della guardia b in $s$:
+	Quindi dato uno stato $s$ si hanno due casi a seconda della valutazione
+	della guardia b in $s$:
 	\begin{itemize}
 		\item \caso{\evalBbs{b}{s}=ff}: In questo caso si ha:
 		\begin{center}
-		$(\cond{b}{\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}{\idDS})s~=~(\idDS{})s~=~s$
+		$(\cond{b}{\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}
+		{\idDS})s~=~(\idDS{})s~=~s$
 		\end{center}
 		Ma quindi:
 		\begin{center}
-		$(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s~=$\\$=~(\idDS{})s~=~s$
+		$(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}
+		{\idDS})s~=$\\$=~(\idDS{})s~=~s$
 		\end{center}
 		Ottenendo difatto lo stesso stato.
 
 		\item \caso{\evalBbs{b}{s}=tt}: In questo caso si ha:
 		\begin{center}
-		$(\cond{b}{\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}{\idDS})s~=$\\$=~(\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{})s$
+		$(\cond{b}{\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}
+		{\idDS})s~=$\\$=~(\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} 
+		\Sds{})s$
 		\end{center}
 		Abbiamo quindi due sottocasi a seconda della valutazione di $(\Sds{})s$:
 		\begin{itemize}
@@ -86,10 +92,12 @@
 			\begin{center}
 			$(\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{})s$
 			\end{center}
-			Allora tutto verrà valutato in $undef$ poichè la composizione di $undef$ con qualsiasi cosa restituisce sempre $undef$.\\
+			Allora tutto verrà valutato in $undef$ poichè la composizione di 
+			$undef$ con qualsiasi cosa restituisce sempre $undef$.\\
 			Dall'altra parte quindi troviamo:
 			\begin{center}
-			$(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s~=~(\fixp{F} \circ{} \Sds{})s~=~undef$
+			$(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}
+			{\idDS})s~=~(\fixp{F} \circ{} \Sds{})s~=~undef$
 			\end{center}
 			Poichè assumiamo: (i) $\evalBbs{b}{s}=tt$ e (ii) $\Sds{}_s~=~undef$
 
@@ -101,11 +109,15 @@
 			che a seconda della valutazione di $b$ in $s'$ evolverà in:
 			\begin{itemize}
 			\item $(\fixp{F} \circ \Sds{})s'$ se $\evalBbs{b}{s'}=tt$
-			\item $(\fixp{F} \circ \idDS)s'~=~(\fixp{F})s'~=~(F(\fixp{F}))s'~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s'~=~(\idDS{})s'~=~s'$ se $\evalBbs{b}{s'}=ff$
+			\item $(\fixp{F} \circ \idDS)s'~=~(\fixp{F})s'~=~(F(\fixp{F}))s'~=~
+			(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s'~=~(\idDS{})s'~=~s'$ se 
+			$\evalBbs{b}{s'}=ff$
 			\end{itemize}
 			Dall'altra parte quindi troviamo:
 			\begin{center}
-			$(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s~=~(\fixp{F} \circ{} \Sds{})s~=~(\fixp{F})s'~=~(F(\fixp{F}))s'~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s'$
+			$(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} 
+			\Sds{}}{\idDS})s~=~(\fixp{F} \circ{} \Sds{})s~=~(\fixp{F})s'~=~
+			(F(\fixp{F}))s'~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s'$
 			\end{center}
 			Che come nel caso precedente evolverà in:
 			\begin{itemize}
