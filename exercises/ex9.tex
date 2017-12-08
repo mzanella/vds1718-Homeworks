@@ -140,14 +140,14 @@
 	\end{center}
 	Sviluppiamo quindi $F^{n}\bot$:
 	\begin{center}
-	$F^{n}\bot~=~F(F^{n-1}\bot)~=~\cond{b}{F^{n-1} \circ \Sds{}}{\idDS}$
+	$F^{n}\bot~=~F(F^{n-1}\bot)~=~\cond{b}{F^{n-1}\bot{} \circ \Sds{}}{\idDS}$
 	\end{center}
 	Quindi valutando il tutto in un certo stato $s$ abbiamo 2 casi a seconda
 	della valutazione della guardia $b$.
 	\begin{itemize}
 		\item \caso{\evalBbs{b}{s}=ff} In questo caso si ha:
 		\begin{center}
-		$(\cond{b}{F^{n-1} \circ \Sds{}}{\idDS})s~=~(\idDS)s~=~s$
+		$(\cond{b}{F^{n-1}\bot{} \circ \Sds{}}{\idDS})s~=~(\idDS)s~=~s$
 		\end{center}
 		Ma quindi:
 		\begin{center}
@@ -157,7 +157,8 @@
 
 		\item \caso{\evalBbs{b}{s}=tt} In questo caso si ha:
 		\begin{center}
-		$(\cond{b}{F^{n-1} \circ \Sds{}}{\idDS})s~=~(F^{n-1} \circ \Sds{})s$
+		$(\cond{b}{F^{n-1}\bot{} \circ \Sds{}}{\idDS})s~=~
+		(F^{n-1}\bot{} \circ \Sds{})s$
 		\end{center}
 		Invece dall'altra parte ottengo:
 		\begin{center}
@@ -166,20 +167,23 @@
 		(\fixp{G} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{})s$
 		\end{center}
 
-		Quindi si hanno 2 sottocasi a seconda di $(\Sds{})s$
+		Quindi si hanno 2 sottocasi a seconda della valutazione di $(\Sds{})s$
 		\begin{itemize}
 			\item \caso{(\Sds{})s~=~undef} allora ottengo:
 			\begin{center}
-			$F^{n-1} \circ undef~=~undef$
+			$F^{n-1}\bot{} \circ undef~=~undef$
 			\end{center}
+			Poichè $undef$ composto con qualsiasi cosa ritorna sempre $undef$.\\
 			E dall'altra parte:
 			\begin{center}
 			$\fixp{G} \circ \cond{b}{\Sds{}}{\idDS} \circ{} undef~=~undef$
 			\end{center}
+			Poichè come prima $undef$ composto con qualsiasi cosa ritorna
+			sempre $undef$.
 
 			\item \caso{(\Sds{})s~=~s'} allora si avrà:
 			\begin{center}
-			$(F^{n-1} \circ \Sds{})s~=~(F^{n-1})s'$
+			$(F^{n-1}\bot{} \circ \Sds{})s~=~(F^{n-1}\bot{})s'$
 			\end{center}
 			E dall'altra parte:
 			\begin{center}
@@ -208,27 +212,36 @@
 
 			Dall'altra parte invece abbiamo che:
 			\begin{center}
-			$(F^{n-1})s'~=~(F(F^{n-2}))s'~=~(\cond{b}{F^{n-2} \circ \Sds{}}
-			{\idDS})s'$
+			$(F^{n-1}\bot{})s'~=~(F(F^{n-2}\bot{}))s'~=~
+			(\cond{b}{F^{n-2}\bot{} \circ \Sds{}}{\idDS})s'$
 			\end{center}
 			Quindi anche in questo caso a seconda della valutazione di $b$ in
 			$s'$ abbiamo 2 casi:
 			\begin{itemize}
 			\item Se $\evalBbs{b}{s'}=ff$
 			\begin{center}
-			$(\cond{b}{F^{n-2} \circ \Sds{}}{\idDS})s'~=~(\idDS)s'~=s'$
+			$(\cond{b}{F^{n-2}\bot{} \circ \Sds{}}{\idDS})s'~=~(\idDS)s'~=s'$
 			\end{center}
 			come nel caso precedente
 			\item Se $\evalBbs{b}{s'}=tt$
 			\begin{center}
-			$(\cond{b}{F^{n-2} \circ \Sds{}}{\idDS})s'~=~(F^{n-2} \circ \Sds{})s'$
+			$(\cond{b}{F^{n-2}\bot{} \circ \Sds{}}{\idDS})s'~=~
+			(F^{n-2}\bot{} \circ \Sds{})s'$
 			\end{center}
-			e quindi se $(\Sds{})s'~=~undef$ il tutto evolverà a $undef$, altrimenti se $(\Sds{})s'~=~s''$ si avrà $(F^{n-2})s''$\\
-			A questo punto poichè $n-2<n$ posso applicare l'ipotesi induttiva e quindi affermare che $F^{n-2}~\mineq~\fixp{G}$
+			e quindi se $(\Sds{})s'~=~undef$ il tutto evolverà a $undef$,
+			altrimenti se $(\Sds{})s'~=~s''$ si avrà $(F^{n-2}\bot{})s''$\\
+			A questo punto posso confrontare $\fixp{G}$ e $F^{n-2}\bot{}$ 
+			poichè ho $n-2<n$ e quindi è possibile applicare l'ipotesi 
+			induttiva che afferma che:
+			\begin{center}
+			$\forall~t\in\mathbb{N},~t<n$ vale $F^{t}\bot~\mineq~\fixp{G}$
+			\end{center}
+			Grazie a ciò posso quindi affermare che 
+			$F^{n-2}\bot{}~\mineq~\fixp{G}$
 			\end{itemize}
-
 		\end{itemize}
-
 	\end{itemize}
-	Quindi $\fixp{F}~\mineq~\fixp{G}$
+	Quindi per ogni caso dell'ipotesi induttiva vale 
+	$F^{n}\bot{}~\mineq~\fixp{G}$
 }
+\newpage
