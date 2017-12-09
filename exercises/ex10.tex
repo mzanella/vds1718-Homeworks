@@ -1,8 +1,16 @@
+\newcommand{\dSwb}[2]
+{
+    \mbox{\normalfont{\texttt{do }}}
+    #1
+    \textrm{\normalfont{\texttt{ while }}}
+    #2
+}
 \newcommand{\exTen}
 {
 	$ \wbS{b}{S} ~\cong{}_{ds}~$
-	{$\ifABC{b}{(\wbS{b}{S})}{\skipistr}$}
+	{$\ifABC{b}{(\dSwb{S}{b})}{\skipistr}$}
 }
+
 \exercise{Esercizio 10}
 {
 	Prove or disprove the following semantic equivalence:
@@ -11,4 +19,179 @@
 	\end{center}
 	where $b\in\bexp~and~S\in\stm$
 }
-{}
+{
+    Per dimostrare che vale:
+    \begin{center}
+    \exTen{}
+    \end{center}
+    Devo dimostrare che:
+    \begin{center}
+    $\dsCtxt{\wbS{b}{S}}~=~
+    \dsCtxt{\ifABC{b}{(\dSwb{S}{b})}{\skipistr}}$
+    \end{center}
+    Dove:
+    \begin{center}
+    $\dsCtxt{\wbS{b}{S}}=\fixp{F}$ con 
+    $F~g~=~\cond{b}{g \circ{} \Sds{}}{\idDS}$ \\
+    \end{center}
+    e:
+    \begin{center}
+    $\dsCtxt{\ifABC{b}{(\dSwb{S}{b})}{\skipistr}}~=$\\$=~
+    \cond{b}{\dsCtxt{\dSwb{S}{b}}}{\dsCtxt{\skipistr}}~=$\\$=~
+    \cond{b}{\dsCtxt{\dSwb{S}{b}}}{\idDS}$
+    \end{center}
+    Devo prima di tutto, quindi, definire $\dsCtxt{\dSwb{S}{b}}$:
+    \begin{center}
+    $\dsCtxt{\dSwb{S}{b}}=\fixp{G}$ con 
+    $G~g~=~\cond{b}{g}{\idDS} \circ \Sds$
+    \end{center}
+    Quindi devo dimostare che vale:
+    \begin{center}
+    $\fixp{F}~=~\cond{b}{\fixp{G}}{\idDS}$
+    \end{center}
+    Per fare ciò posso dimostrare separatamente le due seguenti affermazioni:
+    \begin{enumerate}
+    \item $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
+    \item $\cond{b}{\fixp{G}}{\idDS}~\mineq~\fixp{F}$
+    \end{enumerate}
+
+    \textbf{Prima parte $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$}\\
+    Per dimostrare che vale $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
+    utilizzo il \textbf{Fixed point induction lemma} che afferma
+    che, date $f$ e $d$:
+    \begin{center}
+    se $fd~\mineq~d~\Longrightarrow~\fixp{f}~\mineq~d$
+    \end{center}
+    istanziato con:
+    \begin{center}
+    $f~=~F$ \\
+    $d~=~\cond{b}{\fixp{G}}{\idDS}$
+    \end{center}
+    Quindi:
+    \begin{center}
+    se $F(\cond{b}{\fixp{G}}{\idDS})~\mineq~\cond{b}{\fixp{G}}{\idDS}~
+    \Longrightarrow~\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
+    \end{center}
+    Per dimostrare che $F(\cond{b}{\fixp{G}}{\idDS})~\mineq~
+    \cond{b}{\fixp{G}}{\idDS}$ dimostro che:
+    \begin{center}
+    $\forall{} s\in\states$ se $(F(\cond{b}{\fixp{G}}{\idDS}))s=s'~
+    \Longrightarrow~(\cond{b}{\fixp{G}}{\idDS})s=s'$
+    \end{center}
+    Procedo quindi per casi:\\
+    \caso{\evalBbs{b}{s}=ff} allora in questo caso si ha:
+    \begin{center}
+    $(F(\cond{b}{\fixp{G}}{\idDS}))s~=$\\$=~
+    (\cond{b}{(\cond{b}{\fixp{G}}{\idDS}) \circ{} \Sds{}}{\idDS})s~=~
+    (\idDS)s~=s$
+    \end{center}
+    Dall'altra parte similarmente si ha:
+    \begin{center}
+    $(\cond{b}{\fixp{G}}{\idDS})s~=~(\idDS)s~=~s$
+    \end{center}
+    \caso{\evalBbs{b}{s}=tt} in questo caso, invece, si ha:
+    \begin{center}
+    $(F(\cond{b}{\fixp{G}}{\idDS}))s~=~(\cond{b}{(\cond{b}{\fixp{G}}{\idDS})
+    \circ{} \Sds{}}{\idDS})s~=$\\$=~(\cond{b}{\fixp{G}}{\idDS} \circ{} \Sds{})s$
+    \end{center}
+    Dall'altra parte abbaimo quindi:
+    \begin{center}
+    $(\fixp{G})s~=~(G(\fixp{G}))s~=~(\cond{b}{\fixp{G}}{\idDS} \circ \Sds)s$
+    \end{center}
+    Quindi vale $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
+
+    \textbf{Seconda parte $\cond{b}{\fixp{G}}{\idDS}~\mineq~\fixp{F}$}\\
+    Per dimostrare che vale $\cond{b}{\fixp{G}}{\idDS}~\mineq~\fixp{F}$ ragiono
+    per casi:\\
+    \caso{\evalBbs{b}{s}=ff} in questo caso si ha:
+    \begin{center}
+    $(\cond{b}{\fixp{G}}{\idDS})s~=~(\idDS)s~=~s$
+    \end{center}
+    e dall'altra parte:
+    \begin{center}
+    $(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s
+    ~=~(\idDS)s~=~s$
+    \end{center}
+    Arrivando quindi allo stesso stato finale.\\
+    \caso{\evalBbs{b}{s}=tt} in questo caso ho che:
+    \begin{center}
+    $(\cond{b}{\fixp{G}}{\idDS})s~=~(\fixp{G})s$
+    \end{center}
+    e quindi devo dimostrare che $(\fixp{G})s~\mineq{}~(\fixp{F})s$ con
+    $\evalBbs{b}{s}=tt$. Per fare questo utilizzo il \textbf{teorema di
+    Knaster-Tarsky} e procedendo per induzione. Knaster-Tarsky afferma che:
+    \begin{center}
+    $\fixp{G}~=~\unionsem{n}G^{n}\bot$
+    \end{center}
+    Quindi dimostro per induzione su $n$ che vale:
+    \begin{center}
+    $\unionsem{n}G^{n}\bot~\mineq~\fixp{F}$
+    \end{center}
+
+    \casobase{n=0} In questo caso si ha che:
+    \begin{center}
+    $G^{n}\bot~=~G^{0}\bot~=~\bot~\mineq~\fixp{F}$
+    \end{center}
+    Per definizione di $\bot$.
+
+    \casoinduttivo{n>0} Devo quindi dimostrare che:
+    \begin{center}
+    $G^{n}\bot~\mineq~\fixp{F}$ con $n~>~0$
+    \end{center}
+    Sapendo che per ipotesi induttiva vale:
+    \begin{center}
+    $\forall~t\in\mathbb{N},~t<n~G^{t}\bot~\mineq~\fixp{F}$
+    \end{center}
+    Sviluppo quindi $(G^{n}\bot)s$:
+    \begin{center}
+    $(G^{n}\bot)s~=~(G(G^{n-1}\bot))s~=~
+    (\cond{b}{G^{n-1}\bot}{\idDS} \circ \Sds)s$
+    \end{center}
+    Dall'altra parte invece:
+    \begin{center}
+    $(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s~
+    =~(\fixp{F} \circ{} \Sds{})s$
+    \end{center}
+    Ho quindi 2 sottocasi a seconda della valutazione di \Sds{} in $s$:
+    \begin{itemize}
+    \item \caso{\Sds{}s~=~undef} allora entrambi i costrutti evolveranno ad 
+    $undef$ poichè $undef$ composto qualsiasi altro costrutto si valuterà ad 
+    $undef$
+
+    \item \caso{\Sds{}s~=~s'} allora si avrà:
+    \begin{center}
+    $(\cond{b}{G^{n-1}\bot}{\idDS} \circ \Sds)s~=~
+    (\cond{b}{G^{n-1}\bot}{\idDS})s'$
+    \end{center}
+    e
+    \begin{center}
+    $(\fixp{F} \circ{} \Sds{})s~=~(\fixp{F})s'$
+    \end{center}
+    Abbiamo quindi altri 2 sottocasi a seconda della valutazione della guardia 
+    $b$ in $s'$
+        \begin{itemize}
+        \item \caso{\evalBbs{b}{s}=ff} in questo caso abbiamo 
+        \begin{center}
+        $(\cond{b}{G^{n-1}\bot}{\idDS})s'~=~(\idDS)s'~=~s'$
+        \end{center}
+        e
+        \begin{center}
+        $(\fixp{F})s'~=~(F(\fixp{F}))s'~=~
+        (\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s'~=~(\idDS)s'~=~s'$
+        \end{center}
+        Arrivando quindi allo stesso stato finale $s'$
+
+        \item \caso{\evalBbs{b}{s}=tt} in questo caso abbiamo:
+        \begin{center}
+        $(\cond{b}{G^{n-1}\bot}{\idDS})s'~=~(G^{n-1}\bot)s'$
+        \end{center}
+        Poichè per ipotesi induttiva sappiamo che:
+        \begin{center}
+        $\forall~t\in\mathbb{N},~t<n~G^{t}\bot~\mineq~\fixp{F}$
+        \end{center}
+        e che $n-1<n$ allora $(G^{n-1}\bot)s'~\mineq~(\fixp{F})s'$
+        \end{itemize}
+    \end{itemize}
+    E quindi vale $\cond{b}{\fixp{G}}{\idDS}~\mineq~\fixp{F}$
+}
+\newpage

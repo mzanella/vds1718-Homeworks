@@ -1,19 +1,255 @@
-\newcommand{\exNine}
-{
-	 $ \wbS{b}{S} ~\cong{}_{ds}~$
-	 $
-	 \wbS{b}{(
-	 		\concat{S}{\ifABC{b}{S}{skip}}
-	 	    )}
-	 $
-}
-
 \exercise{Esercizio 9}
 {
 	Prove or disprove the following semantic equivalence:
 	\begin{center}
-		\exNine{}
+	$\wbS{b}{S}\eqDS{}\wbS{b}{(\concat{$S$}{$\ifABC{b}{S}{\skipistr}$})}$
 	\end{center}
-	where $b\in\bexp~and~S\in\stm$
+	where $b \in{} \bexp{}$ and $S \in{} \stm{}$
 }
-{}
+{
+	Per dimostrare che vale:
+	\begin{center}
+	$\wbS{b}{S}\eqDS{}\wbS{b}{(\concat{$S$}{$\ifABC{b}{S}{\skipistr}$})}$
+	\end{center}
+	Devo dimostrare che:
+	\begin{center}
+	$\dsCtxt{\wbS{b}{S}}=
+	\dsCtxt{\wbS{b}{(\concat{$S$}{$\ifABC{b}{S}{\skipistr}$})}}$
+	\end{center}
+	Dove:
+	\begin{center}
+	$\dsCtxt{\wbS{b}{S}}=\fixp{F}$ con 
+	$F~g~=~\cond{b}{g \circ{} \Sds{}}{\idDS}$ \\
+	\end{center}
+	e
+	\begin{center}
+	$\dsCtxt{\wbS{b}{(\concat{$S$}{$\ifABC{b}{S}{\skipistr}$})}}=
+	\fixp{G}$ con \\
+	$G~g~=~\cond{b}{g \circ{} \dsCtxt{\concat{$S$}
+	{$\ifABC{b}{S}{\skipistr}$}}}{\idDS}~=~$ \\
+	$=~\cond{b}{g \circ{} \dsCtxt{\ifABC{b}{S}{\skipistr}} \circ{} \Sds}
+	{\idDS}~=$ \\
+	$=~\cond{b}{g \circ{} \cond{b}{\Sds{}}{\skipistr} \circ{} \Sds{}}{\idDS}$
+	\end{center}
+	Quindi devo dimostare che vale:
+	\begin{center}
+	$\fixp{F}~=~\fixp{G}$
+	\end{center}
+	Per fare ciò posso dimostrare separatamente le due seguenti affermazioni:
+	\begin{enumerate}
+	\item $\fixp{F}~\mineq~\fixp{G}$
+	\item $\fixp{G}~\mineq~\fixp{F}$
+	\end{enumerate}
+
+	\textbf{Prima parte $\fixp{G}~\mineq~\fixp{F}$}\\
+	Per dimostrare che vale $\fixp{G}~\mineq~\fixp{F}$ utilizzo il
+	\textbf{Fixed point induction lemma} che afferma che, date $f$ e $d$:
+	\begin{center}
+	se $fd~\mineq~d~\Longrightarrow~\fixp{f}~\mineq~d$
+	\end{center}
+	istanziato con:
+	\begin{center}
+	$f~=~G$ \\
+	$d~=~\fixp{F}$
+	\end{center}
+	Quindi:
+	\begin{center}
+	se $G(\fixp{F})~\mineq~\fixp{F}~\Longrightarrow~\fixp{G}~\mineq~\fixp{F}$
+	\end{center}
+	Sviluppo quindi $G(\fixp{F})$:
+	\begin{center}
+	$G(\fixp{F})~=~\cond{b}{\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} 
+	\Sds{}}{\idDS}$
+	\end{center}
+	Quindi dato uno stato $s$ si hanno due casi a seconda della valutazione
+	della guardia b in $s$:
+	\begin{itemize}
+		\item \caso{\evalBbs{b}{s}=ff}: In questo caso si ha:
+		\begin{center}
+		$(\cond{b}{\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}
+		{\idDS})s~=~(\idDS{})s~=~s$
+		\end{center}
+		Ma quindi:
+		\begin{center}
+		$(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}
+		{\idDS})s~=$\\$=~(\idDS{})s~=~s$
+		\end{center}
+		Ottenendo difatto lo stesso stato.
+
+		\item \caso{\evalBbs{b}{s}=tt}: In questo caso si ha:
+		\begin{center}
+		$(\cond{b}{\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}
+		{\idDS})s~=$\\$=~(\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} 
+		\Sds{})s$
+		\end{center}
+		Abbiamo quindi due sottocasi a seconda della valutazione di $(\Sds{})s$:
+		\begin{itemize}
+			\item \caso{\Sds{}_s~=~undef}: in questo caso poichè ho:
+			\begin{center}
+			$(\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{})s$
+			\end{center}
+			Allora tutto verrà valutato in $undef$ poichè la composizione di 
+			$undef$ con qualsiasi cosa restituisce sempre $undef$.\\
+			Dall'altra parte quindi troviamo:
+			\begin{center}
+			$(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}
+			{\idDS})s~=~(\fixp{F} \circ{} \Sds{})s~=~undef$
+			\end{center}
+			Poichè assumiamo: (i) $\evalBbs{b}{s}=tt$ e (ii) $\Sds{}_s~=~undef$
+
+			\item \caso{\Sds{}_s~=~s'}: In questo caso si ha:
+			\begin{center}
+			$(\fixp{F} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{})s~=~
+			(\fixp{F} \circ \cond{b}{\Sds{}}{\idDS})s'$
+			\end{center}
+			che a seconda della valutazione di $b$ in $s'$ evolverà in:
+			\begin{itemize}
+			\item $(\fixp{F} \circ \Sds{})s'$ se $\evalBbs{b}{s'}=tt$
+			\item $(\fixp{F} \circ \idDS)s'~=~(\fixp{F})s'~=~(F(\fixp{F}))s'~=~
+			(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s'~=~(\idDS{})s'~=~s'$ se 
+			$\evalBbs{b}{s'}=ff$
+			\end{itemize}
+			Dall'altra parte quindi troviamo:
+			\begin{center}
+			$(\fixp{F})s~=~(F(\fixp{F}))s~=~(\cond{b}{\fixp{F} \circ{} 
+			\Sds{}}{\idDS})s~=~(\fixp{F} \circ{} \Sds{})s~=~(\fixp{F})s'~=~
+			(F(\fixp{F}))s'~=~(\cond{b}{\fixp{F} \circ{} \Sds{}}{\idDS})s'$
+			\end{center}
+			Che come nel caso precedente evolverà in:
+			\begin{itemize}
+			\item $(\fixp{F} \circ \Sds{})s'$ se $\evalBbs{b}{s'}=tt$
+			\item $(\idDS{})s'~=~s'$ se $\evalBbs{b}{s'}=ff$
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+	\textbf{Seconda parte $\fixp{F}~\mineq~\fixp{G}$}\\
+	Per dimostrare che vale $\fixp{F}~\mineq~\fixp{G}$ utilizzo il
+	\textbf{teorema di Knaster-Tarski}, che afferma che:
+	\begin{center}
+	$\fixp{F}~=~\unionsem{n}F^{n}\bot$
+	\end{center}
+	Quindi dimostro per induzione su $n$ che vale:
+	\begin{center}
+	$\unionsem{n}F^{n}\bot~\mineq~\fixp{G}$
+	\end{center}
+
+	\casobase{n~=~0} In questo caso abbiamo:
+	\begin{center}
+	$F^{n}\bot~=~F^{0}\bot~=~\bot$
+	\end{center}
+	E quindi per definizione di $\bot$ sappiamo che $\bot~\mineq~\fixp{G}$
+	poichè $\bot$ è minore o uguale a qualsiasi altro elemento.
+
+	\casoinduttivo{n~>~0} In questo caso dobbiamo dimostrare che vale:
+	$F^{n}\bot~\mineq~\fixp{G}$, sapendo che, per ipotesi induttiva vale:
+	\begin{center}
+	$\forall~t\in\mathbb{N},~t<n$ vale $F^{t}\bot~\mineq~\fixp{G}$
+	\end{center}
+	Sviluppiamo quindi $F^{n}\bot$:
+	\begin{center}
+	$F^{n}\bot~=~F(F^{n-1}\bot)~=~\cond{b}{F^{n-1}\bot{} \circ \Sds{}}{\idDS}$
+	\end{center}
+	Quindi valutando il tutto in un certo stato $s$ abbiamo 2 casi a seconda
+	della valutazione della guardia $b$.
+	\begin{itemize}
+		\item \caso{\evalBbs{b}{s}=ff} In questo caso si ha:
+		\begin{center}
+		$(\cond{b}{F^{n-1}\bot{} \circ \Sds{}}{\idDS})s~=~(\idDS)s~=~s$
+		\end{center}
+		Ma quindi:
+		\begin{center}
+		$(\fixp{G})s~=~(G(\fixp{G}))s~=~(\cond{b}{\fixp{G} \circ 
+		\cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}{\idDS})s~=~(\idDS)s~=~s$
+		\end{center}
+
+		\item \caso{\evalBbs{b}{s}=tt} In questo caso si ha:
+		\begin{center}
+		$(\cond{b}{F^{n-1}\bot{} \circ \Sds{}}{\idDS})s~=~
+		(F^{n-1}\bot{} \circ \Sds{})s$
+		\end{center}
+		Invece dall'altra parte ottengo:
+		\begin{center}
+		$(\fixp{G})s~=~(G(\fixp{G}))s~=$\\$=~(\cond{b}{\fixp{G} \circ 
+		\cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}{\idDS})s~=$\\$=~
+		(\fixp{G} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{})s$
+		\end{center}
+
+		Quindi si hanno 2 sottocasi a seconda della valutazione di $(\Sds{})s$
+		\begin{itemize}
+			\item \caso{(\Sds{})s~=~undef} allora ottengo:
+			\begin{center}
+			$F^{n-1}\bot{} \circ undef~=~undef$
+			\end{center}
+			Poichè $undef$ composto con qualsiasi cosa ritorna sempre $undef$.\\
+			E dall'altra parte:
+			\begin{center}
+			$\fixp{G} \circ \cond{b}{\Sds{}}{\idDS} \circ{} undef~=~undef$
+			\end{center}
+			Poichè come prima $undef$ composto con qualsiasi cosa ritorna
+			sempre $undef$.
+
+			\item \caso{(\Sds{})s~=~s'} allora si avrà:
+			\begin{center}
+			$(F^{n-1}\bot{} \circ \Sds{})s~=~(F^{n-1}\bot{})s'$
+			\end{center}
+			E dall'altra parte:
+			\begin{center}
+			$(\fixp{G} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{})s~=$\\
+			$=~(\fixp{G} \circ \cond{b}{\Sds{}}{\idDS})s'$
+			\end{center}
+			Quindi a seconda della valutazione di $b$ in $s'$ il tutto evolverà
+			in:
+			\begin{itemize}
+			\item Se $\evalBbs{b}{s'}=ff$
+			\begin{center}
+			$(\fixp{G} \circ \cond{b}{\Sds{}}{\idDS})s'~=$\\
+			$=~(\fixp{G} \circ \idDS)s'~=~(\fixp{G})s'~=~(G(\fixp{G}))s'~=$\\
+			$=~(\cond{b}{\fixp{G} \circ \cond{b}{\Sds{}}{\idDS} \circ{} \Sds{}}
+			{\idDS})s'~=$\\$=~(\idDS)s'~=~s'$
+			\end{center}
+
+			\item Se $\evalBbs{b}{s'}=tt$
+			\begin{center}
+			$(\fixp{G} \circ \cond{b}{\Sds{}}{\idDS})s'~=$\\
+			$=~(\fixp{G} \circ \Sds{})s'$
+			\end{center}
+			che a seconda della valutazione di $(\Sds{})s'$ evolverà in $undef$
+			oppure in $(\fixp{G})s''$
+			\end{itemize}
+
+			Dall'altra parte invece abbiamo che:
+			\begin{center}
+			$(F^{n-1}\bot{})s'~=~(F(F^{n-2}\bot{}))s'~=~
+			(\cond{b}{F^{n-2}\bot{} \circ \Sds{}}{\idDS})s'$
+			\end{center}
+			Quindi anche in questo caso a seconda della valutazione di $b$ in
+			$s'$ abbiamo 2 casi:
+			\begin{itemize}
+			\item Se $\evalBbs{b}{s'}=ff$
+			\begin{center}
+			$(\cond{b}{F^{n-2}\bot{} \circ \Sds{}}{\idDS})s'~=~(\idDS)s'~=s'$
+			\end{center}
+			come nel caso precedente
+			\item Se $\evalBbs{b}{s'}=tt$
+			\begin{center}
+			$(\cond{b}{F^{n-2}\bot{} \circ \Sds{}}{\idDS})s'~=~
+			(F^{n-2}\bot{} \circ \Sds{})s'$
+			\end{center}
+			e quindi se $(\Sds{})s'~=~undef$ il tutto evolverà a $undef$,
+			altrimenti se $(\Sds{})s'~=~s''$ si avrà $(F^{n-2}\bot{})s''$\\
+			A questo punto posso confrontare $\fixp{G}$ e $F^{n-2}\bot{}$ 
+			poichè ho $n-2<n$ e quindi è possibile applicare l'ipotesi 
+			induttiva che afferma che:
+			\begin{center}
+			$\forall~t\in\mathbb{N},~t<n$ vale $F^{t}\bot~\mineq~\fixp{G}$
+			\end{center}
+			Grazie a ciò posso quindi affermare che 
+			$F^{n-2}\bot{}~\mineq~\fixp{G}$
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	Quindi per ogni caso dell'ipotesi induttiva vale 
+	$F^{n}\bot{}~\mineq~\fixp{G}$
+}
+\newpage
