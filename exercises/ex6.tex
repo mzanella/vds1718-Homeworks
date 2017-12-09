@@ -9,6 +9,114 @@
     Prove that for any $S\in\stmminus{}$ and $s\in\states$, either $\Sds{}s=s$ or $\Sds{}s=undef$.
 }
 {
-    a
+    Per dimostrare che vale questo che rimuovendo da \stm{} l'assegnamento
+    allora comunque prenda uno statement questo non modificherà lo stato
+    iniziale o ciclerà all'infinito procedo per induzione strutturale sui
+    costrutti in \stmminus{}.
+
+    \casobase{S=\skipistr} In questo caso si ha che $\dsCtxt{\skipistr}s~
+    =~(\idDS)s~=~s~\forall{}s\in\states$ quindi l'asserto è valido.
+
+    \casoinduttivo{S=S_1;S_2} In questo caso si deve dimostrare che 
+    $\forall~s\in\states~\dsCtxt{S_1;S_2}s=s$ oppure $\dsCtxt{S_1;S_2}s=undef$
+    sapendo che per ipotesi induttiva:
+    \begin{center}
+    $\forall~s\in\states~\dsCtxt{S_1}s=s$ oppure $\dsCtxt{S_1}s=undef$
+    \end{center}
+    e:
+    \begin{center}
+    $\forall~s\in\states~\dsCtxt{S_2}s=s$ oppure $\dsCtxt{S_2}s=undef$
+    \end{center}
+    Per definizione della composizione so che 
+    $\dsCtxt{S_1;S_2}~=~\dsCtxt{S_2} \circ \dsCtxt{S_1}$. Sia $s$ uno stato,
+    poichè su $S_1$ vale l'ipotesi induttiva abbiamo 2 casi:
+    
+    \begin{itemize}
+    \item Se $\dsCtxt{S_1}s=undef$ allora $(\dsCtxt{S_2} \circ \dsCtxt{S_1})s~=~
+    undef$, poichè $undef$ composto qualsiasi cosa restituisce $undef$;
+
+    \item Se $\dsCtxt{S_1}s=s$ allora $(\dsCtxt{S_2} \circ \dsCtxt{S_1})s~=~
+    (\dsCtxt{S_2})s$ e per ipotesi induttiva so che $\dsCtxt{S_2}s$ può
+    evolvere solamente in $s$ oppure $undef$. 
+    \end{itemize}
+
+    \casoinduttivo{S=\ifABC{b}{S_1}{S_2}} In questo caso si deve dimostrare che 
+    $\forall~s\in\states$\\$\dsCtxt{\ifABC{b}{S_1}{S_2}}s=s$ oppure 
+    $\dsCtxt{\ifABC{b}{S_1}{S_2}}s=undef$ sapendo che per ipotesi induttiva:
+    \begin{center}
+    $\forall~s\in\states~\dsCtxt{S_1}s=s$ oppure $\dsCtxt{S_1}s=undef$
+    \end{center}
+    e:
+    \begin{center}
+    $\forall~s\in\states~\dsCtxt{S_2}s=s$ oppure $\dsCtxt{S_2}s=undef$
+    \end{center}
+    Per definizione dell'\texttt{if} so che 
+    $\dsCtxt{\ifABC{b}{S_1}{S_2}}~=~\cond{b}{\dsCtxt{S_1}}{\dsCtxt{S_2}}$. Sia
+    $s$ uno stato, abbiamo 2 casi a seconda della valutazione della guardia $b$
+    in $s$:
+    \begin{itemize}
+    \item Se $\evalBbs{b}{s}=tt$ allora $(\cond{b}{\dsCtxt{S_1}}{\dsCtxt{S_2}})s
+    ~=~\dsCtxt{S_1}s$, ma su $S_1$ vale l'ipotesi induttiva, quindi 
+    $\dsCtxt{S_1}s=s$ oppure $\dsCtxt{S_1}s=undef$
+    
+    \item Se $\evalBbs{b}{s}=ff$ allora $(\cond{b}{\dsCtxt{S_1}}{\dsCtxt{S_2}})s
+    ~=~\dsCtxt{S_2}s$, ma su $S_2$ vale l'ipotesi induttiva, quindi 
+    $\dsCtxt{S_2}s=s$ oppure $\dsCtxt{S_2}s=undef$
+    \end{itemize}
+
+    \casoinduttivo{S=\wbS{b}{S}} In questo caso si deve dimostrare che 
+    $\forall~s\in\states~\dsCtxt{\wbS{b}{S}}s=s$ oppure 
+    $\dsCtxt{\wbS{b}{S}}s=undef$ sapendo che per ipotesi induttiva:
+    \begin{center}
+    $\forall~s\in\states~\dsCtxt{S}s=s$ oppure $\dsCtxt{S}s=undef$
+    \end{center}
+    Per definizione del \texttt{while} so che 
+    $\dsCtxt{\wbS{b}{S}}~=~\fixp{F}$ con $F g = \cond{b}{g \circ \Sds}{\idDS}$.
+    
+    Per il \textbf{teorema di Knaster-Tarski} so che:
+    \begin{center}
+    $\fixp{F}~=~\unionsem{n}F^{n}\bot$
+    \end{center}
+    Quindi dimostro per induzione su $n$ che vale:
+    \begin{center}
+    $\forall~s\in\states~(\unionsem{n}F^{n}\bot)s=s$ oppure 
+    $(\unionsem{n}F^{n}\bot)s=undef$
+    \end{center}
+    \casobase{n~=~0} In questo caso abbiamo:
+    \begin{center}
+    $(F^{n}\bot)s~=~(F^{0}\bot)s~=~(\bot)s~=~undef$
+    \end{center}
+    \casoinduttivo{n~>~0} In questo caso dobbiamo dimostrare che vale:
+    \begin{center}
+    $\forall~s\in\states~(F^{n}\bot)s=s$ oppure $(F^{n}\bot)s=undef$
+    \end{center}
+    Sapendo che per ipotesi induttiva vale che:
+    \begin{center}
+    $\forall t\in\mathbb{N},~t<n,~\forall~s\in\states~(F^{t}\bot)s=s$ oppure
+    $(F^{t}\bot)s=undef$
+    \end{center}
+    Quindi:
+    \begin{center}
+    $(F^{n}\bot)s~=~(F(F^{n-1}\bot))s~=~(\cond{b}{F^{n-1}\bot \circ \Sds}
+    {\idDS})s$
+    \end{center}
+    Quindi abbiamo 2 casi a seconda dalla valutazione di $b$ in $s$:
+    \begin{itemize}
+    \item Se $\evalBbs{b}{s}=ff$ allora $(\cond{b}{F^{n-1}\bot \circ \Sds}
+    {\idDS})s~=~(\idDS)s~=~s$
+
+    \item Se $\evalBbs{b}{s}=ff$ allora $(\cond{b}{F^{n-1}\bot \circ \Sds}
+    {\idDS})s~=~(F^{n-1}\bot \circ \Sds)s$, e quindi abbiamo 2 sottocasi a
+    seconda della valutazione di $\Sds{}s$, che per ipotesi induttiva può
+    evolvere solamente in $undef$ o $s$:
+        \begin{itemize}
+        \item Se $\Sds{}s~=~undef$ allora $(F^{n-1}\bot \circ \Sds)s~=~undef$
+
+        \item Se $\Sds{}s~=~s$ allora $(F^{n-1}\bot \circ \Sds)s~=~
+        (F^{n-1}\bot)s$ su cui posso applicare quindi l'ipotesi induttiva e
+        quindi so che $(F^{n-1}\bot)s=s$ oppure $(F^{n-1}\bot)s=undef$ poichè
+        $n-1<n$
+        \end{itemize}
+    \end{itemize}
 }
 \newpage
