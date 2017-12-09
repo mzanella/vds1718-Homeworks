@@ -8,6 +8,7 @@
 
 \newcommand{\Sds}{\dsCtxt{S}}
 \newcommand{\mineq}{\sqsubseteq}
+\newcommand{\notmineq}{\not\sqsubseteq}
 
 \exercise{Esercizio 8}
 {
@@ -110,6 +111,26 @@
     \end{itemize}
     Quindi vale che $\dsCtxt{P_1} \mineq \dsCtxt{P_2}$
 
-    \textbf{Seconda parte $\dsCtxt{P_2} \mineq \dsCtxt{P_1}$}
+    \textbf{Seconda parte $\dsCtxt{P_2} \mineq \dsCtxt{P_1}$}\\
+    In questo caso si ha che $\dsCtxt{P_2} \mineq \dsCtxt{P_1}$ è falsa ovvero
+    $\dsCtxt{P_2} \notmineq \dsCtxt{P_1}$. Sia $s$ uno stato in cui:
+    \begin{center}
+    $\evalBbs{b_1}{s}=tt $ e $ \evalBbs{b_2}{s}=ff$
+    \end{center}
+    Allora si avrà che $P_2$ termina in un numero finito di passi senza
+    modificare $s$:
+    \begin{center}
+    $(\fixp{F})s~=~(F(\fixp{F}))s~=~
+    (\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~=~(\idDS)s~=~s$
+    \end{center}
+    Mentre $P_1$ non terminerà mai:
+    \begin{center}
+    $(\fixp{G})s~=~(G(\fixp{G}))s~=$\\$=~
+    (\cond{b_1}{\fixp{G} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS})s~=$\\$=~
+    (\fixp{G} \circ \cond{b_2}{\Sds}{\idDS})s~=$\\$=~
+    (\fixp{G} \circ \idDS)s~=$\\$=~
+    (\fixp{G})s~=~(G(\fixp{G}))s~=~...$
+    \end{center}
+    
 }
 \newpage
