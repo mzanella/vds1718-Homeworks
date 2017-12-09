@@ -10,7 +10,7 @@
 	$ \wbS{b}{S} ~\cong{}_{ds}~$
 	{$\ifABC{b}{(\dSwb{S}{b})}{\skipistr}$}
 }
-\newcommand{\Sds}{\dsCtxt{s}}
+\newcommand{\Sds}{\dsCtxt{S}}
 \newcommand{\mineq}{\sqsubseteq}
 
 \exercise{Esercizio 10}
@@ -49,14 +49,57 @@
     \end{center}
     Quindi devo dimostare che vale:
     \begin{center}
-    $\fixp{F}~=~\fixp{G}$
+    $\fixp{F}~=~\cond{b}{\fixp{G}}{\idDS}$
     \end{center}
     Per fare ciò posso dimostrare separatamente le due seguenti affermazioni:
     \begin{enumerate}
-    \item $\fixp{F}~\mineq~\fixp{G}$
-    \item $\fixp{G}~\mineq~\fixp{F}$
+    \item $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
+    \item $\cond{b}{\fixp{G}}{\idDS}~\mineq~\fixp{F}$
     \end{enumerate}
 
-    \textbf{Prima parte $\fixp{G}~\mineq~\fixp{F}$}\\
+    \textbf{Prima parte $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$}\\
+    Per dimostrare che vale $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
+    e per farlo utilizzo il \textbf{Fixed point induction lemma} che afferma
+    che, date $f$ e $d$:
+    \begin{center}
+    se $fd~\mineq~d~\Longrightarrow~\fixp{f}~\mineq~d$
+    \end{center}
+    istanziato con:
+    \begin{center}
+    $f~=~F$ \\
+    $d~=~\cond{b}{\fixp{G}}{\idDS}$
+    \end{center}
+    Quindi:
+    \begin{center}
+    se $F(\cond{b}{\fixp{G}}{\idDS})~\mineq~\cond{b}{\fixp{G}}{\idDS}~
+    \Longrightarrow~\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
+    \end{center}
+    Per dimostrare che $F(\cond{b}{\fixp{G}}{\idDS})~\mineq~
+    \cond{b}{\fixp{G}}{\idDS}$ dimostro che:
+    \begin{center}
+    $\forall{} s\in\states$ se $(F(\cond{b}{\fixp{G}}{\idDS}))s=s'~
+    \Longrightarrow~(\cond{b}{\fixp{G}}{\idDS})s=s'$
+    \end{center}
+    Procedo quindi per casi:\\
+    \caso{\evalBbs{b}{s}=ff} allora in questo caso si ha:
+    \begin{center}
+    $(F(\cond{b}{\fixp{G}}{\idDS}))s~=$\\$=~
+    (\cond{b}{(\cond{b}{\fixp{G}}{\idDS}) \circ{} \Sds{}}{\idDS})s~=~
+    (\idDS)s~=s$
+    \end{center}
+    Dall'altra parte similarmente si ha:
+    \begin{center}
+    $(\cond{b}{\fixp{G}}{\idDS})s~=~(\idDS)s~=~s$
+    \end{center}
+    \caso{\evalBbs{b}{s}=tt} in questo caso, invece, si ha:
+    \begin{center}
+    $(F(\cond{b}{\fixp{G}}{\idDS}))s~=~(\cond{b}{(\cond{b}{\fixp{G}}{\idDS})
+    \circ{} \Sds{}}{\idDS})s~=$\\$=~(\cond{b}{\fixp{G}}{\idDS} \circ{} \Sds{})s$
+    \end{center}
+    Dall'altra parte abbaimo quindi:
+    \begin{center}
+    $(\fixp{G})s~=~(G(\fixp{G}))s~=~(\cond{b}{\fixp{G}}{\idDS} \circ \Sds)s$
+    \end{center}
+    Quindi vale $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
 }
 \newpage
