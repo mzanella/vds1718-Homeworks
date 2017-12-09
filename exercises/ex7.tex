@@ -1,3 +1,39 @@
 \exercise{Esercizio 7}
-{Consegna}
-{}
+{
+    Consider the CPO $\langle\wp(\mathbb{N}),\subseteq\rangle$ and the following map f: $\wp(\mathbb{N})\rightarrow\wp(\mathbb{N})$
+    \begin{equation}
+    f(S) =
+    \begin{cases*}
+    \emptyset & if S is finite \\
+    \mathbb N        & otherwise
+    \end{cases*}
+    \end{equation}
+    \begin{enumerate}
+        \item Is f monotonic?
+        \item Is f continuos?
+    \end{enumerate}
+    Formally prove the answer.
+}
+{
+	Ricordiamo che una funzione \textit{f} è \textbf{monotona} se, qualora valga una relazione d'ordine su due input, allora essa varrà anche sugli output. Nel nostra caso \textit{f} è monotona se vale \textit{A} $\subseteq$ \textit{B} $\Rightarrow$ \textit{f(A)} $\subseteq$ \textit{f(B)}.\\
+	Per dimostrare che f è monotona, supponiamo che \textit{A} $\subseteq$ \textit{B} ($\Rightarrow$ \textbar A\textbar{} $\leq$ \textbar B\textbar{}). Ci troviamo di fronte a due casi:
+	\begin{enumerate}
+		\item \textit{B} è finito;
+		\item \textit{B} è infinito.
+	\end{enumerate}
+	Se vale (1), allora anche \textbar A\textbar{} è finito e quindi \textit{f(A)} = \textit{f(B)} ($\iff$ \textit{f(A)} $\subseteq$ \textit{f(B)} e \textit{f(A)} $\supseteq$ \textit{f(B)} per la proprietà anti-riflessiva del CPO). Ergo la condizione di monotonia è rispettata.\\
+	
+	Se vale (2), allora due sotto-casi si possono verificare:
+	\begin{enumerate}
+		\item A è finito $\Rightarrow$ \textit{f(A)} = $\emptyset$ $\subseteq$ \textit{ f(B)} = $\mathbb{N}$.
+		\item A è infinito $\Rightarrow$ \textit{f(A)} = \textit{f(B)} ($\iff$ \textit{f(A)} $\subseteq$ \textit{f(B)} e \textit{f(A)} $\supseteq$ \textit{f(B)} per la proprietà anti-riflessiva del CPO).
+	\end{enumerate}
+	
+	Ergo, per ogni sotto-caso, la condizione di monotonia è rispettata.\\
+	
+	Per dimostrare che la funzione \textit{f} monotona su un CPO è \textbf{continua} basta vedere se, per ogni catena non vuota, vale che $\bigsqcup$ ' \{ \textit{f(S)} \textbar{} \textit{S} $\in\wp(\mathbb{N})$ \} = \textit{f}($\bigsqcup$ $\wp(\mathbb{N})$). \\ 
+	Applicando al nostro caso vedo che $\bigsqcup$ ' \{ \textit{f(S)} \textbar{} \textit{S} $\in\wp(\mathbb{N})$ \} = $\bigsqcup$ ' \{$\emptyset$, $\mathbb{N}$\} = $\mathbb{N}$\ , e che \textit{f}($\bigsqcup\wp(\mathbb{N})$) = \textit{f}($\mathbb{N}$) = $\mathbb{N}$. Ergo, la condizione di continuità è rispettata.\\
+	
+	Inoltre, \textit{f} è \textit{strict} perchè sulla catena vuota vale che $\bot$ = \textit{f}($\bot$) che, nel nostro caso, equivale a $\emptyset$ = \textit{f}($\emptyset$)
+	
+}
