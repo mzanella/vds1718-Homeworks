@@ -117,43 +117,43 @@
 	$\forall{}~k~\in~\mathbb{N}~.~k~<~n$ vale che se \exThreeRtLn{k}
 	\end{center}
 	Poichè, per ipotesi, $\confSs{\PDef{}}{s}\Rar{n}s'$ allora per il
-	\textbf{lemma di decomposizione} \\ 
-	$\exists{}~k_0,~k_1~\in~\mathbb{N},~
+	\[ \textbf{lemma di decomposizione} \\ 
+	\exists{}~k_0,~k_1~\in~\mathbb{N},~
 	s''~\in~\states{}~tali~che~\confSs{S_1}{s}\Rar{k_0}s''~e~\confSs{
-	\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{k_1}s'~con~k_0+k_1=n$  $\dagger $.\\
+	\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{k_1}s'~con~k_0+k_1=n$  $\dagger  \]
 	Ho quindi 2 casi a seconda della valutazione della guardia $b$ in $s''$ del
 	\texttt{while}.
 	\begin{itemize}
 		\item caso \fbox{$\mathbb{B}[b]_{s''}=ff$} \\
 		in questo caso si ha 
-		\begin{center}
-		$\confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{}$\\
-		$\confSs{\ifABC{b}{(\concat{\concat{$S_2$}{$S_1$}}
-		{\wbS{b}{(\concat{$S_2$}{$S_1$})}})}{\skipistr}}{s''}\Rar{}$\\
-		$\confSs{\skipistr}{s''}\Rar{}s''$
-		\end{center}
+		
+		\[ \confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{} \]
+		\[ \confSs{\ifABC{b}{(\concat{\concat{$S_2$}{$S_1$}}
+		{\wbS{b}{(\concat{$S_2$}{$S_1$})}})}{\skipistr}}{s''}\Rar{} \]
+		\[ \confSs{\skipistr}{s''}\Rar{}s'' \]
+
 		Quindi dall'altra parte dell'implicazione si ha:
-		\begin{center}
-		$\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{}$\\
-		$\confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
-		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}$
-		\end{center}
-		Poichè per ipotesi sappiamo che $\confSs{S_1}{s}\Rar{k_0}s''$ allora
+		\[ \confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{} \]
+		\[ \confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
+		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s} \]
+
+		Poichè per ipotesi sappiamo che
+		\[  \confSs{S_1}{s}\Rar{k_0}s'' \] allora
 		per il \textbf{lemma di composizione} posso affermare che
-		\begin{center}
-		$\confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
-		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}\Rar{k_0}$\\
-		$\confSs{
+
+		\[ \confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
+		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}\Rar{k_0} \]
+		\[ \confSs{
 			\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})} 
-			{\skipistr}}{s''}$
-		\end{center}
+			{\skipistr}}{s''} \]
+
 		Per ipotesi inoltre sappiamo che $\mathbb{B}[b]_{s''}=ff$ quindi:
-		\begin{center}
-		$\confSs{
+	
+	\[ 	\confSs{
 			\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})} 
-			{\skipistr}}{s''}\Rar{}$\\
-		$\confSs{\skipistr}{s''}\Rar{}s''$
-		\end{center}
+			{\skipistr}}{s''}\Rar{} \]
+	\[ 	\confSs{\skipistr}{s''}\Rar{}s'' \]
+
 		Ottenedo lo stesso stato finale quindi dell'implicazione di partenza.
 
 		\item caso $\mathbb{B}[b]_{s''}=tt$: in questo caso si ha 
