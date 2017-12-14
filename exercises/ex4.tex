@@ -35,6 +35,11 @@
 	\end{center}
 	dimostrando separatamente i due versi dell'implicazione. \\
 	
+	Posso, in modo analogo nel caso precedente, sfruttare l'induzione sul
+	numero di passi che la derivazione \exFourRS{} impiega ad arrivare ad una
+	configurazione finale (supponendo che a partire dall stato iniziale $s$
+	termini in un numero finito di passi).\\
+		
 	\textbf{Implicazione $\Longrightarrow{}$} \\
 	Per dimostrare che :
 	\begin{center}
@@ -44,6 +49,11 @@
 	\confSs{\wbS{b}{S}}{s} impiega per arrivare ad una configurazione finale 
 	(supponendo, per ipotesi, che a partire dallo stato $s,~\wbS{b}{S}$
 	termini).\\
+	
+	Dal momento che per ipotesi \[ \confSs{\wbS{b}{S}}{s}\Rar{*}s \] allora so che 
+	\[ \exists{}~n~\in~\mathbb{N}~tale~che~\confSs{\wbS{b}{S}}{s}\Rar{n}s'  \]quindi
+	posso dimostrare sulla lunghezza $n$ della derivazione che tale
+	implicazione vale\footnote{Se non esistesse tale n allora avrei una sequenza di derivazione infinita e non terminerei mai in una configurazione finale}.\\
 	
 	\casobase{n=0} Questo caso è banalmente vero poichè 
 	\confSs{\wbS{b}{S}}{s} non è una configurazine finale ed in 0 passi quindi
@@ -128,20 +138,25 @@
 	}{s}\Rar{k_0+1}$\\
 	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s''}$
 	\end{center}
-	Inoltre poichè $k_1<n~(k_1=n-2-k_0)$ e $\confSs{\wbS{b}{S}}{s''}\Rar{k_1}s'$
+	Inoltre poichè \[ k_1<n~(k_1=n-2-k_0)$ e $\confSs{\wbS{b}{S}}{s''}\Rar{k_1}s' \]
 	allora posso applicare l'\textbf{ipotesi induttiva} ed ottengo che
-	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s''}\Rar{*}s'$\\
+	\[ \confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s''}\Rar{*}s' \]
 
 	\textbf{Implicazione $\Longleftarrow{}$} \\
 	Per dimostrare che:
 	\begin{center}
 	se \exFourRtL{}
 	\end{center}
-	Posso, in modo analogo nel caso precedente, sfruttare l'induzione sul
-	numero di passi che la derivazione \exFourRS{} impiega ad arrivare ad una
-	configurazione finale (supponendo che a partire dall stato iniziale $s$
-	termini in un numero finito di passi).\\
-
+	Dal momento che per ipotesi \[ \confSs{\wbS{b}
+		{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{*}s \] allora so che 
+	\[ \exists{}~n~\in~\mathbb{N}~tale~che~\confSs{\wbS{b}
+		{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{n}s'  \]quindi
+	posso dimostrare sulla lunghezza $n$ della derivazione che tale
+	implicazione vale\footnote{Se non esistesse tale n allora avrei una sequenza di derivazione infinita e non terminerei mai in una configurazione finale}.\\
+    
+    \paragraph{Casi Base}
+    
+    
 	\casobase{n=0} Analogo al caso base n=0 dell'implicazione precedente. Questo
 	caso è banalmente vero poichè \exFourRS{} non è una configurazine finale ed
 	in 0 passi quindi non può evolvere in una configurazione finale. Lo stesso
@@ -155,8 +170,8 @@
 	\footnote{Infatti nel caso $\mathbb{B}[b]_s=tt$ avremo dei passi in più 
 	dovuti (i) a $S$ che nel migliore dei casi è \skipistr{} e (ii) alla
 	ricorsività del comando \texttt{while}}
-	\begin{center}
-	$\exFourRS\Rar{}
+	
+\[ 	\exFourRS\Rar{}
 	\confSs{
 		\ifABC{b}
 			{(\concat{
@@ -164,8 +179,8 @@
 			}{\wbS{b}{(\ifABC{b}{S}{\skipistr})}{}})}
 			{\skipistr}
 	}{s}\Rar{}
-	\confSs{\skipistr}{s}\Rar{}s$
-	\end{center}
+	\confSs{\skipistr}{s}\Rar{}s \]
+
 	Quindi nel caso in cui \exFourRS{} evolva in tre passi in una
 	configurazione finale a destra avremo:
 	\begin{center}
@@ -176,7 +191,7 @@
 	$\confSs{\skipistr}{s}\Rar{}s$
 	\end{center}
 	Poichè dall'ipotesi sappiamo che $\mathbb{B}[b]_s=ff$ e quindi entrambi i programmi evolvono nello stesso stato finale.\\
-
+   \paragraph{Casi induttivi}
 	\casoinduttivo{n>3} Simile al caso induttivo dell'implicazione precedente.
 	Anche in questo caso sappiamo che $\mathbb{B}[b]_s=tt$
 	\footnote{altrimenti torneremo nel caso n=3}, quindi:

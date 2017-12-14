@@ -45,33 +45,39 @@
 	iterative command.
 	\item [(b)] Find a program \textbf{P} in the basic language \textbf{While} such that
 	\begin{center}
-	$\repeatSbS{$S_1$}{$b$}{$S_2$}~\cong_{sos}~P$
+	$\repeatSbS{S_1}{b}{S_2}~\cong_{sos}~P$
 	\end{center}
 	and formally prove this semantic equivalence.
 	\end{itemize}
 }
 {
-	\hspace*{\textwidth-}
-
-	\textbf{Parte (a)}
+	\subsubsection{Parte (a)}
 	\begin{center}
-	$\confSs{\repeatSbS{S_1}{b}{S_2}}{s}~\Rar{[repeat_{sos}]}~
+	\[ \confSs{\repeatSbS{S_1}{b}{S_2}}{s} \]
+	\[~\Rar{[repeat_{sos}]}~
 	\confSs{\concat{$S_1$}{\ifABC{b}{\concat{$S_2$}
-	{(\repeatSbS{$S_1$}{$b$}{$S_2$})}}{\skipistr}}}{s}$
+	{(\repeatSbS{$S_1$}{$b$}{$S_2$})}}{\skipistr}}}{s} \]
+
 	\end{center}
 	L'idea di base è mimare esattamente quando descritto nella prima parte
 	della consegna, eseguendo qualcosa di simile all'\emph{unfolding} della
-	regola del while in semantica \texttt{SOS}. Per questo il comando
+	regola del while in semantica \texttt{SOS}. \\
+	Per questo il comando
 	\texttt{repeat} viene trasformato nella concatenazione del sottoprogramma
-	$S_1$, che deve essere in ogni caso eseguito, con un \texttt{if}. Nel caso
-	la valutazione della guardia dell'\texttt{if} (la stessa guardia
-	specificata nel comando del \texttt{repeat}) sia falsa nello stato $s$
-	allora il \texttt{repeat} evolve in \skipistr{}. Viceversa, se la guardia
-	viene valutata a \texttt{true}, allora il \texttt{repeat} evolve nella
-	concatenazione tra il sottoprogramma $S_2$ e la ripetizione del 
-	\texttt{repeat}, in modo tale da permettere la ripetizione iterativa.\\
+	$S_1$, che deve essere in ogni caso eseguito, con un \texttt{if}. 
+	\begin{itemize}
+		\item [FF] Nel caso
+		la valutazione della guardia dell'\texttt{if} (la stessa guardia
+		specificata nel comando del \texttt{repeat}) sia \textbf{falsa} nello stato $s$
+		allora il \texttt{repeat} evolve in \skipistr{}.
+		\item [TT] Viceversa, se la guardia
+		viene valutata a \texttt{true}, allora il \texttt{repeat} evolve nella
+		concatenazione tra il sottoprogramma $S_2$ e la ripetizione del 
+		\texttt{repeat}, in modo tale da permettere la ripetizione iterativa.\\
+	\end{itemize}
+	
 
-	\textbf{Parte (b)}
+	\subsubsection{Parte (b)}
 	\begin{center}
 	$P~=~\PDef{}$
 	\end{center}
@@ -87,21 +93,22 @@
 	separatamente.
 
 
-	\textbf{Implicazione $\Longleftarrow$}\\
+	\paragraph{IMPLICAZIONE: } \textbf{\Large{$\Longleftarrow$}} \\
 	Devo dimostrare che:
 	\begin{center}
 	se \exThreeRtL{}
 	\end{center}
-	Dal momento che per ipotesi $\confSs{\PDef{}}{s}\Rar{*}s'$ allora so che
-	$\exists{}~n~\in~\mathbb{N}~tale~che~\confSs{\PDef{}}{s}\Rar{*}s'$ quindi
+	Dal momento che per ipotesi \[ \confSs{\PDef{}}{s}\Rar{*}s \] allora so che 
+	\[ \exists{}~n~\in~\mathbb{N}~tale~che~\confSs{\PDef{}}{s}\Rar{n}s'  \]quindi
 	posso dimostrare sulla lunghezza $n$ della derivazione che tale
-	implicazione vale.\\
-
+	implicazione vale\footnote{Se non esistesse tale n allora avrei una sequenza di derivazione infinita e non terminerei mai in una configurazione finale}.\\
+   \paragraph{Caso Base}
 	\casobase{n=0} Questo caso è banalmente vero poichè $\confSs{\PDef{}}{s}$
 	non è una configurazione finale, quindi non può evolvere in 0 passi in uno
 	stato.
-
-	\casoinduttivo{n>0} Devo dimostrare che 
+    \paragraph{Caso induttivo}
+	\casoinduttivo{n>0} 
+	Devo dimostrare che 
 	\begin{center}
 	se \exThreeRtLn{n}
 	\end{center}
@@ -110,125 +117,143 @@
 	$\forall{}~k~\in~\mathbb{N}~.~k~<~n$ vale che se \exThreeRtLn{k}
 	\end{center}
 	Poichè, per ipotesi, $\confSs{\PDef{}}{s}\Rar{n}s'$ allora per il
-	\textbf{lemma di decomposizione} \\ $\exists{}~k_0,~k_1~\in~\mathbb{N},~
+	\[ \textbf{lemma di decomposizione} \\ 
+	\exists{}~k_0,~k_1~\in~\mathbb{N},~
 	s''~\in~\states{}~tali~che~\confSs{S_1}{s}\Rar{k_0}s''~e~\confSs{
-	\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{k_1}s'~con~k_0+k_1=n$.\\
+	\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{k_1}s'~con~k_0+k_1=n$  $\dagger  \]
 	Ho quindi 2 casi a seconda della valutazione della guardia $b$ in $s''$ del
 	\texttt{while}.
 	\begin{itemize}
-		\item caso $\mathbb{B}[b]_{s''}=ff$: in questo caso si ha 
-		\begin{center}
-		$\confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{}$\\
-		$\confSs{\ifABC{b}{(\concat{\concat{$S_2$}{$S_1$}}
-		{\wbS{b}{(\concat{$S_2$}{$S_1$})}})}{\skipistr}}{s''}\Rar{}$\\
-		$\confSs{\skipistr}{s''}\Rar{}s''$
-		\end{center}
+		\item caso \fbox{$\mathbb{B}[b]_{s''}=ff$} \\
+		in questo caso si ha 
+		
+		\[ \confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{} \]
+		\[ \confSs{\ifABC{b}{(\concat{\concat{$S_2$}{$S_1$}}
+		{\wbS{b}{(\concat{$S_2$}{$S_1$})}})}{\skipistr}}{s''}\Rar{} \]
+		\[ \confSs{\skipistr}{s''}\Rar{}s'' \]
+
 		Quindi dall'altra parte dell'implicazione si ha:
-		\begin{center}
-		$\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{}$\\
-		$\confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
-		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}$
-		\end{center}
-		Poichè per ipotesi sappiamo che $\confSs{S_1}{s}\Rar{k_0}s''$ allora
+		\[ \confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{} \]
+		\[ \confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
+		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s} \]
+
+		Poichè per ipotesi sappiamo che
+		\[  \confSs{S_1}{s}\Rar{k_0}s'' \] allora
 		per il \textbf{lemma di composizione} posso affermare che
-		\begin{center}
-		$\confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
-		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}\Rar{k_0}$\\
-		$\confSs{
+
+		\[ \confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
+		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}\Rar{k_0} \]
+		\[ \confSs{
 			\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})} 
-			{\skipistr}}{s''}$
-		\end{center}
+			{\skipistr}}{s''} \]
+
 		Per ipotesi inoltre sappiamo che $\mathbb{B}[b]_{s''}=ff$ quindi:
-		\begin{center}
-		$\confSs{
+	
+	\[ 	\confSs{
 			\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})} 
-			{\skipistr}}{s''}\Rar{}$\\
-		$\confSs{\skipistr}{s''}\Rar{}s''$
-		\end{center}
+			{\skipistr}}{s''}\Rar{} \]
+	\[ 	\confSs{\skipistr}{s''}\Rar{}s'' \]
+
 		Ottenedo lo stesso stato finale quindi dell'implicazione di partenza.
 
 		\item caso $\mathbb{B}[b]_{s''}=tt$: in questo caso si ha 
-		\begin{center}
-		$\confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{}$\\
-		$\confSs{\ifABC{b}{(\concat{\concat{$S_2$}{$S_1$}}
-		{\wbS{b}{(\concat{$S_2$}{$S_1$})}})}{\skipistr}}{s''}\Rar{}$\\
-		$\confSs{\concat{\concat{$S_2$}{$S_1$}}
-		{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s''}$
-		\end{center}
-		Poichè per ipotesi sappiamo che $\confSs{\PDef{}}{s}\Rar{n}s'$ allora
-		per il \textbf{lemma di decomposizione} \\ $\exists{}~k_2,~k_3~\in~
-		\mathbb{N},~s'''~\in~\states{}~tali~che~\confSs{S_2}{s''}\Rar{k_2}s'''~e
-		~\confSs{\concat{$S_1$}{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s'''}
-		\Rar{k_3}s'~con~k_2+k_3=k_1-2$.\\
-		Inoltre sappiamo che $k_3<n$ poichè $k_3=k_1-k_2=n-k_0-k_2-2<n$.\\
+
+		\[ \confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{} \]
+		\[ \confSs{\ifABC{b}{(\concat{\concat{$S_2$}{$S_1$}}
+		{\wbS{b}{(\concat{$S_2$}{$S_1$})}})}{\skipistr}}{s''}\Rar{} \]
+	\[ 	\confSs{\concat{\concat{$S_2$}{$S_1$}}
+		{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s''} \]
+
+		Poichè dal passo precedente $\dagger $sappiamo che 
+		\[ \confSs{\concat{\concat{$S_2$}{$S_1$}}
+			{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s''}\Rar{k_1 -2}s' \]
+		allora
+		per il \textbf{lemma di decomposizione} \\ 
+	\[ 	\exists{}~k_2,~k_3~\in~
+		\mathbb{N},~s'''~\in~\states{}~tali~che~\confSs{S_2}{s''}\Rar{k_2}s'''\]
+		\[\confSs{\concat{$S_1$}{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s'''}
+		\Rar{k_3}s'~con~k_2+k_3=k_1-2 \]
+		Inoltre sappiamo che $k_3<n$ poichè 
+	\[ 	k_3=k_1-2-k_2=n-k_0-k_2-2<n \]
 		Dall'altra parte abbiamo invece che:
-		\begin{center}
-		$\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{}$\\
-		$\confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
-		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}\Rar{k_0}$ (per il
+		\[ \confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{} \]
+	\[ 	\confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
+		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}\Rar{k_0} \] (per il
 		lemma di composizione)\\
-		$\confSs{\ifABC{b}{(\concat{$S_2$}
-		{(\repeatSbS{$S_1$}{$b$}{$S_2$})}{\skipistr}}}{s''}$\\
-		\end{center}
+	\[ 	\confSs{\ifABC{b}{(\concat{$S_2$}
+		{(\repeatSbS{$S_1$}{$b$}{$S_2$})}{\skipistr}}}{s''} \]
+
 		Per ipotesi sappiamo inotre che $\mathbb{B}[b]_{s''}=tt$ e che 
 		$\confSs{S_2}{s''}\Rar{k_2}s'''$, quindi:
-		\begin{center}
-		$\confSs{\ifABC{b}{(\concat{$S_2$}
-		{(\repeatSbS{$S_1$}{$b$}{$S_2$})}{\skipistr}}}{s''}\Rar{}$\\
-		$\confSs{\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})}}{s''}\Rar{k_2}$
-		(per il lemma di composizione)\\$\confSs{\repeatSbS{S_1}{b}{S_2}}{s'''}$
-		\end{center}
+	
+\[ 		\confSs{\ifABC{b}{(\concat{$S_2$}
+		{(\repeatSbS{$S_1$}{$b$}{$S_2$})}{\skipistr}}}{s''}\Rar{} \]
+	\[ 	\confSs{\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})}}{s''}\Rar{k_2} \] per il lemma di composizione 
+
+		\[ \confSs{\repeatSbS{S_1}{b}{S_2}}{s'''} \]
+
 		A questo punto, sapendo che,
 		$\confSs{\concat{$S_1$}{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s'''}
-		\Rar{k_3}s'$ con $k_3<n$, posso applicare l'ipotesi induttiva posso e
-		quindi posso affermare che:
-		\begin{center}
-		$\confSs{\repeatSbS{S_1}{b}{S_2}}{s'''}\Rar{*}s'$
-		\end{center}
+		\Rar{k_3}s'$ con $k_3<n$, posso applicare l'ipotesi induttiva e affermare che:
+	
+		\[ \confSs{\repeatSbS{S_1}{b}{S_2}}{s'''}\Rar{*}s' \]
+		
 	\end{itemize}
 
-	\textbf{Implicazione $\Longrightarrow$}\\
+	\paragraph{IMPLICAZIONE} \textbf{\Large{$\Longrightarrow$ }} 
 	Devo dimostrare che:
 	\begin{center}
 	\exThreeLtR{}
 	\end{center}
-	Dal momento che $\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{*}s'$ allora so che
-	$\exists{}~n~\in~\mathbb{N}~tale~che~
-	\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{n}s'$ quindi posso dimostrare sulla
+	
+	Dal momento che 
+	\[ \confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{*}s' \]
+	 so che
+	\[ \exists{}~n~\in~\mathbb{N}~tale~che~
+	\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{n}s' \]\footnote{Se n finito non esistesse allora avrei una sequenza di derivazione infinita e non arriverei mai ad uno stato termminale }
+	Quindi posso dimostrare sulla
 	lunghezza $n$ della derivazione che tale implicazione vale.\\
-
-	\casobase{n=0} Questo caso è banalmente vero poichè 
-	$\confSs{\repeatSbS{S_1}{b}{S_2}}{s}$ non è una configurazione finale,
+	\paragraph{Caso base}
+	
+	\casobase{n=0} \\
+	Questo caso è banalmente vero poichè 
+\[ \confSs{\repeatSbS{S_1}{b}{S_2}}{s} \]
+	non è una configurazione finale,
 	quindi non può evolvere in 0 passi in uno stato.
 	
-	\casoinduttivo{n>0} Devo dimostrare che 
+	\paragraph{Caso induttivo} 
+	
+	\casoinduttivo{n>0} \\
+	 Devo dimostrare che 
 	\begin{center}
 	se \exThreeLtRn{n}
 	\end{center}
 	Avendo come ipotesi induttiva che 
-	\begin{center}
-	$\forall{}~k~\in~\mathbb{N}~.~k~<~n$ vale che se \exThreeLtRn{k}
-	\end{center}
-	Poichè, per ipotesi, $\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{n}s'$ allora
+	\[ \forall{}~k~\in~\mathbb{N}~.~k~<~n  \]vale che se \exThreeLtRn{k}
+	Poichè, per ipotesi, \[ \confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{n}s' \] allora
 	si ha che:
-	\begin{center}
-	$\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{}$\\
-	$\confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
-	{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}\Rar{n-1}s'$
-	\end{center}
-	Per il \textbf{lemma di decomposizione} so che $\exists{}~k_0,~k_1~\in~
-	\mathbb{N},~s''~\in~\states{}~tali~che~\confSs{S_1}{s}\Rar{k_0}s''$ e \\
-	$\confSs{\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}
-	{\skipistr}}{s''}\Rar{k_1}s'~con~k_0+k_1=n-1$.\\
+
+\[ 	\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{}   \]
+\[	\confSs{\concat{$S_1$}{\ifABC{b}{(\concat{$S_2$}
+	{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}}{s}\Rar{n-1}s \]
+
+	Per il \textbf{lemma di decomposizione} so che 
+
+\[ 	\exists{}~k_0,~k_1~\in~
+	\mathbb{N},~s''~\in~\states{}~tali~che~\confSs{S_1}{s}\Rar{k_0}s'' \] e 
+\[ 	\confSs{\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}
+	{\skipistr}}{s''}\Rar{k_1}s'~con~k_0+k_1=n-1 \]
+
 	Ho quindi 2 casi a seconda della valutazione della guardia $b$ in $s''$ del
 	\texttt{repeat}.
+	
 	\begin{itemize}
 		\item caso $\mathbb{B}[b]_{s''}=ff$: in questo caso si ha 
-		\begin{center}
-		$\confSs{\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}
-		{\skipistr}}{s''}\Rar{}$\\
-		$\confSs{\skipistr}{s''}\Rar{}s''$
-		\end{center}
+
+		\[ \confSs{\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}
+		{\skipistr}}{s''}\Rar{} \]
+		\[ \confSs{\skipistr}{s''}\Rar{}s'' \]
+
 		Quindi dall'altra parte dell'implicazione si ha:
 		\begin{center}
 		$\confSs{\PDef{}}{s}\Rar{k_0}$ (per il lemma di composizione)\\
@@ -245,11 +270,12 @@
 		Ottenedo lo stesso stato finale quindi dell'implicazione di partenza.
 
 		\item caso $\mathbb{B}[b]_{s''}=tt$: in questo caso si ha:
-		\begin{center}
-		$\confSs{\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}
-		{\skipistr}}{s''}\Rar{}$\\
-		$\confSs{\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})}}{s''}$\\
-		\end{center}
+
+		\[ \confSs{\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}
+		{\skipistr}}{s''}\Rar{} \]
+	
+		\[ \confSs{\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})}}{s''} \]
+
 		Poichè per ipotesi so che $\confSs{\ifABC{b}{(\concat{$S_2$}
 		{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}{\skipistr}}{s''}\Rar{k_1}s'$ e 
 		$\mathbb{B}[b]_{s''}=tt$ allora 
@@ -259,26 +285,26 @@
 		s'''\in{}\states{}~tali~che~\confSs{S_2}{s''}\Rar{k_2}s'''~e
 		~\confSs{\repeatSbS{S_1}{b}{S_2}}{s'''}\Rar{k_3}s'~con~
 		k_2+k_3=k_1-1$.\\
-		Inoltre sappiamo che $k_3<n$ poichè $k_3=k_1-k_2=n-k_0-k_2-1<n$.\\
+		Inoltre sappiamo che $k_3<n$ poichè $k_3=k_1-1-k_2=n-k_0-k_2-2<n$.\\
 		Dall'altra parte abbiamo quindi:
-		\begin{center}
-		$\confSs{\PDef{}}{s}\Rar{k_0}$ (per il lemma di composizione)\\
-		$\confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{}$\\
-		$\confSs{\ifABC{b}{(\concat{\concat{$S_2$}{$S_1$}}
-		{\wbS{b}{(\concat{$S_2$}{$S_1$})}})}{\skipistr}}{s''}\Rar{}$\\
-		$\confSs{\concat{\concat{$S_2$}{$S_1$}}
-		{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s''}$
-		\end{center}
+	
+		\[ \confSs{\PDef{}}{s}\Rar{k_0}\] (per il lemma di composizione)\\
+		\[\confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{}\\ \]
+		\[\confSs{\ifABC{b}{(\concat{\concat{$S_2$}{$S_1$}}
+		{\wbS{b}{(\concat{$S_2$}{$S_1$})}})}{\skipistr}}{s''}\Rar{}\]
+		\[\confSs{\concat{\concat{$S_2$}{$S_1$}}
+		{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s''}\]
 		Per ipotesi inoltre so che $\confSs{S_2}{s''}\Rar{k_2}s'''$ quindi per
 		il \textbf{lemma di composizione} ottengo:
-		\begin{center}
-		$\confSs{\concat{\concat{$S_2$}{$S_1$}}
-		{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s''}\Rar{k_2}$
-		$\confSs{\concat{$S_1$}{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s'''}$
-		\end{center}
+	
+		\[ \confSs{\concat{\concat{$S_2$}{$S_1$}}
+		{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s''}\Rar{k_2} \]
+	\[ 	\confSs{\concat{$S_1$}{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s'''} \]
+
 		A questo punto posso quindi applicare l'ipotesi induttiva poichè $k_3<n$
 		e quindi poichè \\$\confSs{\repeatSbS{S_1}{b}{S_2}}{s'''}\Rar{k_3}s'$
-		allora $\confSs{\concat{$S_1$}{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s'''}
+		allora 
+		$\confSs{\concat{$S_1$}{\wbS{b}{(\concat{$S_2$}{$S_1$})}}}{s'''}
 		\Rar{*}s'$
 
 	\end{itemize}
