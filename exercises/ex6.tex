@@ -11,44 +11,70 @@
 {
     Per dimostrare che vale questo che rimuovendo da \stm{} l'assegnamento
     allora comunque prenda uno statement questo non modificherà lo stato
-    iniziale o ciclerà all'infinito procedo per induzione strutturale sui
-    costrutti in \stmminus{}.
+    iniziale o ciclerà all'infinito. Per dimostrare questo posso dimostrare che 
+    \begin{center}
+    se $\Sds{}s~=~s'~\Longrightarrow~s=s'$
+    \end{center} 
+    Poichè posso vedere 
+    \begin{center}
+    $\Sds{}s=s$ or $\Sds{}s=undef$
+    \end{center}
+    Come
+    \begin{center}
+    $A~\lor~\neg{}B$
+    \end{center}
+    con
+    \begin{center}
+    $A~=~\forall{}s\in\states.\Sds{}s=s$\\
+    $\neg{}B~=~\forall{}s\in\states.\Sds{}s=undef~\Longrightarrow~B~=~
+    \exists{}s'\in\states.\Sds{}s=s'$
+    \end{center}
+    Quindi posso dimostrare
+    \begin{center}
+    se $B~\Longrightarrow~A$
+    \end{center}
+    Cioè
+    \begin{center}
+    se $\Sds{}s=s'~\Longrightarrow~\Sds{}s=s$
+    \end{center}
+    Che può essere visto, per determinismo, come
+    \begin{center}
+    se $\Sds{}s=s'~\Longrightarrow~s=s'$
+    \end{center}
+    Per dimostrare ciò procedo per induzione strutturale sui costrutti in 
+    \stmminus{}.
+
 
     \casobase{S=\skipistr} In questo caso si ha che $\dsCtxt{\skipistr}s~
     =~(\idDS)s~=~s~\forall{}s\in\states$ quindi l'asserto è valido.
 
-    \casoinduttivo{S=S_1;S_2} In questo caso si deve dimostrare che 
-    $\forall~s\in\states~\dsCtxt{S_1;S_2}s=s$ oppure $\dsCtxt{S_1;S_2}s=undef$
-    sapendo che per ipotesi induttiva:
+    \casoinduttivo{S=S_1;S_2} In questo caso si deve dimostrare che
+    se $\dsCtxt{S_1;S_2}s=s'~\Longrightarrow~s=s'$ sapendo che per ipotesi
+    induttiva:
     \begin{center}
-    $\forall~s\in\states~\dsCtxt{S_1}s=s$ oppure $\dsCtxt{S_1}s=undef$
+    se $\dsCtxt{S_1}s=s'~\Longrightarrow~s=s'$
     \end{center}
     e:
     \begin{center}
-    $\forall~s\in\states~\dsCtxt{S_2}s=s$ oppure $\dsCtxt{S_2}s=undef$
+    se $\dsCtxt{S_2}s=s'~\Longrightarrow~s=s'$
     \end{center}
     Per definizione della composizione so che 
     $\dsCtxt{S_1;S_2}~=~\dsCtxt{S_2} \circ \dsCtxt{S_1}$. Sia $s$ uno stato,
-    poichè su $S_1$ vale l'ipotesi induttiva abbiamo 2 casi:
-    
-    \begin{itemize}
-    \item Se $\dsCtxt{S_1}s=undef$ allora $(\dsCtxt{S_2} \circ \dsCtxt{S_1})s~=~
-    undef$, poichè $undef$ composto qualsiasi cosa restituisce $undef$;
+    e suppongo che $\dsCtxt{S_1}s=s'$, allora vale l'ipotesi induttiva e quindi
+    ho che $\dsCtxt{S_1}s=s$ e quindi mi rimane $\dsCtxt{S_2}s$, sul quale,
+    supponendo che $\dsCtxt{S_2}s=s'$, posso applicare l'ipotesi induttiva e
+    ottenendo quindi $\dsCtxt{S_2}s=s$. Nel caso in cui 
+    $\nexists{}s'\in\states.\dsCtxt{S_1}s=s'~o~\dsCtxt{S_1}s=s'$ allora si ha che il costrutto vale banalmente (ipotesi falsa).
 
-    \item Se $\dsCtxt{S_1}s=s$ allora $(\dsCtxt{S_2} \circ \dsCtxt{S_1})s~=~
-    (\dsCtxt{S_2})s$ e per ipotesi induttiva so che $\dsCtxt{S_2}s$ può
-    evolvere solamente in $s$ oppure $undef$. 
-    \end{itemize}
-
-    \casoinduttivo{S=\ifABC{b}{S_1}{S_2}} In questo caso si deve dimostrare che 
-    $\forall~s\in\states$\\$\dsCtxt{\ifABC{b}{S_1}{S_2}}s=s$ oppure 
-    $\dsCtxt{\ifABC{b}{S_1}{S_2}}s=undef$ sapendo che per ipotesi induttiva:
+    \casoinduttivo{S=\ifABC{b}{S_1}{S_2}} In questo caso si deve dimostrare che
+    \\se $\dsCtxt{\ifABC{b}{S_1}{S_2}}s=s'~\Longrightarrow~s=s'$ sapendo che per
+    ipotesi induttiva:
     \begin{center}
-    $\forall~s\in\states~\dsCtxt{S_1}s=s$ oppure $\dsCtxt{S_1}s=undef$
+    se $\dsCtxt{S_1}s=s'~\Longrightarrow~s=s'$
     \end{center}
     e:
     \begin{center}
-    $\forall~s\in\states~\dsCtxt{S_2}s=s$ oppure $\dsCtxt{S_2}s=undef$
+    se $\dsCtxt{S_2}s=s'~\Longrightarrow~s=s'$
     \end{center}
     Per definizione dell'\texttt{if} so che 
     $\dsCtxt{\ifABC{b}{S_1}{S_2}}~=~\cond{b}{\dsCtxt{S_1}}{\dsCtxt{S_2}}$. Sia
@@ -56,19 +82,19 @@
     in $s$:
     \begin{itemize}
     \item Se $\evalBbs{b}{s}=tt$ allora $(\cond{b}{\dsCtxt{S_1}}{\dsCtxt{S_2}})s
-    ~=~\dsCtxt{S_1}s$, ma su $S_1$ vale l'ipotesi induttiva, quindi 
-    $\dsCtxt{S_1}s=s$ oppure $\dsCtxt{S_1}s=undef$
+    ~=~\dsCtxt{S_1}s$. Su $S_1$ posso applicare l'ipotesi induttiva, e quindi
+    se $\dsCtxt{S_1}s=s'~\Longrightarrow~s=s'$
     
     \item Se $\evalBbs{b}{s}=ff$ allora $(\cond{b}{\dsCtxt{S_1}}{\dsCtxt{S_2}})s
-    ~=~\dsCtxt{S_2}s$, ma su $S_2$ vale l'ipotesi induttiva, quindi 
-    $\dsCtxt{S_2}s=s$ oppure $\dsCtxt{S_2}s=undef$
+    ~=~\dsCtxt{S_2}s$, Su $S_2$ posso applicare l'ipotesi induttiva, e quindi
+    se $\dsCtxt{S_2}s=s'~\Longrightarrow~s=s'$
     \end{itemize}
 
-    \casoinduttivo{S=\wbS{b}{S}} In questo caso si deve dimostrare che 
-    $\forall~s\in\states~\dsCtxt{\wbS{b}{S}}s=s$ oppure 
-    $\dsCtxt{\wbS{b}{S}}s=undef$ sapendo che per ipotesi induttiva:
+    \casoinduttivo{S=\wbS{b}{S}} In questo caso si deve dimostrare che
+    \\se $\dsCtxt{\wbS{b}{S}}s=s'~\Longrightarrow~s=s'$ sapendo che per
+    ipotesi induttiva:
     \begin{center}
-    $\forall~s\in\states~\dsCtxt{S}s=s$ oppure $\dsCtxt{S}s=undef$
+    se $\dsCtxt{S}s=s'~\Longrightarrow~s=s'$
     \end{center}
     Per definizione del \texttt{while} so che 
     $\dsCtxt{\wbS{b}{S}}~=~\fixp{F}$ con $F g = \cond{b}{g \circ \Sds}{\idDS}$.
@@ -79,21 +105,22 @@
     \end{center}
     Quindi dimostro per induzione su $n$ che vale:
     \begin{center}
-    $\forall~s\in\states~(\unionsem{n}F^{n}\bot)s=s$ oppure 
-    $(\unionsem{n}F^{n}\bot)s=undef$
+    se $(\unionsem{n}F^{n}\bot)s=s'~\Longrightarrow~s=s'$
     \end{center}
-    \casobase{n~=~0} In questo caso abbiamo:
+
+    \begin{itemize}
+    \item \casobase{n~=~0} In questo caso abbiamo:
     \begin{center}
     $(F^{n}\bot)s~=~(F^{0}\bot)s~=~(\bot)s~=~undef$
     \end{center}
-    \casoinduttivo{n~>~0} In questo caso dobbiamo dimostrare che vale:
+    Quindi ipotesi falsa
+    \item \casoinduttivo{n~>~0} In questo caso dobbiamo dimostrare che vale:
     \begin{center}
-    $\forall~s\in\states~(F^{n}\bot)s=s$ oppure $(F^{n}\bot)s=undef$
+    se $(F^{n}\bot)s=s'~\Longrightarrow~s=s'$
     \end{center}
     Sapendo che per ipotesi induttiva vale che:
     \begin{center}
-    $\forall t\in\mathbb{N},~t<n,~\forall~s\in\states~(F^{t}\bot)s=s$ oppure
-    $(F^{t}\bot)s=undef$
+    $\forall t\in\mathbb{N},~t<n,~se~(F^{t}\bot)s=s'~\Longrightarrow~s=s'$
     \end{center}
     Quindi:
     \begin{center}
@@ -105,18 +132,18 @@
     \item Se $\evalBbs{b}{s}=ff$ allora $(\cond{b}{F^{n-1}\bot \circ \Sds}
     {\idDS})s~=~(\idDS)s~=~s$
 
-    \item Se $\evalBbs{b}{s}=ff$ allora $(\cond{b}{F^{n-1}\bot \circ \Sds}
-    {\idDS})s~=~(F^{n-1}\bot \circ \Sds)s$, e quindi abbiamo 2 sottocasi a
-    seconda della valutazione di $\Sds{}s$, che per ipotesi induttiva può
-    evolvere solamente in $undef$ o $s$:
-        \begin{itemize}
-        \item Se $\Sds{}s~=~undef$ allora $(F^{n-1}\bot \circ \Sds)s~=~undef$
-
-        \item Se $\Sds{}s~=~s$ allora $(F^{n-1}\bot \circ \Sds)s~=~
-        (F^{n-1}\bot)s$ su cui posso applicare quindi l'ipotesi induttiva e
-        quindi so che $(F^{n-1}\bot)s=s$ oppure $(F^{n-1}\bot)s=undef$ poichè
-        $n-1<n$
-        \end{itemize}
+    \item Se $\evalBbs{b}{s}=tt$ allora $(\cond{b}{F^{n-1}\bot \circ \Sds}
+    {\idDS})s~=~(F^{n-1}\bot \circ \Sds)s$. Poichè per ipotesi induttiva so che
+    se $\Sds{}s=s'~\Longrightarrow~s=s'$\footnote{Se l'ipotesi fosse falsa,
+    allora tutto verrebbe vacuamente vero} allora:
+    \[
+        (F^{n-1}\bot \circ \Sds{})s~=~(F^{n-1}\bot)s
+    \]
+    Poichè $n-1~<~n$ allora posso utilizzare l'ipotesi induttiva su 
+    $F^{n-1}\bot$ e quindi so che se \\$(F^{n-1}\bot)s=s'~\Longrightarrow~s=s'$
+    \footnote{Se l'ipotesi fosse falsa, allora tutto verrebbe vacuamente vero}
+    e quindi anche $(F^{n}\bot)s=s$
+    \end{itemize}
     \end{itemize}
 }
 \newpage
