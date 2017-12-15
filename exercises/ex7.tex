@@ -48,25 +48,28 @@
     Per dimostrare che la funzione \textit{f}, monotona, su un CPO è 
     \textbf{continua} basta vedere se, per ogni catena non vuota 
     $Y\in\wp{(\mathbb{N})}$, vale che:
-    \[\bigsqcup{}' \{f(S) | S \in{}Y\} = f(\bigsqcup{}Y)\]
+    \[\lub{}' \{f(S) | S \in{}Y\} = f(\lub{}Y)\]
     Quindi posso dimostrare separatamente che:
     \begin{enumerate}
-    \item $\bigsqcup{}' \{f(S) | S \in{}Y\} \subseteq f(\bigsqcup{}Y)$
-    \item $f(\bigsqcup{}Y) = \bigsqcup{}' \{f(S) | S \in{}Y\}$
+    \item $\lub{}' \{f(S) | S \in{}Y\} \subseteq f(\lub{}Y)$
+    \item $f(\lub{}Y) \subseteq \lub{}' \{f(S) | S \in{}Y\}$
     \end{enumerate}
-    (1) Sia quindi Y una catena non vuota in $\wp{(\mathbb{N})}$. Allora il lub
+
+    (2) Sia quindi Y una catena non vuota in $\wp{(\mathbb{N})}$. Allora il lub
     di Y è il più grande elemento in $Y$, che chiamiamo $X_0$. Allora:\\
-    \hspace*{1.5cm}$f(\lub{}Y)~=~f(X_0)$ (per~definizione~di~$X_0$)\\
+    \hspace*{1.5cm}$f(\lub{}Y)~\subseteq~f(X_0)$ (per~definizione~di~$X_0$)\\
     \hspace*{1.5cm}$f(X_0)~\subseteq~\lub{}'\{f(X)~|~X\in{}Y\}$ \\
-    Poichè $X_0\in{}Y$.\\
-    (2) Per dimostrare, invece, che $f(\bigsqcup{}Y) = 
-    \bigsqcup{}' \{f(S) | S \in{}Y\}$, dal momento che $f$ è monotona e 
-    $(\wp{\mathbb{N}}, \subseteq{})$ è un CPO posso appicare il \textbf{Lemma 5.30}:\\
+    Poichè $X_0\in{}Y$.
+
+    (1) Per dimostrare, invece, che $f(\lub{}Y) \subseteq{} 
+    \lub{}' \{f(S) | S \in{}Y\}$, dal momento che $f$ è monotona e 
+    $(\wp{\mathbb{N}}, \subseteq{})$ è un CPO posso appicare il 
+    \textbf{Lemma 5.30}:\\
     \begin{customlem}{5.30}
     Siano $(D, \sqsubseteq)$ e $(D', \sqsubseteq{}')$ due CPO e 
     $f:D\rightarrow{}D'$, $f$ monotona, allora se $Y$ è una catena in $D$, 
-    $\{fd~|~d\in{}Y\}$ è una catena in $D'$ e $\bigsqcup{}' \{f(S) | S \in{}Y\} 
-    \subseteq f(\bigsqcup{}Y)$
+    $\{fd~|~d\in{}Y\}$ è una catena in $D'$ e $\lub{}' \{f(S) | S \in{}Y\} 
+    \subseteq f(\lub{}Y)$
     \end{customlem}
     Dal momento che quindi $f:\wp{(\mathbb{N})}\rightarrow{}\wp{(\mathbb{N})}$,
     $(\wp{(\mathbb{N})}, \subseteq)$ è monotona e Y è una catena qualsiasi in 
