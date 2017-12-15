@@ -80,21 +80,23 @@
 	configurazione finale a destra avremo:
 	\begin{center}
 	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{}$\\
+	{\small
 	$\confSs{
 		\ifABC{b}
 		{(\concat{(\ifABC{b}{S}{\skipistr})}
 		{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
 		{\skipistr}
-	}{s}$
+	}{s}$}
 	\end{center}
 	Dall'ipotesi sappiamo che $\mathbb{B}[b]_s=ff$ quindi:
 	\begin{center}
+	{\small
 	$\confSs{
 		\ifABC{b}
 		{(\concat{(\ifABC{b}{S}{\skipistr})}
 		{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
 		{\skipistr}
-	}{s}\Rar{}$ \\
+	}{s}\Rar{}$} \\
 	$\confSs{\skipistr}{s}\Rar{}{s}$
 	\end{center}
 	E quindi entrambi i programmi evolvono nello stesso stato finale.\\
@@ -117,11 +119,12 @@
 	Quindi a destra troviamo:
 	\begin{center}
 	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{}$\\
+	{\small
 	$\confSs{
 		\ifABC{b}
 		{(\concat{(\ifABC{b}{S}{\skipistr})}
 		{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
-		{\skipistr}}{s}\Rar{}$\\
+		{\skipistr}}{s}\Rar{}$\\}
 	$\confSs{
 		{(\concat{(\ifABC{b}{S}{\skipistr})}
 		{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
@@ -152,7 +155,8 @@
 	\[ \exists{}~n~\in~\mathbb{N}~tale~che~\confSs{\wbS{b}
 		{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{n}s'  \]quindi
 	posso dimostrare sulla lunghezza $n$ della derivazione che tale
-	implicazione vale\footnote{Se non esistesse tale n allora avrei una sequenza di derivazione infinita e non terminerei mai in una configurazione finale}.\\
+	implicazione vale\footnote{Se non esistesse tale n allora avrei una sequenza 
+	di derivazione infinita e non terminerei mai in una configurazione finale}.\\
     
     \paragraph{Casi Base}
     
@@ -171,15 +175,18 @@
 	dovuti (i) a $S$ che nel migliore dei casi è \skipistr{} e (ii) alla
 	ricorsività del comando \texttt{while}}
 	
-\[ 	\exFourRS\Rar{}
-	\confSs{
+	\begin{center}
+	$\exFourRS\Rar{}$\\
+	{\small
+	$\confSs{
 		\ifABC{b}
 			{(\concat{
 				(\ifABC{b}{S}{\skipistr})
 			}{\wbS{b}{(\ifABC{b}{S}{\skipistr})}{}})}
 			{\skipistr}
-	}{s}\Rar{}
-	\confSs{\skipistr}{s}\Rar{}s \]
+	}{s}\Rar{}$}\\
+	$\confSs{\skipistr}{s}\Rar{}s $
+	\end{center}
 
 	Quindi nel caso in cui \exFourRS{} evolva in tre passi in una
 	configurazione finale a destra avremo:
@@ -197,12 +204,13 @@
 	\footnote{altrimenti torneremo nel caso n=3}, quindi:
 	\begin{center}
 	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{}$\\
+	{\small
 	$\confSs{
 		\ifABC{b}
 			{(\concat{(\ifABC{b}{S}{\skipistr})}
 			{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
 			{\skipistr}
-	}{s}\Rar{}$\\
+	}{s}\Rar{}$}\\
 	$\confSs{\concat{(\ifABC{b}{S}{\skipistr})}{\wbS{b}
 	{(\ifABC{b}{S}{\skipistr})}}}{s}\Rar{n-2}s'$
 	\end{center}
@@ -232,10 +240,10 @@
 	$\confSs{{\concat{S}{\wbS{b}{S}}}}{s}\Rar{k_0-1}\confSs{\wbS{b}{S}}{s''}$
 	\end{center}
 	Dal momento che per ipotesi ho $\confSs{\wbS{b}{(\ifABC{b}{S}
-	{\skipistr})}}{s''}\Rar{k_1}s'$ e che $k_1<n~(k_1=n-2-k_0)$ allora posso
+	{\skipistr})}}{s''}\Rar{k_1}s'$ e che \\$k_1<n~(k_1=n-2-k_0)$ allora posso
 	applicare l'\textbf{ipotesi induttiva} su $\confSs{\wbS{b}{S}}{s''}$ e
-	quindi so che poichè \\ $\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}
-	{s''}\Rar{k_1}s'$ con $k_1<n$ allora anche 
+	quindi so che, poichè $\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}
+	{s''}\Rar{k_1}s'$ con $k_1<n$ allora anche \\
 	$\confSs{\wbS{b}{S}}{s''}\Rar{*}s'$
 }
 \newpage
