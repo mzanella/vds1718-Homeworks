@@ -55,14 +55,8 @@
     \item $f(\lub{}Y) \subseteq \lub{}' \{f(S) | S \in{}Y\}$
     \end{enumerate}
 
-    (2) Sia quindi Y una catena non vuota in $\wp{(\mathbb{N})}$. Allora il lub
-    di Y è il più grande elemento in $Y$, che chiamiamo $X_0$. Allora:\\
-    \hspace*{1.5cm}$f(\lub{}Y)~\subseteq~f(X_0)$ (per~definizione~di~$X_0$)\\
-    \hspace*{1.5cm}$f(X_0)~\subseteq~\lub{}'\{f(X)~|~X\in{}Y\}$ \\
-    Poichè $X_0\in{}Y$.
-
-    (1) Per dimostrare, invece, che $f(\lub{}Y) \subseteq{} 
-    \lub{}' \{f(S) | S \in{}Y\}$, dal momento che $f$ è monotona e 
+	(1) Per dimostrare che $\lub{}' \{f(S) | S \in{}Y\} \subseteq{} 
+    f(\lub{}Y)$, dal momento che $f$ è monotona e 
     $(\wp{\mathbb{N}}, \subseteq{})$ è un CPO posso appicare il 
     \textbf{Lemma 5.30}:\\
     \begin{customlem}{5.30}
@@ -72,8 +66,18 @@
     \subseteq f(\lub{}Y)$
     \end{customlem}
     Dal momento che quindi $f:\wp{(\mathbb{N})}\rightarrow{}\wp{(\mathbb{N})}$,
-    $(\wp{(\mathbb{N})}, \subseteq)$ è monotona e Y è una catena qualsiasi in 
-    $\wp{(\mathbb{N})}$ allora $\lub{}\{f(X)~|~X\in{}Y\}\subseteq{}f(\lub{}Y)$
+    $(\wp{(\mathbb{N})}, \subseteq)$ è monotona, sia Y una catena qualsiasi in 
+    $\wp{(\mathbb{N})}$ allora vale che $\lub{}\{f(X)~|~X\in{}Y\}\subseteq{}f(\lub{}Y)$\\
+    
+    (2) Sia quindi Y una catena non vuota in $\wp{(\mathbb{N})}$. Allora il lub
+    di Y è il più grande elemento in $Y$, che chiamiamo $X_0$. Allora:\\
+    \hspace*{1.5cm}$f(\lub{}Y)~\subseteq~f(X_0)$ (per~definizione~di~$X_0$)\\
+    \hspace*{1.5cm}$f(X_0)~\subseteq~\lub{}'\{f(X)~|~X\in{}Y\}$ poiché $X_0\in{}Y$.\\
+    Abbiamo quindi dimostrato che $f(\lub{}Y) \subseteq \lub{}' \{f(S) | S \in{}Y\}$.\\ \\
+    
+    Unendo le dimostrazioni dei punti (1) e (2) si ha che $\lub{}' \{f(S) | S \in{}Y\} = f(\lub{}Y)$ $\Rightarrow$ f è 	continua.
+
+    
 	%Applicando al nostro caso vedo che: 
 %	%$ \bigsqcup$ ' \{ \textit{f(S)} \textbar{} \textit{S} 
 %    %$\in\wp(\mathbb{N})$ \} = $\bigsqcup$ ' \{$\emptyset$, $\mathbb{N}$\} = 
