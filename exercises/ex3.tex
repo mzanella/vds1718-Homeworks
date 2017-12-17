@@ -102,19 +102,19 @@
 	\[ \exists{}~n~\in~\mathbb{N}~tale~che~\confSs{\PDef{}}{s}\Rar{n}s'  \]quindi
 	posso dimostrare sulla lunghezza $n$ della derivazione che tale
 	implicazione vale\footnote{Se non esistesse tale n allora avrei una sequenza di derivazione infinita e non terminerei mai in una configurazione finale}.\\
-   \paragraph{Caso Base}
-	\casobase{n=0} Questo caso è banalmente vero poichè $\confSs{\PDef{}}{s}$
+	\begin{itemize}
+	\item\casobase{n=0} \\
+	
+	Questo caso è banalmente vero poichè $\confSs{\PDef{}}{s}$
 	non è una configurazione finale, quindi non può evolvere in 0 passi in uno
 	stato.
-    \paragraph{Caso induttivo}
-	\casoinduttivo{n>0} 
+
+	\item\casoinduttivo{n>0} \\
 	Devo dimostrare che 
 	\begin{center}
 	se \exThreeRtLn{n}
-	\end{center}
-	Avendo come ipotesi induttiva che 
-	\begin{center}
-	$\forall{}~k~\in~\mathbb{N}~.~k~<~n$ vale che se \exThreeRtLn{k}
+	 Dall'ipotesi induttiva: $ \quad\forall{}~k~\in~\mathbb{N}~.~k~<~n$ \\
+	vale che se \exThreeRtLn{k}
 	\end{center}
 	Poichè, per ipotesi, $\confSs{\PDef{}}{s}\Rar{n}s'$ allora per il
 	\textbf{lemma di decomposizione} 
@@ -123,8 +123,8 @@
 	\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{k_1}s'~con~k_0+k_1=n$  $\dagger  \]
 	Ho quindi 2 casi a seconda della valutazione della guardia $b$ in $s''$ del
 	\texttt{while}.
-	\begin{itemize}
-		\item caso \fbox{$\mathbb{B}[b]_{s''}=ff$} \\
+
+		\subitem caso \fbox{$\mathbb{B}[b]_{s''}=ff$} \\
 		in questo caso si ha 
 		
 		\[ \confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{} \]
@@ -156,7 +156,7 @@
 
 		Ottenedo lo stesso stato finale quindi dell'implicazione di partenza.
 
-		\item caso $\mathbb{B}[b]_{s''}=tt$: in questo caso si ha 
+		\subitem caso $\mathbb{B}[b]_{s''}=tt$: in questo caso si ha 
 
 		\[ \confSs{\wbS{b}{(\concat{$S_2$}{$S_1$})}}{s''}\Rar{} \]
 		\[ \confSs{\ifABC{b}{(\concat{\concat{$S_2$}{$S_1$}}
@@ -212,18 +212,16 @@
 	\[ \exists{}~n~\in~\mathbb{N}~tale~che~
 	\confSs{\repeatSbS{S_1}{b}{S_2}}{s}\Rar{n}s' \]\footnote{Se n finito non esistesse allora avrei una sequenza di derivazione infinita e non arriverei mai ad uno stato termminale }
 	Quindi posso dimostrare sulla
-	lunghezza $n$ della derivazione che tale implicazione vale.\\
-	\paragraph{Caso base}
-	
-	\casobase{n=0} \\
+	lunghezza $n$ della derivazione che tale implicazione vale.
+
+	\begin{itemize}
+\item \casobase{n=0} \\
 	Questo caso è banalmente vero poichè 
 \[ \confSs{\repeatSbS{S_1}{b}{S_2}}{s} \]
 	non è una configurazione finale,
 	quindi non può evolvere in 0 passi in uno stato.
-	
-	\paragraph{Caso induttivo} 
-	
-	\casoinduttivo{n>0} \\
+		
+\item \casoinduttivo{n>0} \\
 	 Devo dimostrare che 
 	\begin{center}
 	se \exThreeLtRn{n}
@@ -247,8 +245,8 @@
 	Ho quindi 2 casi a seconda della valutazione della guardia $b$ in $s''$ del
 	\texttt{repeat}.
 	
-	\begin{itemize}
-		\item caso $\mathbb{B}[b]_{s''}=ff$: in questo caso si ha 
+
+		\subitem caso $\mathbb{B}[b]_{s''}=ff$: in questo caso si ha 
 
 		\[ \confSs{\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}
 		{\skipistr}}{s''}\Rar{} \]
@@ -269,7 +267,7 @@
 		\end{center}
 		Ottenedo lo stesso stato finale quindi dell'implicazione di partenza.
 
-		\item caso $\mathbb{B}[b]_{s''}=tt$: in questo caso si ha:
+		\subitem caso $\mathbb{B}[b]_{s''}=tt$: in questo caso si ha:
 
 		\[ \confSs{\ifABC{b}{(\concat{$S_2$}{(\repeatSbS{$S_1$}{$b$}{$S_2$})})}
 		{\skipistr}}{s''}\Rar{} \]
