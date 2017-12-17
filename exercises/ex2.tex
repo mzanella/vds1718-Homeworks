@@ -1,7 +1,10 @@
 \newcommand{\lvar}[1]{\textrm{\normalfont{\texttt{lvar(#1)}}}}
-\newcommand{\exTwo}{$if~\confSs{S}{s}\Rar{*}s'~then~\forall{} x \notin lvar\{S\}.s(x)=s'(x)$}
-\newcommand{\exTwoM}[1]{$if~\confSs{#1}{s}\Rar{*}s'~then~\forall{} x \notin lvar\{#1\}.s(x)=s'(x)$}
-\newcommand{\exTwoMM}[3]{$if~\confSs{#1}{#2}\Rar{*}#3~then~\forall{} x \notin lvar\{#1\}.#2(x)=#3(x)$}
+\newcommand{\exTwo}
+{$if~\confSs{S}{s}\Rar{*}s'~then~\forall{} x \notin lvar(S).s(x)=s'(x)$}
+\newcommand{\exTwoM}[1]
+{$if~\confSs{#1}{s}\Rar{*}s'~then~\forall{} x \notin lvar(#1).s(x)=s'(x)$}
+\newcommand{\exTwoMM}[3]
+{$if~\confSs{#1}{#2}\Rar{*}#3~then~\forall{} x \notin lvar(#1).#2(x)=#3(x)$}
 
 \exercise{Esercizio 2}
 {
@@ -11,7 +14,7 @@
 	in the left-hand side of some assignment that occurs in the statement S.
 	\item Prove that for any $S\in\stm, s,s'\in\states:$ \\
 	\begin{align*}
-	if \confSs{S}{s}\Rar{*}s' then \forall{} x \notin lvar\{S\}.s(x)=s'(x)
+	if \confSs{S}{s}\Rar{*}s' then \forall{} x \notin lvar(S).s(x)=s'(x)
 	\end{align*}
 	\end{enumerate}
 }
@@ -31,8 +34,8 @@
 	\item \lvar{\wbS{b}{S}} = \lvar{$S$}
 	\end{itemize}
 
-	\subsubsection{Parte 2}. Per dimostrare \exTwo{} utilizzo l'induzione sulla struttura
-	di $S\in\stm$ \\
+	\subsubsection{Parte 2}. Per dimostrare \exTwo{} utilizzo l'induzione sulla
+	struttura di $S\in\stm$ \\
 	
 	I casi base sono:
 	\begin{itemize}
@@ -40,19 +43,18 @@
 	\casespace
 	\\
 	Se S=\skipistr{} allora comunque prenda 
-	$s\in\stm$ ho che $\confSs{\skipistr}{s}\Rar{}s$. Per definizione di 
-	\skipistr{} quindi lo stato s non viene modificato e quindi qualsiasi
-	variabile non verrà alterata.
+	$s\in\stm$ ho che, per la regola \skipSOS{}, $\confSs{\skipistr}{s}\Rar{}s$.
+	Per definizione di \skipistr{} quindi lo stato s non viene modificato e
+	quindi qualsiasi variabile non verrà alterata.
 
 	\item \casobase{S=\memupdate{x}{a}}
 	\casespace
 	\\
-	 Se S=\memupdate{x}{a} allora per
-	definizione dell'update in memoria si ha che 
+	 Se S=\memupdate{x}{a} allora per definizione dell'update in memoria
+	tramite la regola \assSOS{} si ha che \\
 	$\confSs{\memupdate{x}{a}}{s}\Rar{}s[x\rightarrow\mathbb{A}[a]_s]=s'$ e
-	quindi per definizione dell'update in memoria si ha che 
-	$\forall{}y\in\var~.~y\notin\lvar{\memupdate{x}{a}}$ y non verrà aggiornata
-	e quindi $s(y)=s'(y)$
+	quindi che $\forall{}y\in\var~.~y\notin\lvar{\memupdate{x}{a}}$ y non verrà
+	aggiornata e quindi $s(y)=s'(y)$
 	\end{itemize}
 
 
@@ -74,13 +76,14 @@
 	(poichè $S_1$ e $S_2$ sono sottoprogrammi di $S$). 
 	
 	Suppongo per ipotesi che valga
-	\[ \confSs{\concat{$S_1$}{$S_2$}}{s}\Rar{*}s'\footnote{se non termina lo
-	statement diventa banalmente vero poichè l'ipotesi è falsa}, \]
-    quindi
-\[ 	\exists{}~k\in\mathbb{N} \quad \textrm{ tale per cui} \quad 
+	\[ \confSs{\concat{$S_1$}{$S_2$}}{s}\Rar{*}s' \footnotemark{} \]
+	\footnotetext{se non termina lo statement diventa banalmente vero poichè
+	l'ipotesi è falsa} quindi
+	
+	\[ \exists{}~k\in\mathbb{N} \quad \textrm{ tale per cui} \quad 
 	\confSs{\concat{$S_1$}{$S_2$}}{s}\Rar{k}s' \]
 	e quindi, per il \textbf{lemma di decomposizione}, 
-	\[ 	\exists{}~k_0, k_1\in\mathbb{N},s''\in\states~tali~che~
+	\[ \exists{}~k_0, k_1\in\mathbb{N},s''\in\states~tali~che~
 	\confSs{S_1}{s}\Rar{k_0}s''~e~\confSs{S_2}{s''}\Rar{k_1}s'~con~k_o+k_1=k \]
 	
 	Poichè quindi 
@@ -95,7 +98,7 @@
 	\[  y\notin\lvar{$S_1$} \cup \lvar{$S_2$} \]
 	e quindi in particolare 
 \[ 	y\notin\lvar{$S_1$} \]
-	allora per \hi vale
+	allora per \hi{} vale
 	$s(y)=s''(y)$. 
 	Inoltre poichè
 	\[ y\notin\lvar{$S_1$} \cup \lvar{$S_2$} \qquad \textrm{ si ha inoltre che } \qquad
@@ -122,15 +125,16 @@
 	$S$). 
 	
 	Suppongo per ipotesi che valga 
-	\[ \confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s'\footnote{se non termina lo
-	statement diventa banalmente vero poichè l'ipotesi è falsa}  \]
+	\[ \confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s'\footnotemark{}  \]
+	\footnotetext{se non termina lo statement diventa banalmente vero poichè
+	l'ipotesi è falsa}
 	Ho i seguenti 2	casi:
 		\begin{itemize}
 		\item\fbox{ $\mathbb{B}[b]_s=tt$}
 		Nel caso in cui la valutazione della guardia nello stato $s$ si vera, 
 		allora \\ $\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_1}{s}$ 
-		sul quale so che
-		vale l'ipotesi induttiva, poichè per ipotesi 
+		per la refola \ifttSOS{}, sul quale so che vale l'ipotesi induttiva,
+		poichè per ipotesi 
 		\[ \confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s' \]
 		 di conseguenza 
 		 \[ \exists~k\in
@@ -145,45 +149,50 @@
 		\[ y\notin\lvar{$S_1$} \cup \lvar{$S_2$} \]
 		 e quindi in
 		particolare 
-		$y\notin\lvar{$S_1$}$. Per \hi vale quindi
+		$y\notin\lvar{$S_1$}$. Per \hi{} vale quindi
 		$s(y)=s'(y)$.
 
 		\item \fbox{$\mathbb{B}[b]_s=ff$}: è analogo al precedente. 
 		Nel caso in cui la
-		valutazione della guardia nello stato $s$ si falsa, allora 
-	\[ \confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_2}{s} \]
+		valutazione della guardia nello stato $s$ si falsa, allora tramite la
+		regola \ifffSOS{} si ha:
+		\[ \confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_2}{s} \]
 		sul quale so che
 		vale l'\hi{}, poichè per ipotesi 
 		\[ \confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{*}s'\]
 		 di conseguenza 
-		 	\[ \exists~k\in 	\mathbb{N}~tale~che~\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{k}s' \]
+		\[ \exists~k\in 	\mathbb{N}~tale~che~\confSs{\ifABC{b}{S_1}{S_2}}{s}
+		\Rar{k}s' \]
 		 e quindi 
-	\[ 	\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_2}{s}\Rar{k-1}s' \].
-		 
+		\[ 	\confSs{\ifABC{b}{S_1}{S_2}}{s}\Rar{}\confSs{S_2}{s}\Rar{k-1}s' \].
+		
 		Sia $y\notin\lvar{\ifABC{b}{$S_1$}{$S_2$}}$ allora, per definizione di 
 		\texttt{lvar}, $y\notin\lvar{$S_1$} \cup \lvar{$S_2$}$ e quindi in
 		particolare $y\notin\lvar{$S_2$}$. Per ipotesi induttiva vale quindi
 		$s(y)=s'(y)$.
 		\end{itemize}
 
-	\item \casoinduttivo{S=\wbS{b}{S_1}}
+	\item \casoinduttivo{S=\wbS{b}{S}}
 	\casespace
 	\\
-	\`{E} sufficiente fare l'unfolding e
-	ricondursi al caso \texttt{if} già dimostrato in precedenza. 
-	Infatti sia 
-\[ 	s\in\states~tale~che~\confSs{\wbS{b}{S_1}}{s}\Rar{*}s' \]
-	
+	É sufficiente fare l'unfolding e ricondursi al caso \texttt{if} già
+	dimostrato in precedenza. Infatti sia 
+	\[ 	s\in\states~tale~che~\confSs{\wbS{b}{S}}{s}\Rar{*}s' \]
 	Per la definizione
 	di \whileSOS{} ho che 
-\[ 	\confSs{\wbS{b}{S_1}}{s}\Rar{}
-	\confSs{\ifABC{b}{(\concat{$S_1$}{\wbS{b}{$S_1$}})}{\skipistr}}{s}\Rar{*}s' \]
+	\[ 	\confSs{\wbS{b}{S}}{s}\Rar{}
+	\confSs{\ifABC{b}{(\concat{$S$}{\wbS{b}{$S$}})}{\skipistr}}{s}\Rar{*}s'\]
 	e quindi il caso \texttt{if} è già dimostrato.
+	
+	(In alternativa si può dimostrare il tutto supponendo che $\wbS{b}{S}$
+	termini in un numero $n$ di passi e dimostrando il tutto per induzione,
+	supponendo che valga l'ipotesi induttiva su $S$)
 	\end{itemize}
 
 
 %\subparagraph{Soluzione alternativa per Parte 2}
-%Dimostrare per il caso $  \exTwoM{\ifABC{b}{S_1}{S_2}} $ che  $y\notin\lvar{$S_1$}$  ne  %$y\notin\lvar{$S_2$}
+%Dimostrare per il caso $  \exTwoM{\ifABC{b}{S_1}{S_2}} $ che 
+%$y\notin\lvar{$S_1$}$  ne  %$y\notin\lvar{$S_2$}
 }
 
 \newpage
