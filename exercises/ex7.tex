@@ -1,6 +1,13 @@
+\newcommand{\lub}{\bigsqcup}
+\newtheorem{innercustomlem}{Lemma}
+\newenvironment{customlem}[1]
+{\renewcommand\theinnercustomlem{#1}\innercustomlem}
+{\endinnercustomlem}
+
 \exercise{Esercizio 7}
 {
-    Consider the CPO $\langle\wp(\mathbb{N}),\subseteq\rangle$ and the following map f: $\wp(\mathbb{N})\rightarrow\wp(\mathbb{N})$
+    Consider the CPO $\langle\wp(\mathbb{N}),\subseteq\rangle$ and the
+    following map f: $\wp(\mathbb{N})\rightarrow\wp(\mathbb{N})$
     \begin{equation}
     f(S) =
     \begin{cases*}
@@ -15,36 +22,87 @@
     Formally prove the answer.
 }
 {
-	Ricordiamo che:
-	\begin{mydef}[Funzione monotona]
-	%\hspace{\textwidth{}}
-	Una funzione \textit{f} è \textbf{monotona} se, qualora valga una relazione d'ordine su due input, allora essa varrà anche sugli output. Nel nostra caso \textit{f} è monotona se vale \textit{A} $\subseteq$ \textit{B} $\Rightarrow$ \textit{f(A)} $\subseteq$ \textit{f(B)}.
-	\end{mydef}
+    Ricordiamo che:
+    \begin{mydef}[Funzione monotona]
+    %\hspace{\textwidth{}}
+    Una funzione \textit{f} è \textbf{monotona} se, qualora valga una relazione
+    d'ordine su due input, allora essa varrà anche sugli output. Nel nostra
+    caso \textit{f} è monotona se vale \textit{A} $\subseteq$ \textit{B} 
+    $\Rightarrow$ \textit{f(A)} $\subseteq$ \textit{f(B)}.
+    \end{mydef}
 
-	Per \textbf{dimostrare che f è monotona}, supponiamo che \textit{A} $\subseteq$ \textit{B} ($\Rightarrow$ \textbar A\textbar{} $\leq$ \textbar B\textbar{}). Ci troviamo di fronte a due casi:
-	\begin{enumerate}
-		\item \textit{B} è finito;
-		\item \textit{B} è infinito.
-	\end{enumerate}
-	
-	Se vale (1), allora anche 
-	\textbar A\textbar{} è finito e quindi \textit{f(A)} = \textit{f(B)} ($\iff$ \textit{f(A)} $\subseteq$ \textit{f(B)} e \textit{f(A)} $\supseteq$ \textit{f(B)} per la \textit{\textbf{proprietà anti-riflessiva del CPO}}). Ergo la condizione di monotonia è rispettata.\\
-	
-	Se vale (2), allora due sotto-casi si possono verificare:
-	\begin{enumerate}
-		\item A è finito $\Rightarrow$ \textit{f(A)} = $\emptyset$ $\subseteq$ \textit{ f(B)} = $\mathbb{N}$.
-		\item A è infinito $\Rightarrow$ \textit{f(A)} = \textit{f(B)} ($\iff$ \textit{f(A)} $\subseteq$ \textit{f(B)} e \textit{f(A)} $\supseteq$ \textit{f(B)} per la proprietà anti-riflessiva del CPO).
-	\end{enumerate}
-	
-	Ergo, per ogni sotto-caso, la condizione di monotonia è rispettata.\\
-	
-	Per dimostrare che la funzione \textit{f} monotona su un CPO è \textbf{continua} basta vedere se, per ogni catena non vuota, vale che $\bigsqcup$ ' \{ \textit{f(S)} \textbar{} \textit{S} $\in\wp(\mathbb{N})$ \} = \textit{f}($\bigsqcup$ $\wp(\mathbb{N})$). \\ 
-	Applicando al nostro caso vedo che: 
-	\[ \bigsqcup$ ' \{ \textit{f(S)} \textbar{} \textit{S} $\in\wp(\mathbb{N})$ \} = $\bigsqcup$ ' \{$\emptyset$, $\mathbb{N}$\} = $\mathbb{N} \]\ 
-	e che   \textit{f}($\bigsqcup\wp(\mathbb{N})$) = \textit{f}($\mathbb{N}$) = $\mathbb{N}$.\\
-	Ergo, la condizione di continuità è rispettata.\\
+    Per \textbf{dimostrare che f è monotona}, supponiamo che \textit{A} 
+    $\subseteq$ \textit{B} ($\Rightarrow$ \textbar A\textbar{} $\leq$ \textbar B
+    \textbar{}). Ci troviamo di fronte a due casi:
+    \begin{enumerate}
+        \item \textit{B} è finito;
+        \item \textit{B} è infinito.
+    \end{enumerate}
 
-	Inoltre, \textit{f} è \textit{strict} perchè sulla catena vuota vale che $\bot$ = \textit{f}($\bot$) che, nel nostro caso, equivale a $\emptyset$ = \textit{f}($\emptyset$)
-	
+    Se vale (1), allora anche 
+    \textbar A\textbar{} è finito e quindi \textit{f(A)} = \textit{f(B)} ($\iff$
+    \textit{f(A)} $\subseteq$ \textit{f(B)} e \textit{f(A)} $\supseteq$ 
+    \textit{f(B)} per la \textit{\textbf{proprietà anti-riflessiva del CPO}}).
+    Ergo la condizione di monotonia è rispettata.\\
+
+    Se vale (2), allora due sotto-casi si possono verificare:
+    \begin{enumerate}
+        \item A è finito $\Rightarrow$ \textit{f(A)} = $\emptyset$ $\subseteq$ 
+        \textit{ f(B)} = $\mathbb{N}$.
+        \item A è infinito $\Rightarrow$ \textit{f(A)} = \textit{f(B)} ($\iff$ 
+        \textit{f(A)} $\subseteq$ \textit{f(B)} e \textit{f(A)} $\supseteq$ 
+        \textit{f(B)} per la proprietà anti-riflessiva del CPO).
+    \end{enumerate}
+
+    Ergo, per ogni sotto-caso, la condizione di monotonia è rispettata.\\
+
+
+    Per dimostrare che la funzione \textit{f}, monotona, su un CPO è 
+    \textbf{continua} basta vedere se, per ogni catena non vuota 
+    $Y\in\wp{(\mathbb{N})}$, vale che:
+    \[\lub{} \{f(S) | S \in{}Y\} = f(\lub{}Y)\]
+    Quindi posso dimostrare separatamente che:
+    \begin{enumerate}
+    \item $\lub{} \{f(S) | S \in{}Y\} \subseteq f(\lub{}Y)$
+    \item $f(\lub{}Y) \subseteq \lub{} \{f(S) | S \in{}Y\}$
+    \end{enumerate}
+
+    (1) Per dimostrare che $\lub{} \{f(S) | S \in{}Y\} \subseteq{} 
+    f(\lub{}Y)$, dal momento che $f$ è monotona e 
+    $(\wp{\mathbb{N}}, \subseteq{})$ è un CPO posso appicare il 
+    \textbf{Lemma 5.30}:\\
+    \begin{customlem}{5.30}
+    Siano $(D, \sqsubseteq)$ e $(D', \sqsubseteq{}')$ due CPO e 
+    $f:D\rightarrow{}D'$, $f$ monotona, allora se $Y$ è una catena in $D$, 
+    $\{fd~|~d\in{}Y\}$ è una catena in $D'$ e $\lub{}' \{f(S) | S \in{}Y\} 
+    \sqsubseteq{}' f(\lub{}Y)$
+    \end{customlem}
+    Dal momento che quindi $f:\wp{(\mathbb{N})}\rightarrow{}\wp{(\mathbb{N})}$
+    è monotona, $(\wp{(\mathbb{N})}, \subseteq)$ è un CPO, sia Y una catena
+    qualsiasi in $\wp{(\mathbb{N})}$, allora vale che $\lub{}\{f(X)~|~X\in{}Y\}
+    \subseteq{}f(\lub{}Y)$\\
+    
+    (2) Sia quindi Y una catena non vuota in $\wp{(\mathbb{N})}$. Allora il lub
+    di Y è il più grande elemento in $Y$, che chiamiamo $X_0$. Allora:\\
+    \hspace*{1.5cm}$f(\lub{}Y)~\subseteq~f(X_0)$ (per~definizione~di~$X_0$)\\
+    \hspace*{1.5cm}$f(X_0)~\subseteq~\lub{}\{f(X)~|~X\in{}Y\}$ poiché $X_0\in{}
+    Y$.\\
+    Abbiamo quindi dimostrato che $f(\lub{}Y) \subseteq \lub{} \{f(S) | S
+    \in{}Y\}$.\\ \\
+    
+    Unendo le dimostrazioni dei punti (1) e (2) si ha che $\lub{} \{f(S) | S
+    \in{}Y\} = f(\lub{}Y)$ $\Rightarrow$ f è continua.
+
+%    Applicando al nostro caso vedo che: 
+%    $ \bigsqcup$ ' \{ \textit{f(S)} \textbar{} \textit{S} 
+%    $\in\wp(\mathbb{N})$ \} = $\bigsqcup$ ' \{$\emptyset$, $\mathbb{N}$\} = 
+%    $\mathbb{N} \]\ 
+%    e che   \textit{f}($\bigsqcup\wp(\mathbb{N})$) = \textit{f}($\mathbb{N}$)= 
+%    $\mathbb{N}$.\\
+%    Ergo, la condizione di continuità è rispettata.\\
+%
+%    Inoltre, \textit{f} è \textit{strict} perchè sulla catena vuota vale che 
+%    $\bot$ = \textit{f}($\bot$) che, nel nostro caso, equivale a $\emptyset$ = 
+%    \textit{f}($\emptyset$)
 }
 \newpage
