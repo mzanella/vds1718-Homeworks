@@ -32,6 +32,10 @@
 \newtheorem*{notation}{Notazione}
 \newtheorem{congettura}{Congettura}
 \newtheorem*{controesempio}{Controesempio}
+\newtheorem{innercustomlem}{Lemma}
+\newenvironment{customlem}[1]
+{\renewcommand\theinnercustomlem{#1}\innercustomlem}
+{\endinnercustomlem}
 \RequirePackage{pifont}% http://ctan.org/pkg/pifont
 \RequirePackage{listings}
 \RequirePackage{array}   % for \newcolumntype macro
@@ -167,6 +171,13 @@ $\Box$
 \newcommand{\dsCtxt}[1]{\ensuremath{\mathcal{S}_{ds}\llbracket #1 \rrbracket}}
 \newcommand{\fixp}[1]{\textrm{\normalfont{FIX}}(\ensuremath{#1})}
 \newcommand{\FPIL}{\textit{Fixpoint Induction Lemma}}
+\newcommand{\fil}{
+    \begin{customlem}{(Fixedpoint Induction Lemma)}
+    Sia $f:D\rightarrow{}D$ una funzione continua su di un CPO
+    (D, $\mineq{}$) e sia $d\in{}D$ allora
+    \[se~fd\mineq{}d~\Longrightarrow{}~\fixp{f}\mineq{}d\] 
+    \end{customlem}
+}
 \newcommand{\idDS}{\textrm{\normalfont{id}}}
 \newcommand{\undefDS}{\textrm{\normalfont{undef}}}
 \newcommand{\cond}[3]{\mbox{\normalfont{\texttt{cond }}}
@@ -206,5 +217,7 @@ $\Box$
 \newcommand{\boxer}[1]{\ensuremath{\boxed{#1}}}
 \theoremstyle{definition}
 \endinput
+
+
 %%
 %% End of file `mypackage.sty'.
