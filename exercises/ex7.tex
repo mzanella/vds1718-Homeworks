@@ -56,10 +56,19 @@
 
     Ergo, per ogni sotto-caso, la condizione di monotonia è rispettata.\\
 
+    \begin{mydef}[Funziona continua]
+    %\hspace{\textwidth{}}
+    Siano $(D, \sqsubseteq)$ e $(D', \sqsubseteq{}')$ due CPO e 
+    $f:D\rightarrow{}D'$, una funzione. $f$ è continua se:
+    \begin{enumerate}
+    \item $f$ è monotona
+    \item se per ogni Y catena non vuota in D vale
+    \[\lub{} \{f(S) | S \in{}Y\} = f(\lub{}Y)\]
+    \end{enumerate}
+    \end{mydef}
 
-    Per dimostrare che la funzione \textit{f}, monotona, su un CPO è 
-    \textbf{continua} basta vedere se, per ogni catena non vuota 
-    $Y\in\wp{(\mathbb{N})}$, vale che:
+    Poichè la funzione \textit{f} è monotona, quindi basta vedere se, per ogni
+    catena non vuota $Y\in\wp{(\mathbb{N})}$, vale che:
     \[\lub{} \{f(S) | S \in{}Y\} = f(\lub{}Y)\]
     Quindi posso dimostrare separatamente che:
     \begin{enumerate}
