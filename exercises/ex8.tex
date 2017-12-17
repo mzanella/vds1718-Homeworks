@@ -22,111 +22,104 @@
 }
 {
     Prima di tutto devo definire la semantica dei due programmi.\\
-    \begin{center}
-    $\dsCtxt{$\exEightA{}$}~=~\fixp{G}$ \\con 
-    $G~g~=~\cond{b_1}{g \circ \cond{b_2}{\Sds}{\idDS}}{\idDS}$
-    \end{center}
-    e
-    \begin{center}
-    $\dsCtxt{$\exEightB{}$}~=~\fixp{F}$ \\con 
-    $F~g~=~\cond{b_1\and{}b_2}{g \circ \Sds}{\idDS}$
-    \end{center}
     
-    \textbf{Prima parte $\dsCtxt{P_1} \mineq \dsCtxt{P_2}$}\\
+  \[   \dsCtxt{$\exEightA{}$}~=~\fixp{G} \]
+    \[ G~g~=~\cond{b_1}{g \circ \cond{b_2}{\Sds}{\idDS}}{\idDS} \]
+    e
+    \[ \dsCtxt{$\exEightB{}$}~=~\fixp{F} \]
+     \[ con \quad    F~g~=~\cond{b_1\and{}b_2}{g \circ \Sds}{\idDS} \]
+    
+    \subsubsection{Prima parte} \[ \dsCtxt{P_1} \mineq \dsCtxt{P_2}\]
     Devo dimostrare che $\dsCtxt{P_1} \mineq \dsCtxt{P_2}$ e quindi posso
     dimostrare che:
-    \begin{center}
-    $\fixp{G} \mineq \fixp{F}$
-    \end{center}
+    \[ \fixp{G} \mineq \fixp{F} \]
+    
     Per fare ciò utilizzo il \textbf{Fixed point induction lemma} che afferma
     che, date $f$ e $d$:
-    \begin{center}
-    se $fd~\mineq~d~\Longrightarrow~\fixp{f}~\mineq~d$
-    \end{center}
+    se \[ fd~\mineq~d~\Longrightarrow~\fixp{f}~\mineq~d \]
+ 
     istanziato con:
     \begin{center}
     $f~=~G$ \\
     $d~=~\fixp{F}$
     \end{center}
-    Quindi:
-    \begin{center}
-    se $G(\fixp{F})~\mineq~\fixp{F}~\Longrightarrow~\fixp{G}~\mineq~\fixp{F}$
-    \end{center}
+    Quindi se \[ G(\fixp{F})~\mineq~\fixp{F}~\Longrightarrow~\fixp{G}~\mineq~\fixp{F} \]
+   
     Sviluppo $G(\fixp{F})$:
-    \begin{center}
-    $G(\fixp{F})~=~\cond{b_1}{\fixp{F} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS}$
-    \end{center}
+
+    \[ G(\fixp{F})~=~\cond{b_1}{\fixp{F} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS} \]
     e $\fixp{F}$:
-    \begin{center}
-    $\fixp{F}~=~F(\fixp{F})~=~\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS}$
-    \end{center}
+    
+    \[ \fixp{F}~=~F(\fixp{F})~=~\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS} \]
+
     Ragioniamo quindi per casi a seconda della valutazione di $b_1$ e $b_2$ su
     di un certo stato $s$:
     \begin{itemize}
         \item \caso{\evalBbs{b_1}{s}=ff} In questo caso, qualunque sia il
         valore di $\evalBbs{b_2}{s}$ si avrà che la prima parte evolverà in:
-        \begin{center}
-        $(\cond{b_1}{\fixp{F} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS})s~=~(\idDS)s
-        ~=~s$
-        \end{center}
+        \[ (\cond{b_1}{\fixp{F} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS})s~=~(\idDS)s
+        ~=~s \]
+       
         La seconda, poichè $\evalBbs{b_1}{s}=ff$ anche
         $\evalBbs{b_1\and{}b_2}{s}=ff$ e quindi:
-        \begin{center}
-        $(\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~=~(\idDS)s~=~s$
-        \end{center}
-
-        \item \caso{\evalBbs{b_1}{s}=tt $ e $ \evalBbs{b_2}{s}=ff} Poichè 
+       
+       \[  (\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~=~(\idDS)s~=~ \]
+        
+        \item \caso{\evalBbs{b_1}{s}=tt $ e $ \evalBbs{b_2}{s}=ff} 
+        
+        Poichè 
         $\evalBbs{b_2}{s}=ff$ anche in questo caso si avrà che 
         $\evalBbs{b_1\and{}b_2}{s}=ff$ e quindi la prima parte evolverà in
         questo modo:
-        \begin{center}
-        $(\cond{b_1}{\fixp{F} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS})s~=$\\
-        $=~(\fixp{F} \circ \cond{b_2}{\Sds}{\idDS})s~=$\\
-        $=~(\fixp{F} \circ \idDS)s~=~(\fixp{F})s~=~(F(\fixp{F}))s~=$\\
-        $=~(\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~=~(\idDS)s~=~s$
-        \end{center}
-        E quindi dall'altra parte similmente avremo:
-        \begin{center}
-        $(\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~=~(\idDS)s~=~s$
-        \end{center}
 
-        \item \caso{\evalBbs{b_1}{s}=tt $ e $ \evalBbs{b_2}{s}=tt} In questo
+        \[ (\cond{b_1}{\fixp{F} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS})s~= \]
+       \[  =~(\fixp{F} \circ \cond{b_2}{\Sds}{\idDS})s~= \]
+       \[  =~(\fixp{F} \circ \idDS)s~=~(\fixp{F})s~=~(F(\fixp{F}))s~= \]
+       \[  =~(\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~=~(\idDS)s~=~s \]
+       
+        E quindi dall'altra parte similmente avremo:
+       
+        \[ (\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~=~(\idDS)s~=~s \]
+   
+        \item \caso{\evalBbs{b_1}{s}=tt $ e $ \evalBbs{b_2}{s}=tt} 
+        
+        In questo
         caso poichè entrambe le guardie vengono valutate a $tt$ allorà si avrà
         anche $\evalBbs{b_1\and{}b_2}{s}=tt$ e quindi la prima parte evolverà
         in:
-        \begin{center}
-        $(\cond{b_1}{\fixp{F} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS})s~=$\\
-        $=~(\fixp{F} \circ \cond{b_2}{\Sds}{\idDS})s~=$\\
-        $=~(\fixp{F} \circ \Sds)s$
-        \end{center}
+        
+        \[ (\cond{b_1}{\fixp{F} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS})s~= \]
+       \[  =~(\fixp{F} \circ \cond{b_2}{\Sds}{\idDS})s~= \]
+        \[ =~(\fixp{F} \circ \Sds)s \]
+       
         E dall'altra parte troviamo:
-        \begin{center}
-        $(\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~
-        =~(\fixp{F} \circ \Sds)s$
-        \end{center}
+       
+        \[ (\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~
+        =~(\fixp{F} \circ \Sds)s \]
+    
     \end{itemize}
     Quindi vale che $\dsCtxt{P_1} \mineq \dsCtxt{P_2}$
 
-    \textbf{Seconda parte $\dsCtxt{P_2} \mineq \dsCtxt{P_1}$}\\
+    \subsubsection{Seconda parte} 
+    \[ \dsCtxt{P_2}  \mineq \dsCtxt{P_1} \]
+    
     In questo caso si ha che $\dsCtxt{P_2} \mineq \dsCtxt{P_1}$ è falsa ovvero
     $\dsCtxt{P_2} \notmineq \dsCtxt{P_1}$. Sia $s$ uno stato in cui:
-    \begin{center}
-    $\evalBbs{b_1}{s}=tt $ e $ \evalBbs{b_2}{s}=ff$
-    \end{center}
+
+    \[ \evalBbs{b_1}{s}=tt $ e $ \evalBbs{b_2}{s}=ff \]
+   
     Allora si avrà che $P_2$ termina in un numero finito di passi senza
     modificare $s$:
-    \begin{center}
-    $(\fixp{F})s~=~(F(\fixp{F}))s~=~
-    (\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~=~(\idDS)s~=~s$
-    \end{center}
-    Mentre $P_1$ non terminerà mai:
-    \begin{center}
-    $(\fixp{G})s~=~(G(\fixp{G}))s~=$\\$=~
-    (\cond{b_1}{\fixp{G} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS})s~=$\\$=~
-    (\fixp{G} \circ \cond{b_2}{\Sds}{\idDS})s~=$\\$=~
-    (\fixp{G} \circ \idDS)s~=$\\$=~
-    (\fixp{G})s~=~(G(\fixp{G}))s~=~...$
-    \end{center}
     
+    \[ (\fixp{F})s~=~(F(\fixp{F}))s~=~
+    (\cond{b_1\and{}b_2}{\fixp{F} \circ \Sds}{\idDS})s~=~(\idDS)s~=~s \]
+    
+    Mentre $P_1$ non terminerà mai:
+    \[ (\fixp{G})s~=~(G(\fixp{G}))s~= \]
+    \[ =~(\cond{b_1}{\fixp{G} \circ \cond{b_2}{\Sds}{\idDS}}{\idDS})s~= \]
+    \[ =~(\fixp{G} \circ \cond{b_2}{\Sds}{\idDS})s~= \]
+    \[ =~(\fixp{G} \circ \idDS)s~= \]
+    \[ =~ (\fixp{G})s~=~(G(\fixp{G}))s~=~... \]
+   
 }
 \newpage
