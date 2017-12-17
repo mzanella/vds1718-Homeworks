@@ -40,7 +40,7 @@
 	configurazione finale (supponendo che a partire dall stato iniziale $s$
 	termini in un numero finito di passi).\\
 		
-	\textbf{Implicazione $\Longrightarrow{}$} \\
+	\paragraph{IMPLICAZIONE: } $\Longrightarrow{}$\\
 	Per dimostrare che :
 	\begin{center}
 	se \exFourLtR{}
@@ -54,98 +54,107 @@
 	\[ \exists{}~n~\in~\mathbb{N}~tale~che~\confSs{\wbS{b}{S}}{s}\Rar{n}s'  \]quindi
 	posso dimostrare sulla lunghezza $n$ della derivazione che tale
 	implicazione vale\footnote{Se non esistesse tale n allora avrei una sequenza di derivazione infinita e non terminerei mai in una configurazione finale}.\\
-	
-	\casobase{n=0} Questo caso è banalmente vero poichè 
+	\begin{itemize}
+	\item \casobase{n=0} Questo caso è banalmente vero poichè 
 	\confSs{\wbS{b}{S}}{s} non è una configurazine finale ed in 0 passi quindi
-	non può evolvere in una configurazione finale. Lo stesso ragionamento si
+	non può evolvere in una configurazione finale. 
+	
+	Lo stesso ragionamento si
 	può applicare nel caso in cui \textbf{n=1} e \textbf{n=2} poichè,
 	sfruttando l'unfolding, sono neccessari almeno 3 passi per arrivare ad una
 	configurazione finale.\\
 	
-	\casobase{n=3} In questo caso \wbS{b}{S} può arrivare ad uno stato finale
+	\item \casobase{n=3} In questo caso \wbS{b}{S} può arrivare ad uno stato finale
 	in 3 passi solamente nel caso in cui $\mathbb{B}[b]_s=ff$ poichè
 	\footnote{Infatti nel caso $\mathbb{B}[b]_s=tt$ avremo dei passi in più 
 	dovuti (i) a $S$ che nel migliore dei casi è \skipistr{} e (ii) alla
 	ricorsività del comando \texttt{while}}
-	\begin{center}
-	$\confSs{\wbS{b}{S}}{s}\Rar{}
-	\confSs{
+
+\[ 	\confSs{\wbS{b}{S}}{s}\Rar{} \]
+\[ 	\confSs{
 		\ifABC{b}
 			{(\concat{S}{\wbS{b}{S}})}
 			{\skipistr}
 	}{s}\Rar{}
-	\confSs{\skipistr}{s}\Rar{}s$
-	\end{center}
+	\confSs{\skipistr}{s}\Rar{}s \]
+
 	Quindi nel caso in cui \confSs{\wbS{b}{S}}{s} evolva in tre passi in una
 	configurazione finale a destra avremo:
-	\begin{center}
-	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{}$\\
+
+\[ 	\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{} \]
 	{\small
-	$\confSs{
+	\[ \confSs{
 		\ifABC{b}
 		{(\concat{(\ifABC{b}{S}{\skipistr})}
 		{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
 		{\skipistr}
-	}{s}$}
-	\end{center}
+	}{s} \]
+}
+
 	Dall'ipotesi sappiamo che $\mathbb{B}[b]_s=ff$ quindi:
-	\begin{center}
 	{\small
-	$\confSs{
+\[\confSs{ 
 		\ifABC{b}
-		{(\concat{(\ifABC{b}{S}{\skipistr})}
+		{(\concat{(\ifABC{b}{S}{\skipistr})}	
 		{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
 		{\skipistr}
-	}{s}\Rar{}$} \\
-	$\confSs{\skipistr}{s}\Rar{}{s}$
-	\end{center}
+	}{s}\Rar{} \]
+}
+\[\confSs{\skipistr}{s}\Rar{}{s} \]
+
 	E quindi entrambi i programmi evolvono nello stesso stato finale.\\
 
-	\casoinduttivo{n>3} In questo caso sappiamo che $\mathbb{B}[b]_s=tt$
+\item	\casoinduttivo{n>3} In questo caso sappiamo che $\mathbb{B}[b]_s=tt$
 	\footnote{altrimenti torneremo nel caso n=3}, quindi:
-	\begin{center}
-	$\confSs{\wbS{b}{S}}{s}\Rar{}$\\
-	$\confSs{
+\[\confSs{\wbS{b}{S}}{s}\Rar{} \]
+ {\small
+\[\confSs{
 		\ifABC{b}
 			{(\concat{S}{\wbS{b}{S}})}
 			{\skipistr}
-	}{s}\Rar{}$\\
-	$\confSs{\concat{S}{\wbS{b}{S}}}{s}\Rar{n-2}s'$
-	\end{center}
+	}{s}\Rar{} \]
+}
+
+	\[\confSs{\concat{S}{\wbS{b}{S}}}{s}\Rar{n-2}s' \]
+
 	Per il \textbf{lemma di decomposizione} sappiamo che 
-	$\exists{}~k_0,~k_1\in\mathbb{N},~s''\in\states~tali~che~n-2=k_0+k_1~e~
-	\confSs{S}{s}\Rar{k_0}s''~e~\confSs{\wbS{b}{S}}{s''}\Rar{k_1}s'$ dal
-	momento che per ipotesi sappiamo $\confSs{\wbS{b}{S}}{s}\Rar{*}s'$\\
+	\[ \exists{}~k_0,~k_1\in\mathbb{N},~s''\in\states~tali~che~n-2=k_0+k_1~e~\]
+	\[
+	\confSs{S}{s}\Rar{k_0}s''~e~\confSs{\wbS{b}{S}}{s''}\Rar{k_1}s' \]dal
+	momento che per ipotesi sappiamo \[ \confSs{\wbS{b}{S}}{s}\Rar{*}s' \]
 	Quindi a destra troviamo:
-	\begin{center}
-	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{}$\\
+
+	\[ \confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{} \]
 	{\small
-	$\confSs{
+	\[ \confSs{
 		\ifABC{b}
 		{(\concat{(\ifABC{b}{S}{\skipistr})}
 		{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
-		{\skipistr}}{s}\Rar{}$\\}
-	$\confSs{
+		{\skipistr}}{s}\Rar{} \]}
+	\[ \confSs{
 		{(\concat{(\ifABC{b}{S}{\skipistr})}
 		{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
-	}{s}$
-	\end{center}
-	poichè dall'ipotesi so che $\mathbb{B}[b]_s=tt$. Dal momento che 
-	$\confSs{\ifABC{b}{S}{\skipistr}}{s}\Rar{}\confSs{S}{s}$ poichè
-	$\mathbb{B}[b]_s=tt$ e dall'ipotesi so che $\confSs{S}{s}\Rar{k_0}s''$
+	}{s} \]
+	poichè dall'ipotesi so che $\mathbb{B}[b]_s=tt$.
+	 Dal momento che:
+	
+\[ 	\confSs{\ifABC{b}{S}{\skipistr}}{s}\Rar{}\confSs{S}{s} \]
+	poichè vale 
+	$\mathbb{B}[b]_s=tt$ e dall'ipotesi so che 
+\[ 	\confSs{S}{s}\Rar{k_0}s'' \]
 	allora per il \textbf{lemma di composizione} so che:
-	\begin{center}
-	$\confSs{
+
+\[ 	\confSs{
 		{(\concat{(\ifABC{b}{S}{\skipistr})}
 		{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
-	}{s}\Rar{k_0+1}$\\
-	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s''}$
-	\end{center}
+	}{s}\Rar{k_0+1} \]
+\[ 	\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s''} \]
+
 	Inoltre poichè \[ k_1<n~(k_1=n-2-k_0)$ e $\confSs{\wbS{b}{S}}{s''}\Rar{k_1}s' \]
 	allora posso applicare l'\textbf{ipotesi induttiva} ed ottengo che
 	\[ \confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s''}\Rar{*}s' \]
-
-	\textbf{Implicazione $\Longleftarrow{}$} \\
+\end{itemize}
+	\paragraph{IMPLICAZIONE: } $\Longleftarrow{}$ \\
 	Per dimostrare che:
 	\begin{center}
 	se \exFourRtL{}
@@ -158,92 +167,113 @@
 	implicazione vale\footnote{Se non esistesse tale n allora avrei una sequenza 
 	di derivazione infinita e non terminerei mai in una configurazione finale}.\\
     
-    \paragraph{Casi Base}
-    
-    
-	\casobase{n=0} Analogo al caso base n=0 dell'implicazione precedente. Questo
-	caso è banalmente vero poichè \exFourRS{} non è una configurazine finale ed
-	in 0 passi quindi non può evolvere in una configurazione finale. Lo stesso
+\begin{itemize}
+
+\item	\casobase{n=0}\\
+ Analogo al caso base n=0 dell'implicazione precedente. Questo
+	caso è banalmente vero poichè
+	 \[ \exFourRS{} \] \textbf{NON è una configurazine finale }ed
+	in 0 passi quindi non può evolvere in una configurazione finale. 
+
+	Lo stesso
 	ragionamento si può applicare nel caso in cui \textbf{n=1} e \textbf{n=2}
-	poichè, sfruttando l'unfolding, sono neccessari almeno 3 passi per arrivare
+	poichè, sfruttando l'unfolding, sono neccessari \textbf{almeno 3 passi} per arrivare
 	ad una configurazione finale.\\
 
-	\casobase{n=3} Simile al caso base n=3 dell'implicazione precedente. In
-	questo caso \\ \exFourRS{} può arrivare ad uno stato finale
+\item	\casobase{n=3} \\
+	
+	Simile al caso base n=3 dell'implicazione precedente.
+	In	questo caso 
+\[ 		\exFourRS{}  \]
+può arrivare ad uno stato finale
 	in 3 passi solamente nel caso in cui $\mathbb{B}[b]_s=ff$ poichè
 	\footnote{Infatti nel caso $\mathbb{B}[b]_s=tt$ avremo dei passi in più 
 	dovuti (i) a $S$ che nel migliore dei casi è \skipistr{} e (ii) alla
 	ricorsività del comando \texttt{while}}
-	
-	\begin{center}
-	$\exFourRS\Rar{}$\\
+\[ 	\exFourRS\Rar{} \]
 	{\small
-	$\confSs{
+\[ 	\confSs{
 		\ifABC{b}
 			{(\concat{
 				(\ifABC{b}{S}{\skipistr})
 			}{\wbS{b}{(\ifABC{b}{S}{\skipistr})}{}})}
 			{\skipistr}
-	}{s}\Rar{}$}\\
-	$\confSs{\skipistr}{s}\Rar{}s $
-	\end{center}
+	}{s}\Rar{} \]
+	}
+	\[ \confSs{\skipistr}{s}\Rar{}s  \]
 
-	Quindi nel caso in cui \exFourRS{} evolva in tre passi in una
+
+	Quindi nel caso in cui \[ \exFourRS{} \] evolva in tre passi in una
 	configurazione finale a destra avremo:
-	\begin{center}
-	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{}$\\
-	$\confSs{
+
+\[ 	\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{} \]
+\[ 	\confSs{
 		\ifABC{b}{(\concat{S}{\wbS{b}{S}})}{\skipistr}
-	}{s}\Rar{}$\\
-	$\confSs{\skipistr}{s}\Rar{}s$
-	\end{center}
+	}{s}\Rar{} \]
+\[ \confSs{\skipistr}{s}\Rar{}s \]
+
 	Poichè dall'ipotesi sappiamo che $\mathbb{B}[b]_s=ff$ e quindi entrambi i programmi evolvono nello stesso stato finale.\\
-   \paragraph{Casi induttivi}
-	\casoinduttivo{n>3} Simile al caso induttivo dell'implicazione precedente.
+\item   	\casoinduttivo{n>3} 
+	
+	
+	 Simile al caso induttivo dell'implicazione precedente.
 	Anche in questo caso sappiamo che $\mathbb{B}[b]_s=tt$
 	\footnote{altrimenti torneremo nel caso n=3}, quindi:
-	\begin{center}
-	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{}$\\
+
+\[ 	\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{} \]
 	{\small
-	$\confSs{
+\[ \confSs{
 		\ifABC{b}
 			{(\concat{(\ifABC{b}{S}{\skipistr})}
 			{\wbS{b}{(\ifABC{b}{S}{\skipistr})}})}
 			{\skipistr}
-	}{s}\Rar{}$}\\
-	$\confSs{\concat{(\ifABC{b}{S}{\skipistr})}{\wbS{b}
-	{(\ifABC{b}{S}{\skipistr})}}}{s}\Rar{n-2}s'$
-	\end{center}
+	}{s}\Rar{} \]
+}
+\[ 	\confSs{\concat{(\ifABC{b}{S}{\skipistr})}{\wbS{b}
+	{(\ifABC{b}{S}{\skipistr})}}}{s}\Rar{n-2}s' \]
+
 	Poichè per ipotesi ho che 
-	$\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{n}s'$ e 
+	\[ \confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}{s}\Rar{n}s' \] e 
 	$\mathbb{B}[b]_s=tt$, allora applicando il \textbf{lemma di decomposizione},
-	che afferma: $\exists{}~k_0,~k_1\in\mathbb{N},~s''\in\states~tali~che~n-2=
-	k_0+k_1~e~\confSs{\ifABC{b}{S}{\skipistr}}{s}\Rar{k_0}s''~e~\confSs{\wbS{b}
-	{(\ifABC{b}{S}{\skipistr})}}{s''}\Rar{k_1}s'$, allora ottengo che:
-	\begin{center}
-	$\confSs{\ifABC{b}{S}{\skipistr}}{s}\Rar{}\confSs{S}{s}\Rar{k_0-1}s''$
-	\end{center}
+	che afferma: 
+\[ 	\exists{}~k_0,~k_1\in\mathbb{N},~s''\in\states~tali~che~n-2=
+	k_0+k_1~e~	\]
+	\[\confSs{\ifABC{b}{S}{\skipistr}}{s}\Rar{k_0}s''~e~ \]
+	\[\confSs{\wbS{b}
+	{(\ifABC{b}{S}{\skipistr})}}{s''}\Rar{k_1}s' \]
+ allora ottengo che:
+
+\[ 	\confSs{\ifABC{b}{S}{\skipistr}}{s}\Rar{}\confSs{S}{s}\Rar{k_0-1}s'' \]
+
 	A destra, invece, troviamo:
-	\begin{center}
-	$\confSs{\wbS{b}{S}}{s}\Rar{}$\\
-	$\confSs{
+
+	\[ \confSs{\wbS{b}{S}}{s}\Rar{} \]
+	\[ \confSs{
 		\ifABC{b}
 		{(\concat{S}
 		{\wbS{b}{S}})}
-		{\skipistr}}{s}\Rar{}$\\
-	$\confSs{{\concat{S}{\wbS{b}{S}}}}{s}$
-	\end{center}
-	poichè dall'ipotesi so che $\mathbb{B}[b]_s=tt$. Per ipotesi so inoltre che
+		{\skipistr}}{s}\Rar{} \]
+	\[ \confSs{{\concat{S}{\wbS{b}{S}}}}{s} \]
+
+	poichè dall'ipotesi so che $\mathbb{B}[b]_s=tt$. 
+	
+	Per ipotesi so inoltre che
 	$\confSs{S}{s}\Rar{k_0-1}s''$, quindi applicando il \textbf{lemma di
 	composizione} ottengo che:
-	\begin{center}
-	$\confSs{{\concat{S}{\wbS{b}{S}}}}{s}\Rar{k_0-1}\confSs{\wbS{b}{S}}{s''}$
-	\end{center}
-	Dal momento che per ipotesi ho $\confSs{\wbS{b}{(\ifABC{b}{S}
-	{\skipistr})}}{s''}\Rar{k_1}s'$ e che \\$k_1<n~(k_1=n-2-k_0)$ allora posso
-	applicare l'\textbf{ipotesi induttiva} su $\confSs{\wbS{b}{S}}{s''}$ e
-	quindi so che, poichè $\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}
-	{s''}\Rar{k_1}s'$ con $k_1<n$ allora anche \\
-	$\confSs{\wbS{b}{S}}{s''}\Rar{*}s'$
+
+\[ 	\confSs{{\concat{S}{\wbS{b}{S}}}}{s}\Rar{k_0-1}\confSs{\wbS{b}{S}}{s''} \]
+
+	Dal momento che per ipotesi ho 
+\[ 	\confSs{\wbS{b}{(\ifABC{b}{S}
+	{\skipistr})}}{s''}\Rar{k_1}s' \]
+e che 
+\[ k_1<n~(k_1=n-2-k_0)  \]allora posso
+	applicare l'\textbf{ipotesi induttiva} su 
+	\[ \confSs{\wbS{b}{S}}{s''} \] e
+	quindi so che, poichè 
+\[ 	\confSs{\wbS{b}{(\ifABC{b}{S}{\skipistr})}}
+	{s''}\Rar{k_1}s' \] con $k_1<n$ allora anche 
+	\[ \confSs{\wbS{b}{S}}{s''}\Rar{*}s' \]
+\end{itemize}
 }
 \newpage

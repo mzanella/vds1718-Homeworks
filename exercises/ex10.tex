@@ -25,59 +25,61 @@
     \exTen{}
     \end{center}
     Devo dimostrare che:
-    \begin{center}
-    $\dsCtxt{\wbS{b}{S}}~=~
-    \dsCtxt{\ifABC{b}{(\dSwb{S}{b})}{\skipistr}}$
-    \end{center}
+
+\[     \dsCtxt{\wbS{b}{S}}~=~
+    \dsCtxt{\ifABC{b}{(\dSwb{S}{b})}{\skipistr}} \]
+
     Dove:
-    \begin{center}
-    $\dsCtxt{\wbS{b}{S}}=\fixp{F}$ con 
-    $F~g~=~\cond{b}{g \circ{} \Sds{}}{\idDS}$ \\
-    \end{center}
+
+    \[ \dsCtxt{\wbS{b}{S}}=\fixp{F} \qquad con   \]
+\[ F~g~=~\cond{b}{g \circ{} \Sds{}}{\idDS} \]
+
     e:
-    \begin{center}
-    $\dsCtxt{\ifABC{b}{(\dSwb{S}{b})}{\skipistr}}~=$\\$=~
-    \cond{b}{\dsCtxt{\dSwb{S}{b}}}{\dsCtxt{\skipistr}}~=$\\$=~
-    \cond{b}{\dsCtxt{\dSwb{S}{b}}}{\idDS}$
-    \end{center}
+
+   \[  \dsCtxt{\ifABC{b}{(\dSwb{S}{b})}{\skipistr}}~= \]
+   \[ =~\cond{b}{\dsCtxt{\dSwb{S}{b}}}{\dsCtxt{\skipistr}}~= \]
+   \[=~\cond{b}{\dsCtxt{\dSwb{S}{b}}}{\idDS} \]
+
     Devo prima di tutto, quindi, definire $\dsCtxt{\dSwb{S}{b}}$:
-    \begin{center}
-    $\dsCtxt{\dSwb{S}{b}}=\fixp{G}$ con 
-    $G~g~=~\cond{b}{g}{\idDS} \circ \Sds$
-    \end{center}
+
+    \[ \dsCtxt{\dSwb{S}{b}}=\fixp{G} \qquad con  \]
+    \[ G~g~=~\cond{b}{g}{\idDS} \circ \Sds \]
+
     Quindi devo dimostare che vale:
-    \begin{center}
-    $\fixp{F}~=~\cond{b}{\fixp{G}}{\idDS}$
-    \end{center}
+
+    \[ \fixp{F}~=~\cond{b}{\fixp{G}}{\idDS} \]
+
     Per fare ciò posso dimostrare separatamente le due seguenti affermazioni:
     \begin{enumerate}
     \item $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
     \item $\cond{b}{\fixp{G}}{\idDS}~\mineq~\fixp{F}$
     \end{enumerate}
 
-    \textbf{Prima parte $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$}\\
-    Per dimostrare che vale $\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
-    utilizzo il \textbf{Fixed point induction lemma} che afferma
-    che, date $f$ e $d$:
-    \begin{center}
+    \textbf{Prima parte:
+    	 \[ \fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS} \]}
+    
+    Per dimostrare che vale \[ \fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS} \]
+    utilizzo il seguente 
+    \begin{lem}
+    	[Fixed Point Induction Lemma] Date $f$ e $d$:
     se $fd~\mineq~d~\Longrightarrow~\fixp{f}~\mineq~d$
-    \end{center}
+    \end{lem}
     istanziato con:
-    \begin{center}
-    $f~=~F$ \\
-    $d~=~\cond{b}{\fixp{G}}{\idDS}$
-    \end{center}
+
+    \[ f~=~F \]
+   \[  d~=~\cond{b}{\fixp{G}}{\idDS} \]
     Quindi:
-    \begin{center}
-    se $F(\cond{b}{\fixp{G}}{\idDS})~\mineq~\cond{b}{\fixp{G}}{\idDS}~
-    \Longrightarrow~\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS}$
-    \end{center}
-    Per dimostrare che $F(\cond{b}{\fixp{G}}{\idDS})~\mineq~
-    \cond{b}{\fixp{G}}{\idDS}$ dimostro che:
-    \begin{center}
-    $\forall{} s\in\states$ se $(F(\cond{b}{\fixp{G}}{\idDS}))s=s'~
-    \Longrightarrow~(\cond{b}{\fixp{G}}{\idDS})s=s'$
-    \end{center}
+
+   \[  se F(\cond{b}{\fixp{G}}{\idDS})~\mineq~\cond{b}{\fixp{G}}{\idDS}~
+    \Longrightarrow~\]\[\fixp{F}~\mineq~\cond{b}{\fixp{G}}{\idDS \]}
+  
+    Per dimostrare che \[ F(\cond{b}{\fixp{G}}{\idDS})~\mineq~
+    \cond{b}{\fixp{G}}{\idDS} \]
+    dimostro che:
+
+    \[ \forall{} s\in\states$ se $(F(\cond{b}{\fixp{G}}{\idDS}))s=s'~
+    \Longrightarrow~ \]\[ (\cond{b}{\fixp{G}}{\idDS})s=s' \]
+
     Procedo quindi per casi:\\
     \caso{\evalBbs{b}{s}=ff} allora in questo caso si ha:
     \begin{center}
