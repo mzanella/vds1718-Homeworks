@@ -67,38 +67,16 @@
     Poichè la funzione \textit{f} è monotona, quindi basta vedere se, per ogni
     catena non vuota $Y\in\wp{(\mathbb{N})}$, vale che:
     \[\lub{} \{f(S) | S \in{}Y\} = f(\lub{}Y)\]
-    Quindi posso dimostrare separatamente che:
-    \begin{enumerate}
-    \item $\lub{} \{f(S) | S \in{}Y\} \subseteq f(\lub{}Y)$
-    \item $f(\lub{}Y) \subseteq \lub{} \{f(S) | S \in{}Y\}$
-    \end{enumerate}
-
-    (1) Per dimostrare che $\lub{} \{f(S) | S \in{}Y\} \subseteq{} 
-    f(\lub{}Y)$, dal momento che $f$ è monotona e 
-    $(\wp{\mathbb{N}}, \subseteq{})$ è un CPO posso appicare il 
-    \textbf{Lemma 5.30}:\\
-    \begin{customlem}{5.30}
-    Siano $(D, \sqsubseteq)$ e $(D', \sqsubseteq{}')$ due CPO e 
-    $f:D\rightarrow{}D'$, $f$ monotona, allora se $Y$ è una catena in $D$, 
-    $\{fd~|~d\in{}Y\}$ è una catena in $D'$ e $\lub{}' \{f(S) | S \in{}Y\} 
-    \sqsubseteq{}' f(\lub{}Y)$
-    \end{customlem}
-    Dal momento che quindi $f:\wp{(\mathbb{N})}\rightarrow{}\wp{(\mathbb{N})}$
-    è monotona, $(\wp{(\mathbb{N})}, \subseteq)$ è un CPO, sia Y una catena
-    qualsiasi in $\wp{(\mathbb{N})}$, allora vale che $\lub{}\{f(X)~|~X\in{}Y\}
-    \subseteq{}f(\lub{}Y)$\\
     
-    (2) Sia quindi Y una catena non vuota in $\wp{(\mathbb{N})}$. Allora il lub
-    di Y è il più grande elemento in $Y$, che chiamiamo $X_0$. Allora:\\
-    \hspace*{1.5cm}$f(\lub{}Y)~\subseteq~f(X_0)$ (per~definizione~di~$X_0$)\\
-    \hspace*{1.5cm}$f(X_0)~\subseteq~\lub{}\{f(X)~|~X\in{}Y\}$ poiché $X_0\in{}
-    Y$.\\
-    Abbiamo quindi dimostrato che $f(\lub{}Y) \subseteq \lub{} \{f(S) | S
-    \in{}Y\}$.\\ \\
-    
-    Unendo le dimostrazioni dei punti (1) e (2) si ha che $\lub{} \{f(S) | S
-    \in{}Y\} = f(\lub{}Y)$ $\Rightarrow$ f è continua.
 
+    Sia quindi Y una catena definita in questo modo:
+    \[
+    Y~=~\{\{0..n\}~|~n\in\mathbb{N}\}
+    \]
+
+    Allora $\lub{}Y~=~\mathbb{N}$. Però $\forall{}S\in{}Y,~S$ è finito, quindi
+    $\forall{}S\in{}Y,~f(S)~=~\emptyset$ ma $f(\lub{}Y)~=~\mathbb{N}$ quindi 
+    \[\lub{} \{f(S) | S \in{}Y\} \neq f(\lub{}Y)\]
 %    Applicando al nostro caso vedo che: 
 %    $ \bigsqcup$ ' \{ \textit{f(S)} \textbar{} \textit{S} 
 %    $\in\wp(\mathbb{N})$ \} = $\bigsqcup$ ' \{$\emptyset$, $\mathbb{N}$\} = 
