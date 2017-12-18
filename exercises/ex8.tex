@@ -103,7 +103,8 @@
     \[ \dsCtxt{P_2}  \mineq \dsCtxt{P_1} \]
     
     In questo caso si ha che $\dsCtxt{P_2} \mineq \dsCtxt{P_1}$ è falsa ovvero
-    $\dsCtxt{P_2} \notmineq \dsCtxt{P_1}$. Sia $s$ uno stato in cui:
+    $\dsCtxt{P_2} \notmineq \dsCtxt{P_1}$. \\
+    L'intuizione è che se in $s$ vale che:
 
     \[ \evalBbs{b_1}{s}=tt $ e $ \evalBbs{b_2}{s}=ff \]
    
@@ -119,6 +120,17 @@
     \[ =~(\fixp{G} \circ \cond{b_2}{\Sds}{\idDS})s~= \]
     \[ =~(\fixp{G} \circ \idDS)s~= \]
     \[ =~ (\fixp{G})s~=~(G(\fixp{G}))s~=~... \]
-   
+
+    Suppongo per assurdo che valga $\dsCtxt{P_2}  \mineq \dsCtxt{P_1}$, allora
+    per definizione di $\mineq$ ho che 
+    \[
+    \forall{}s,s'\in\states,~se~(\fixp{F})s=s'~\Longrightarrow~(\fixp{G})s=s'
+    \]
+    e suppongo che in $s$ valga 
+    \[ \evalBbs{b_1}{s}=tt $ e $ \evalBbs{b_2}{s}=ff \]
+    \\Allora abbiamo che $(\fixp{F})s=s(=s'~per~determinismo)$
+    Se $(\fixp{G})s=s'$ allora per il \textbf{lemma di terminazione} so che
+    $\evalBbs{b_1}{s'}=ff$ ma $(\fixp{F})s=s$ e quindi 
+    $(\fixp{F})s~\neq~(\fixp{G})s$ ho un assurdo.
 }
 \newpage
