@@ -22,36 +22,27 @@
     Ricordiamo che:
     \begin{mydef}[Funzione monotona]
     %\hspace{\textwidth{}}
-    Una funzione \textit{f} è \textbf{monotona} se, qualora valga una relazione
-    d'ordine su due input, allora essa varrà anche sugli output. Nel nostra
-    caso \textit{f} è monotona se vale \textit{A} $\subseteq$ \textit{B} 
+   Siano $(D, \sqsubseteq)$ e $(D', \sqsubseteq{}')$ due CPO, 
+   $f:D\rightarrow{}D'$ una funzione e \textit{d1, d2} $\in$ \textit{D}. f è monotona se e solo se d1 $\sqsubseteq$ d2 $\Rightarrow$ f d1 $\sqsubseteq'$ f d2. \\
+    Nel nostra caso \textit{f} è monotona se vale \textit{A} $\subseteq$ \textit{B} 
     $\Rightarrow$ \textit{f(A)} $\subseteq$ \textit{f(B)}.
     \end{mydef}
 
     Per \textbf{dimostrare che f è monotona}, supponiamo che \textit{A} 
-    $\subseteq$ \textit{B} ($\Rightarrow$ \textbar A\textbar{} $\leq$ \textbar B
-    \textbar{}). Ci troviamo di fronte a due casi:
+    $\subseteq$ \textit{B} ($\Rightarrow$ \textbar A\textbar{} $\leq$ \textbar B\textbar{}). Ci troviamo di fronte a due casi:
     \begin{enumerate}
         \item \textit{B} è finito;
         \item \textit{B} è infinito.
     \end{enumerate}
 
     Se vale (1), allora anche 
-    \textbar A\textbar{} è finito e quindi \textit{f(A)} = \textit{f(B)} ($\iff$
-    \textit{f(A)} $\subseteq$ \textit{f(B)} e \textit{f(A)} $\supseteq$ 
-    \textit{f(B)} per la \textit{\textbf{proprietà anti-riflessiva del CPO}}).
+    \textit{A} è finito e quindi \textit{f(A)} = \textit{f(B)}.
+    
     Ergo la condizione di monotonia è rispettata.\\
 
-    Se vale (2), allora due sotto-casi si possono verificare:
-    \begin{enumerate}
-        \item A è finito $\Rightarrow$ \textit{f(A)} = $\emptyset$ $\subseteq$ 
-        \textit{ f(B)} = $\mathbb{N}$.
-        \item A è infinito $\Rightarrow$ \textit{f(A)} = \textit{f(B)} ($\iff$ 
-        \textit{f(A)} $\subseteq$ \textit{f(B)} e \textit{f(A)} $\supseteq$ 
-        \textit{f(B)} per la proprietà anti-riflessiva del CPO).
-    \end{enumerate}
+    Se vale (2), allora \textit{f(B)} = $\mathbb{N}$ e quindi, per ogni \textit{A} $\in\wp(\mathbb{N})$ abbiamo che \textit{f(A)} $\subseteq$ \textit{f(B)}
 
-    Ergo, per ogni sotto-caso, la condizione di monotonia è rispettata.\\
+    Ergo la condizione di monotonia è rispettata.\\
 
     \begin{mydef}[Funziona continua]
     %\hspace{\textwidth{}}
